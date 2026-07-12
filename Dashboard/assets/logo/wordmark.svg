@@ -1,0 +1,15 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="320" rx="48" fill="#060B14"/>
+  <rect x="36" y="36" width="248" height="248" rx="72" fill="#07111D" stroke="url(#g)" stroke-width="8"/>
+  <circle cx="160" cy="160" r="74" fill="url(#g)"/>
+  <path d="M122 204C132 180 150 166 160 166C170 166 188 180 198 204" fill="#F8FAFF"/>
+  <path d="M132 134C132 118 144 106 160 106C176 106 188 118 188 134V148H132V134Z" fill="#F8FAFF"/>
+  <text x="320" y="152" fill="#F8FAFF" font-family="Inter, SF Pro Display, Segoe UI, sans-serif" font-size="72" font-weight="700">Hello AI Lab</text>
+  <text x="320" y="210" fill="#8B95A7" font-family="Inter, SF Pro Display, Segoe UI, sans-serif" font-size="30">Company Operating System</text>
+  <defs>
+    <linearGradient id="g" x1="80" y1="80" x2="240" y2="240" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00BFFF"/>
+      <stop offset="1" stop-color="#8B6DFF"/>
+    </linearGradient>
+  </defs>
+</svg>
