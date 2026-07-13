@@ -294,6 +294,141 @@ const investmentDivision = {
   ]
 };
 
+// ===== MOCHIZOO PROJECT DATA =====
+
+const mocchiZooProject = {
+  name: 'MocchiZoo',
+  status: 'Active',
+  progress: 62,
+  owner: 'Nova',
+  team: ['Nova', 'Echo', 'Kai', 'Luna', 'Orion'],
+  
+  // Project Status Overview
+  overview: {
+    totalEpisodes: 48,
+    publishedEpisodes: 30,
+    videosInProduction: 12,
+    videosPending: 6,
+    totalViews: 284500,
+    totalEngagement: 12840,
+    monthlyGrowth: 18.5,
+    targetViews: 500000,
+    currentRevenue: 34500,
+    projectedMonthlyRevenue: 52000
+  },
+
+  // Today's Tasks
+  todaysTasks: [
+    { id: 'mz1', title: '新キャラクター「モチコ」デザイン完成', priority: 'urgent', owner: 'Noah', status: 'in-progress', dueTime: '14:00' },
+    { id: 'mz2', title: 'Episode 31 スクリプト最終レビュー', priority: 'urgent', owner: 'Kai', status: 'in-progress', dueTime: '12:30' },
+    { id: 'mz3', title: 'Shorts バッチ 20本 制作完了', priority: 'high', owner: 'Nova', status: 'completed', dueTime: '17:00' },
+    { id: 'mz4', title: 'サムネイル 5本 作成', priority: 'medium', owner: 'Echo', status: 'todo', dueTime: '16:00' },
+    { id: 'mz5', title: '週間分析レポート作成', priority: 'medium', owner: 'Orion', status: 'todo', dueTime: '18:00' }
+  ],
+
+  // Character Management
+  characters: [
+    { id: 'char1', name: 'モッチー', color: '#FF6B9D', episodes: 28, popularity: 95 },
+    { id: 'char2', name: 'ズー', color: '#00D4FF', episodes: 25, popularity: 88 },
+    { id: 'char3', name: 'モチコ', color: '#FFD93D', episodes: 5, popularity: 42 },
+    { id: 'char4', name: 'チーズ', color: '#A8E6CF', episodes: 18, popularity: 76 },
+    { id: 'char5', name: 'ジャム', color: '#FFB4A2', episodes: 12, popularity: 58 }
+  ],
+
+  // Video Production Pipeline
+  pipeline: {
+    scriptQueue: [
+      { id: 'ep31', title: 'Episode 31: モチコの冒険', writer: 'Kai', status: 'review', progress: 90 },
+      { id: 'ep32', title: 'Episode 32: 秋祭り編', writer: 'Kai', status: 'writing', progress: 65 },
+      { id: 'ep33', title: 'Episode 33: 新キャラ登場', writer: 'Luna', status: 'planning', progress: 20 }
+    ],
+    
+    productionQueue: [
+      { id: 'prod28', episode: 'Episode 28', status: 'storyboard', progress: 85 },
+      { id: 'prod29', episode: 'Episode 29', status: 'animation', progress: 60 },
+      { id: 'prod30', episode: 'Episode 30', status: 'rendering', progress: 40 }
+    ],
+    
+    thumbnailQueue: [
+      { id: 'thumb28', episode: 'Episode 28', designer: 'Echo', status: 'design', progress: 75 },
+      { id: 'thumb29', episode: 'Episode 29', designer: 'Echo', status: 'review', progress: 90 },
+      { id: 'thumb30', episode: 'Episode 30', designer: 'Noah', status: 'pending', progress: 0 }
+    ]
+  },
+
+  // Publishing Schedule
+  publishingSchedule: [
+    { id: 'pub1', episode: 'Episode 30', platform: 'YouTube Shorts', scheduledTime: '2026-07-14 10:00', status: 'scheduled' },
+    { id: 'pub2', episode: 'Episode 30', platform: 'TikTok', scheduledTime: '2026-07-14 12:00', status: 'scheduled' },
+    { id: 'pub3', episode: 'Compilation 3', platform: 'YouTube Main', scheduledTime: '2026-07-15 19:00', status: 'scheduled' },
+    { id: 'pub4', episode: 'Behind the Scenes', platform: 'Instagram Reels', scheduledTime: '2026-07-14 15:00', status: 'scheduled' }
+  ],
+
+  // Shorts Performance (Last 7 Days)
+  shortsPerformance: [
+    { id: 'sh1', title: 'モッチーの日常 #42', views: 48200, likes: 2840, shares: 312, comment: 185, uploadDate: '2026-07-12' },
+    { id: 'sh2', title: 'ズーとの冒険 #15', views: 35600, likes: 1840, shares: 268, comment: 142, uploadDate: '2026-07-11' },
+    { id: 'sh3', title: 'モチコお披露目', views: 29400, likes: 1520, shares: 198, comment: 108, uploadDate: '2026-07-10' },
+    { id: 'sh4', title: 'チーズの食べ物旅', views: 21800, likes: 980, shares: 145, comment: 72, uploadDate: '2026-07-09' },
+    { id: 'sh5', title: '全員集合スペシャル', views: 156200, likes: 8920, shares: 1240, comment: 562, uploadDate: '2026-07-08' }
+  ],
+
+  // Revenue Tracker
+  revenueData: {
+    thisMonth: 34500,
+    lastMonth: 28300,
+    monthlyGrowth: 22,
+    sources: [
+      { source: 'YouTube AdSense', amount: 18900, percentage: 55 },
+      { source: 'Sponsorships', amount: 9200, percentage: 27 },
+      { source: 'Merchandise', amount: 4100, percentage: 12 },
+      { source: 'Channel Memberships', amount: 2300, percentage: 6 }
+    ]
+  },
+
+  // Asset Library
+  assetLibrary: {
+    backgrounds: 87,
+    soundEffects: 156,
+    musicTracks: 42,
+    characterModels: 28,
+    props: 312,
+    templates: 16
+  },
+
+  // Idea Inbox
+  ideaInbox: [
+    { id: 'idea1', title: 'モッチーがマジシャンになる話', submittedBy: 'Luna', likes: 24, status: 'approved' },
+    { id: 'idea2', title: 'ズーの宇宙冒険編', submittedBy: 'Orion', likes: 18, status: 'reviewing' },
+    { id: 'idea3', title: 'キャラクター野球大会', submittedBy: 'Echo', likes: 12, status: 'approved' },
+    { id: 'idea4', title: 'クリスマススペシャル', submittedBy: 'Kai', likes: 8, status: 'new' }
+  ],
+
+  // AI Employee Assignments
+  assignments: {
+    nova: { role: 'Production Director', tasks: 6, current: 'Episode 29 animation supervision' },
+    echo: { role: 'Design Lead', tasks: 4, current: 'Thumbnail creation for Ep 28-30' },
+    kai: { role: 'Script Manager', tasks: 5, current: 'Episode 31 & 32 script development' },
+    luna: { role: 'Creative Strategist', tasks: 3, current: 'Idea curation & growth strategy' },
+    orion: { role: 'Analytics Manager', tasks: 2, current: 'Performance tracking & reporting' }
+  },
+
+  // Growth Metrics
+  growthMetrics: {
+    weeklyViewTrend: [28400, 32100, 34800, 38900, 42200, 45600, 48200],
+    subscriberTrend: [12400, 12840, 13200, 13680, 14100, 14520, 14940],
+    engagementRate: 4.5,
+    shareRate: 2.8,
+    watchTime: '2,840 hours this week',
+    audienceDemographics: {
+      age13to17: 28,
+      age18to24: 35,
+      age25to34: 22,
+      age35plus: 15
+    }
+  }
+};
+
 // Family & Personal
 const personalData = {
   family: {
@@ -1269,6 +1404,365 @@ function renderFamilyHealth() {
   `;
 }
 
+// ===== MOCHIZOO RENDERING FUNCTIONS =====
+
+function renderMocchiZooOverview() {
+  const section = document.querySelector('.mochizoo-overview');
+  if (!section) return;
+  
+  const proj = mocchiZooProject.overview;
+  const revenueGrowth = ((proj.thisMonth - proj.lastMonth) / proj.lastMonth * 100).toFixed(1);
+  
+  section.innerHTML = `
+    <div class="mz-status-grid">
+      <div class="mz-card primary">
+        <div class="mz-label">Project Status</div>
+        <div class="mz-value">${mocchiZooProject.progress}%</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: ${mocchiZooProject.progress}%"></div></div>
+      </div>
+      <div class="mz-card">
+        <div class="mz-label">Episodes</div>
+        <div class="mz-value">${proj.publishedEpisodes}/${proj.totalEpisodes}</div>
+        <div class="mz-secondary">12 in production</div>
+      </div>
+      <div class="mz-card">
+        <div class="mz-label">Total Views</div>
+        <div class="mz-value">${(proj.totalViews / 1000).toFixed(0)}K</div>
+        <div class="mz-secondary">Target: ${(proj.targetViews / 1000).toFixed(0)}K</div>
+      </div>
+      <div class="mz-card">
+        <div class="mz-label">This Month Revenue</div>
+        <div class="mz-value">¥${(proj.currentRevenue / 1000).toFixed(0)}K</div>
+        <div class="mz-secondary green">↑ ${revenueGrowth}% vs last month</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMocchiZooTasks() {
+  const section = document.querySelector('.mochizoo-tasks');
+  if (!section) return;
+  
+  const tasksHTML = mocchiZooProject.todaysTasks.map(task => {
+    const priorityColor = task.priority === 'urgent' ? '#ff6b6b' : task.priority === 'high' ? '#ffd93d' : '#6b9bff';
+    const statusIcon = task.status === 'completed' ? '✓' : task.status === 'in-progress' ? '⚡' : '○';
+    
+    return `
+      <div class="mz-task-item" style="border-left: 3px solid ${priorityColor}">
+        <div class="task-header">
+          <span class="task-status">${statusIcon}</span>
+          <h4 class="task-title">${task.title}</h4>
+        </div>
+        <div class="task-meta">
+          <span>${task.owner}</span>
+          <span class="task-time">Due: ${task.dueTime}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  section.innerHTML = `<div class="mz-tasks-list">${tasksHTML}</div>`;
+}
+
+function renderMocchiZooCharacters() {
+  const section = document.querySelector('.mochizoo-characters');
+  if (!section) return;
+  
+  const charsHTML = mocchiZooProject.characters.map(char => `
+    <div class="mz-character-card">
+      <div class="char-avatar" style="background: linear-gradient(135deg, ${char.color}, ${char.color}80); border: 2px solid ${char.color}">
+        ${char.name.substring(0, 1)}
+      </div>
+      <h4>${char.name}</h4>
+      <div class="char-stats">
+        <div class="stat"><span>Episodes:</span><strong>${char.episodes}</strong></div>
+        <div class="stat"><span>Popularity:</span><strong>${char.popularity}%</strong></div>
+      </div>
+      <div class="char-popularity-bar">
+        <div class="bar-fill" style="width: ${char.popularity}%; background: ${char.color}"></div>
+      </div>
+    </div>
+  `).join('');
+  
+  section.innerHTML = `<div class="characters-grid">${charsHTML}</div>`;
+}
+
+function renderMocchiZooPipeline() {
+  const section = document.querySelector('.mochizoo-pipeline');
+  if (!section) return;
+  
+  const pipeline = mocchiZooProject.pipeline;
+  
+  const scriptHTML = pipeline.scriptQueue.map(s => `
+    <div class="pipeline-item">
+      <div class="item-title">${s.title}</div>
+      <div class="item-progress"><div style="width: ${s.progress}%"></div></div>
+      <div class="item-footer"><span>${s.writer}</span><span class="item-status">${s.status}</span></div>
+    </div>
+  `).join('');
+  
+  const prodHTML = pipeline.productionQueue.map(p => `
+    <div class="pipeline-item">
+      <div class="item-title">${p.episode}</div>
+      <div class="item-progress"><div style="width: ${p.progress}%"></div></div>
+      <div class="item-footer"><span>${p.progress}%</span><span class="item-status">${p.status}</span></div>
+    </div>
+  `).join('');
+  
+  const thumbHTML = pipeline.thumbnailQueue.map(t => `
+    <div class="pipeline-item">
+      <div class="item-title">${t.episode}</div>
+      <div class="item-progress"><div style="width: ${t.progress}%"></div></div>
+      <div class="item-footer"><span>${t.designer}</span><span class="item-status">${t.status}</span></div>
+    </div>
+  `).join('');
+  
+  section.innerHTML = `
+    <div class="pipeline-columns">
+      <div class="pipeline-column">
+        <h4>Script Queue</h4>
+        ${scriptHTML}
+      </div>
+      <div class="pipeline-column">
+        <h4>Production</h4>
+        ${prodHTML}
+      </div>
+      <div class="pipeline-column">
+        <h4>Thumbnails</h4>
+        ${thumbHTML}
+      </div>
+    </div>
+  `;
+}
+
+function renderMocchiZooSchedule() {
+  const section = document.querySelector('.mochizoo-schedule');
+  if (!section) return;
+  
+  const scheduleHTML = mocchiZooProject.publishingSchedule.map(pub => `
+    <div class="schedule-item">
+      <div class="schedule-time">${pub.scheduledTime.split(' ')[1]}</div>
+      <div class="schedule-content">
+        <h4>${pub.episode}</h4>
+        <span class="platform">${pub.platform}</span>
+      </div>
+      <div class="schedule-status">${pub.status}</div>
+    </div>
+  `).join('');
+  
+  section.innerHTML = `<div class="schedule-list">${scheduleHTML}</div>`;
+}
+
+function renderMocchiZooPerformance() {
+  const section = document.querySelector('.mochizoo-performance');
+  if (!section) return;
+  
+  const perfHTML = mocchiZooProject.shortsPerformance.map(short => `
+    <div class="perf-card">
+      <h4>${short.title}</h4>
+      <div class="perf-metrics">
+        <div class="metric">
+          <span class="label">Views</span>
+          <span class="value">${(short.views / 1000).toFixed(0)}K</span>
+        </div>
+        <div class="metric">
+          <span class="label">Likes</span>
+          <span class="value">${(short.likes / 1000).toFixed(1)}K</span>
+        </div>
+        <div class="metric">
+          <span class="label">Shares</span>
+          <span class="value">${short.shares}</span>
+        </div>
+        <div class="metric">
+          <span class="label">Comments</span>
+          <span class="value">${short.comment}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  
+  section.innerHTML = `<div class="perf-grid">${perfHTML}</div>`;
+}
+
+function renderMocchiZooRevenue() {
+  const section = document.querySelector('.mochizoo-revenue');
+  if (!section) return;
+  
+  const rev = mocchiZooProject.revenueData;
+  const growth = rev.thisMonth - rev.lastMonth;
+  const growthPercent = (growth / rev.lastMonth * 100).toFixed(1);
+  
+  const sourcesHTML = rev.sources.map(src => `
+    <div class="revenue-source">
+      <div class="source-header">
+        <span>${src.source}</span>
+        <span class="amount">¥${(src.amount / 1000).toFixed(1)}K</span>
+      </div>
+      <div class="source-bar">
+        <div class="bar-fill" style="width: ${src.percentage}%"></div>
+      </div>
+      <div class="source-percent">${src.percentage}%</div>
+    </div>
+  `).join('');
+  
+  section.innerHTML = `
+    <div class="revenue-overview">
+      <div class="rev-card">
+        <div class="rev-label">This Month</div>
+        <div class="rev-value">¥${(rev.thisMonth / 1000).toFixed(0)}K</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-label">Last Month</div>
+        <div class="rev-value">¥${(rev.lastMonth / 1000).toFixed(0)}K</div>
+      </div>
+      <div class="rev-card highlight">
+        <div class="rev-label">Growth</div>
+        <div class="rev-value" style="color: #64f0a6">+${growthPercent}%</div>
+      </div>
+    </div>
+    <div class="revenue-sources">
+      <h4>Revenue Sources</h4>
+      ${sourcesHTML}
+    </div>
+  `;
+}
+
+function renderMocchiZooMetrics() {
+  const section = document.querySelector('.mochizoo-metrics');
+  if (!section) return;
+  
+  const metrics = mocchiZooProject.growthMetrics;
+  const demo = metrics.audienceDemographics;
+  
+  section.innerHTML = `
+    <div class="metrics-grid">
+      <div class="metric-box">
+        <h4>Engagement Rate</h4>
+        <div class="large-value">${metrics.engagementRate}%</div>
+      </div>
+      <div class="metric-box">
+        <h4>Share Rate</h4>
+        <div class="large-value">${metrics.shareRate}%</div>
+      </div>
+      <div class="metric-box">
+        <h4>Watch Time</h4>
+        <div class="large-value">${metrics.watchTime}</div>
+      </div>
+      <div class="metric-box">
+        <h4>Top Demographic</h4>
+        <div class="large-value">${demo.age18to24}%</div>
+        <div class="sub-value">Age 18-24</div>
+      </div>
+    </div>
+    <div class="audience-demographics">
+      <h4>Audience Breakdown</h4>
+      <div class="demo-bars">
+        <div class="demo-item">
+          <span>13-17</span>
+          <div class="demo-bar"><div style="width: ${demo.age13to17}%"></div></div>
+          <span>${demo.age13to17}%</span>
+        </div>
+        <div class="demo-item">
+          <span>18-24</span>
+          <div class="demo-bar"><div style="width: ${demo.age18to24}%"></div></div>
+          <span>${demo.age18to24}%</span>
+        </div>
+        <div class="demo-item">
+          <span>25-34</span>
+          <div class="demo-bar"><div style="width: ${demo.age25to34}%"></div></div>
+          <span>${demo.age25to34}%</span>
+        </div>
+        <div class="demo-item">
+          <span>35+</span>
+          <div class="demo-bar"><div style="width: ${demo.age35plus}%"></div></div>
+          <span>${demo.age35plus}%</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMocchiZooAssets() {
+  const section = document.querySelector('.mochizoo-assets');
+  if (!section) return;
+  
+  const assets = mocchiZooProject.assetLibrary;
+  
+  section.innerHTML = `
+    <div class="assets-grid">
+      <div class="asset-card">
+        <div class="asset-icon">🎨</div>
+        <div class="asset-label">Backgrounds</div>
+        <div class="asset-count">${assets.backgrounds}</div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon">🔊</div>
+        <div class="asset-label">Sound Effects</div>
+        <div class="asset-count">${assets.soundEffects}</div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon">🎵</div>
+        <div class="asset-label">Music Tracks</div>
+        <div class="asset-count">${assets.musicTracks}</div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon">🎭</div>
+        <div class="asset-label">Character Models</div>
+        <div class="asset-count">${assets.characterModels}</div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon">🎁</div>
+        <div class="asset-label">Props</div>
+        <div class="asset-count">${assets.props}</div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon">📋</div>
+        <div class="asset-label">Templates</div>
+        <div class="asset-count">${assets.templates}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMocchiZooIdeas() {
+  const section = document.querySelector('.mochizoo-ideas');
+  if (!section) return;
+  
+  const ideasHTML = mocchiZooProject.ideaInbox.map(idea => `
+    <div class="idea-card" data-status="${idea.status}">
+      <div class="idea-header">
+        <h4>${idea.title}</h4>
+        <span class="idea-status">${idea.status}</span>
+      </div>
+      <div class="idea-footer">
+        <span>${idea.submittedBy}</span>
+        <span class="idea-likes">👍 ${idea.likes}</span>
+      </div>
+    </div>
+  `).join('');
+  
+  section.innerHTML = `<div class="ideas-list">${ideasHTML}</div>`;
+}
+
+function renderMocchiZooTeam() {
+  const section = document.querySelector('.mochizoo-team');
+  if (!section) return;
+  
+  const assignments = mocchiZooProject.assignments;
+  const teamHTML = Object.entries(assignments).map(([key, assign]) => `
+    <div class="team-member-card">
+      <h4>${assign.role}</h4>
+      <div class="member-name">${key.charAt(0).toUpperCase() + key.slice(1)}</div>
+      <div class="member-tasks">Tasks: ${assign.tasks}</div>
+      <div class="member-current">
+        <small>${assign.current}</small>
+      </div>
+    </div>
+  `).join('');
+  
+  section.innerHTML = `<div class="team-cards-grid">${teamHTML}</div>`;
+}
+
 function renderAll() {
   renderCEOGreeting();
   renderSnapshot();
@@ -1278,6 +1772,17 @@ function renderAll() {
   renderHelloPrintStore();
   renderInvestmentDivision();
   renderFamilyHealth();
+  renderMocchiZooOverview();
+  renderMocchiZooTasks();
+  renderMocchiZooCharacters();
+  renderMocchiZooPipeline();
+  renderMocchiZooSchedule();
+  renderMocchiZooPerformance();
+  renderMocchiZooRevenue();
+  renderMocchiZooMetrics();
+  renderMocchiZooAssets();
+  renderMocchiZooIdeas();
+  renderMocchiZooTeam();
   renderEmployeeCards();
   renderProfile(state.selectedEmployee);
   renderDepartments();
