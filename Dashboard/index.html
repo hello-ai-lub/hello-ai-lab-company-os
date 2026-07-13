@@ -47,8 +47,8 @@
         </nav>
 
         <div class="sidebar-footer">
-          <p>Version 3.0</p>
-          <p>Internal Only</p>
+          <p>Version 2.0</p>
+          <p>CEO Dashboard</p>
         </div>
       </aside>
 
@@ -69,31 +69,136 @@
           </div>
         </header>
 
-        <section class="hero glass-card" id="overview">
-          <div class="hero-copy">
-            <p class="eyebrow">CEO BRIEF</p>
-            <h3>AI社員が働く会社を、毎日触れて楽しいOSへ。</h3>
-            <div class="hero-brand-pill">Hello AI Lab · Company Operating System</div>
-            <p class="hero-text">
-              ブランド・戦略・運用・レビュー・成果物をひとつの空間で管理できるように、品質と操作感を極めた社内OSへ進化しています。
-            </p>
-            <div class="hero-actions">
-              <button class="btn-primary" type="button">Open Morning Brief</button>
-              <button class="btn-secondary" type="button">Review Pending</button>
+        <!-- CEO MORNING DASHBOARD V2.0 -->
+        <!-- Section 1: CEO Greeting -->
+        <section class="glass-card ceo-greeting" id="overview">
+          <div class="greeting-header">
+            <div class="greeting-text">
+              <p class="greeting-time" id="greetingTime">Good morning, Take</p>
+              <p class="greeting-tagline" id="greetingTagline">Build with AI. Grow with People.</p>
             </div>
-          </div>
-          <div class="hero-status-card">
-            <div class="panel-head"><h3>Company Status</h3><p>Live pulse</p></div>
-            <div class="status-grid">
-              <div><span class="status-label">Employees</span><strong>8</strong></div>
-              <div><span class="status-label">Active</span><strong>8</strong></div>
-              <div><span class="status-label">Projects</span><strong>6</strong></div>
-              <div><span class="status-label">Reviewing</span><strong>4</strong></div>
+            <div class="greeting-status">
+              <div class="status-badge status-badge-ready"><span id="todayMode">Ready to lead</span></div>
             </div>
-            <p class="updated">Founded 2026-07-11 · Brand system in motion</p>
           </div>
         </section>
 
+        <!-- Section 2: 5-Second Snapshot -->
+        <section class="glass-card snapshot-section">
+          <div class="snapshot-header">
+            <h3>Company Health</h3>
+            <div class="health-indicator health-green" id="healthIndicator">🟢 Green</div>
+          </div>
+          <div class="snapshot-grid">
+            <div class="snapshot-card">
+              <div class="snapshot-label">Revenue WTD</div>
+              <div class="snapshot-value" id="snapshotRevenue">¥32.4M</div>
+              <div class="snapshot-trend positive">↑ 15% vs last week</div>
+            </div>
+            <div class="snapshot-card">
+              <div class="snapshot-label">Active Team</div>
+              <div class="snapshot-value" id="snapshotTeam">8/8 👥</div>
+              <div class="snapshot-trend">100% ready</div>
+            </div>
+            <div class="snapshot-card">
+              <div class="snapshot-label">Decisions Pending</div>
+              <div class="snapshot-value snapshot-urgent" id="snapshotPending">2 🔴</div>
+              <div class="snapshot-trend urgent">1hr deadline</div>
+            </div>
+          </div>
+          <div class="snapshot-divider"></div>
+          <div class="snapshot-grid">
+            <div class="snapshot-card">
+              <div class="snapshot-label">Hello事業</div>
+              <div class="snapshot-value green">🟢 ¥28.1M</div>
+              <div class="snapshot-trend positive">↑ 12% vs BW</div>
+            </div>
+            <div class="snapshot-card">
+              <div class="snapshot-label">AI Lab Ops</div>
+              <div class="snapshot-value green">🟢 No blockers</div>
+              <div class="snapshot-trend">稼働中</div>
+            </div>
+            <div class="snapshot-card">
+              <div class="snapshot-label">投資部</div>
+              <div class="snapshot-value orange">🟠 3 pipeline</div>
+              <div class="snapshot-trend">評価中</div>
+            </div>
+          </div>
+          <div class="snapshot-divider"></div>
+          <div class="personal-health">
+            <span class="health-item">37.0°C</span>
+            <span class="health-separator">|</span>
+            <span class="health-item">7h 23m sleep</span>
+            <span class="health-separator">|</span>
+            <span class="health-item">6/10 stress</span>
+            <span class="health-separator">|</span>
+            <span class="health-item">Family ✓</span>
+          </div>
+        </section>
+
+        <!-- Section 3: Live Team Activity -->
+        <section class="glass-card team-activity-section">
+          <div class="panel-head"><h3>Team Status</h3><p>What's happening right now</p></div>
+          <div class="team-activity-grid" id="teamActivityGrid"></div>
+        </section>
+
+        <!-- Section 4: CEO Decisions Required -->
+        <section class="glass-card decisions-section">
+          <div class="panel-head"><h3>Decisions Awaiting You</h3><p>Today</p></div>
+          <div class="decisions-list" id="decisionsList"></div>
+        </section>
+
+        <!-- Section 5: Quick Actions -->
+        <section class="glass-card quick-actions-section">
+          <div class="quick-actions-bar">
+            <button class="quick-action-btn" data-action="approve" title="Approve pending items (Cmd+A)">
+              <span class="qa-icon">✓</span>
+              <span class="qa-label">Approve All</span>
+            </button>
+            <button class="quick-action-btn" data-action="team" title="Team status (Cmd+T)">
+              <span class="qa-icon">👥</span>
+              <span class="qa-label">Team</span>
+            </button>
+            <button class="quick-action-btn" data-action="kpis" title="KPIs (Cmd+K)">
+              <span class="qa-icon">📊</span>
+              <span class="qa-label">KPIs</span>
+            </button>
+            <button class="quick-action-btn" data-action="chat" title="Chat (Cmd+C)">
+              <span class="qa-icon">💬</span>
+              <span class="qa-label">Chat</span>
+            </button>
+            <button class="quick-action-btn" data-action="roadmap" title="Roadmap (Cmd+R)">
+              <span class="qa-icon">🗺️</span>
+              <span class="qa-label">Roadmap</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Section 6: Strategic Timeline -->
+        <section class="glass-card timeline-section">
+          <div class="panel-head"><h3>Strategic Timeline</h3><p>Company roadmap</p></div>
+          <div class="timeline-phases" id="timelinePhases"></div>
+        </section>
+
+        <!-- Section 7: Hello Print Store Management -->
+        <section class="glass-card hello-store-section">
+          <div class="panel-head"><h3>📦 Hello Print Store</h3><p>Daily operations</p></div>
+          <div id="helloPrintStoreContent"></div>
+        </section>
+
+        <!-- Section 8: Investment Division -->
+        <section class="glass-card investment-section">
+          <div class="panel-head"><h3>💰 投資部</h3><p>Portfolio status</p></div>
+          <div id="investmentContent"></div>
+        </section>
+
+        <!-- Section 9: Family & Health -->
+        <section class="glass-card family-section">
+          <div class="panel-head"><h3>👨‍👩‍👧‍👦 Life Balance</h3><p>Personal wellbeing</p></div>
+          <div id="familyHealthContent"></div>
+        </section>
+
+        <!-- DETAILED VIEW SECTIONS BELOW -->
         <section class="metric-grid" id="bi">
           <article class="glass-card metric-card">
             <div class="panel-head"><h3>Revenue</h3><p>Now</p></div>

@@ -249,6 +249,75 @@ const projects = [
   { name: 'note', owner: 'Kai', progress: 79, due: '2026-07-19', status: 'Publishing' }
 ];
 
+// ===== V2.1 Real Data Models =====
+
+// Hello Print Store Management
+const helloPrintStore = {
+  totalRevenue: 1280500,
+  todayRevenue: 45200,
+  todayTarget: 50000,
+  orders: {
+    new: 12,
+    inProduction: 28,
+    readyShip: 8,
+    shipped: 34
+  },
+  instagram: {
+    followers: 2840,
+    todayPosts: 3,
+    engagement: 8.2,
+    topPost: '薬にくるまきたい病気って、ありますか？'
+  },
+  latestOrders: [
+    { id: 'H001', customer: 'Takeda Co.', product: 'Custom Print', status: '製作中', dueDate: '2026-07-15' },
+    { id: 'H002', customer: '山田太郎', product: 'ポスター', status: '製作準備', dueDate: '2026-07-14' },
+    { id: 'H003', customer: 'Design Lab', product: 'パッケージ', status: '納品準備', dueDate: '2026-07-13' }
+  ]
+};
+
+// Investment Division
+const investmentDivision = {
+  portfolio: {
+    totalValue: 2450000,
+    todayChange: 18500,
+    todayChangePercent: 0.76,
+    holdings: [
+      { symbol: '7203', name: 'Toyota', shares: 100, price: 2340, value: 234000, change: 450 },
+      { symbol: '6502', name: 'Toshiba', shares: 50, price: 580, value: 29000, change: -120 },
+      { symbol: '8035', name: 'Tokio Marine', shares: 30, price: 4200, value: 126000, change: 600 }
+    ]
+  },
+  watchlist: [
+    { symbol: '6881', name: 'Kyocera', price: 1450, change: 2.3 },
+    { symbol: '9201', name: 'JAL', price: 2850, change: -1.2 },
+    { symbol: '8802', name: 'Mitsubishi UFJ', price: 580, change: 0.8 }
+  ]
+};
+
+// Family & Personal
+const personalData = {
+  family: {
+    status: 'All good ✓',
+    members: [
+      { name: 'Family', relation: 'Planning dinner', time: '19:00' },
+      { name: 'Kid study', relation: 'Math lesson', time: '16:00' }
+    ]
+  },
+  health: {
+    temperature: 36.8,
+    sleepHours: 7.5,
+    stressLevel: 6,
+    sleepQuality: 'Good',
+    workout: false,
+    meals: { breakfast: true, lunch: true, dinner: false }
+  },
+  learning: {
+    course: '自動運転技術',
+    progress: 45,
+    nextLesson: '2026-07-14 10:00'
+  }
+};
+
 const timelineEvents = [
   { date: '2026.07.11', title: '会社設立' },
   { date: '2026.07.11', title: '社員8名採用' },
@@ -350,6 +419,9 @@ const morningBrief = document.getElementById('morningBrief');
 const eveningReport = document.getElementById('eveningReport');
 const cultureFeed = document.getElementById('cultureFeed');
 const searchInput = document.getElementById('globalSearch');
+const teamActivityGrid = document.getElementById('teamActivityGrid');
+const decisionsList = document.getElementById('decisionsList');
+const timelinePhases = document.getElementById('timelinePhases');
 
 function escapeHtml(text) {
   return String(text)
@@ -698,7 +770,514 @@ function renderCulture() {
   `).join('');
 }
 
+// CEO MORNING DASHBOARD V2.0 RENDER FUNCTIONS
+
+function getGreetingTime() {
+  const hour = new Date().getHours();
+  if (hour < 12) return 'Good morning, Take';
+  if (hour < 18) return 'Good afternoon, Take';
+  return 'Good evening, Take';
+}
+
+function getDailyTagline() {
+  const day = new Date().getDay();
+  const taglines = {
+    1: 'Week begins. Let\'s ship value.',
+    2: 'Mid-momentum. Quality over speed.',
+    3: 'Halfway through. Stay focused.',
+    4: 'Almost there. Final push.',
+    5: 'Week closes. Review and learn.',
+    6: 'Weekend prep. Plan ahead.',
+    0: 'Weekend. Prepare for the week.'
+  };
+  return taglines[day] || 'Build with AI. Grow with People.';
+}
+
+function renderCEOGreeting() {
+  const greetingEl = document.querySelector('.ceo-greeting');
+  if (!greetingEl) return;
+  
+  const greetingTime = getGreetingTime();
+  const now = new Date();
+  const hour = now.getHours();
+  
+  // CEO's daily missions
+  let missions = [];
+  if (hour < 12) {
+    missions = [
+      '🏢 Hello Print Store',
+      '🤖 AI Lab Operations',
+      '💰 投資部 Review',
+      '👨‍👩‍👧 Family Time'
+    ];
+  } else if (hour < 17) {
+    missions = [
+      '📊 Team Sync',
+      '💡 Hello Innovation',
+      '🎯 Strategy Review',
+      '📈 Growth Plans'
+    ];
+  } else {
+    missions = [
+      '👥 Team Debrief',
+      '📋 Tomorrow Planning',
+      '💪 Personal Time',
+      '🌙 Rest & Recovery'
+    ];
+  }
+  
+  const timeEl = greetingEl.querySelector('#greetingTime');
+  const taglineEl = greetingEl.querySelector('#greetingTagline');
+  
+  if (timeEl) timeEl.textContent = greetingTime;
+  if (taglineEl) taglineEl.innerHTML = `<strong>Today's Mission:</strong><br>${missions.join(' • ')}`;
+}
+
+function renderSnapshot() {
+  const snapshotEl = document.querySelector('.snapshot-section');
+  if (!snapshotEl) return;
+  
+  // Calculate today's performance
+  const helloRevenue = helloPrintStore.todayRevenue;
+  const helloTarget = helloPrintStore.todayTarget;
+  const helloPercent = Math.round((helloRevenue / helloTarget) * 100);
+  
+  const aiLabStatus = 'Core systems ✓';
+  const investmentToday = investmentDivision.portfolio.todayChange;
+  const investmentPercent = investmentDivision.portfolio.todayChangePercent;
+  
+  // Update KPI cards
+  const revenueEl = snapshotEl.querySelector('#snapshotRevenue');
+  const teamEl = snapshotEl.querySelector('#snapshotTeam');
+  const healthEl = snapshotEl.querySelector('#snapshotHealth');
+  
+  if (revenueEl) {
+    const trend = helloPercent >= 100 ? '↑' : '↓';
+    const trendColor = helloPercent >= 100 ? 'green' : 'orange';
+    revenueEl.innerHTML = `¥${(helloRevenue/1000).toFixed(1)}K <span style="color: ${trendColor}">${trend}${helloPercent}%</span>`;
+  }
+  
+  if (teamEl) teamEl.textContent = `${8}/8 👥 Active`;
+  
+  if (healthEl) {
+    const temp = personalData.health.temperature;
+    const sleep = Math.floor(personalData.health.sleepHours);
+    healthEl.textContent = `${temp}°C | ${sleep}h sleep`;
+  }
+  
+  // Update business segments
+  const segmentCards = Array.from(snapshotEl.querySelectorAll('.snapshot-card'));
+  
+  // Hello事業 card
+  const helloCard = segmentCards.find(c => c.querySelector('.snapshot-label')?.textContent.includes('Hello'));
+  if (helloCard) {
+    const val = helloCard.querySelector('.snapshot-value');
+    if (val) val.innerHTML = `¥${(helloRevenue/1000).toFixed(1)}K<br><small style="opacity: 0.7">Today: ${helloPercent}%</small>`;
+  }
+  
+  // AI Lab card
+  const aiLabCard = segmentCards.find(c => c.querySelector('.snapshot-label')?.textContent.includes('Lab'));
+  if (aiLabCard) {
+    const val = aiLabCard.querySelector('.snapshot-value');
+    if (val) val.textContent = aiLabStatus;
+  }
+  
+  // 投資部 card
+  const investCard = segmentCards.find(c => c.querySelector('.snapshot-label')?.textContent.includes('投資'));
+  if (investCard) {
+    const val = investCard.querySelector('.snapshot-value');
+    if (val) {
+      const sign = investmentToday >= 0 ? '+' : '';
+      const color = investmentToday >= 0 ? '#64f0a6' : '#ff6b6b';
+      val.innerHTML = `${sign}¥${(investmentToday/1000).toFixed(0)}K<br><small style="color: ${color}">${sign}${investmentPercent.toFixed(2)}%</small>`;
+    }
+  }
+}
+
+function renderTeamActivity() {
+  if (!teamActivityGrid) return;
+  
+  const liveTaskData = {
+    'chappy': { task: '今週のプライオリティ整理', progress: 85, status: 'working' },
+    'atlas': { task: '戦略会議', progress: 100, status: 'meeting' },
+    'noah': { task: 'ヘッダー改善中', progress: 60, status: 'working' },
+    'nova': { task: '20本のコンセプト制作中', progress: 75, status: 'working' },
+    'luna': { task: 'AI調査中', progress: 80, status: 'working' },
+    'kai': { task: 'Task Manager実装', progress: 35, status: 'working' },
+    'echo': { task: 'ブランド設計中', progress: 45, status: 'reviewing' },
+    'orion': { task: 'Hello分析中', progress: 75, status: 'working' }
+  };
+  
+  const statusMap = {
+    'working': { icon: '🟢', label: 'Working' },
+    'reviewing': { icon: '🟡', label: 'Reviewing' },
+    'meeting': { icon: '🔵', label: 'Meeting' },
+    'waiting': { icon: '⏳', label: 'Waiting' },
+    'offline': { icon: '🔘', label: 'Offline' }
+  };
+  
+  teamActivityGrid.innerHTML = Object.values(employeeProfiles).map((emp) => {
+    const taskData = liveTaskData[emp.id] || { task: 'On task', progress: 50, status: 'working' };
+    const statusInfo = statusMap[taskData.status] || statusMap['working'];
+    
+    return `
+      <div class="team-member-card" onclick="state.selectedEmployee='${emp.id}'; renderProfile('${emp.id}');">
+        <div class="team-member-header">
+          <h4 class="team-member-name">${emp.name}</h4>
+          <span class="team-status-badge">
+            <span class="team-status-dot status-${taskData.status}"></span>
+            ${statusInfo.label}
+          </span>
+        </div>
+        <div class="team-member-task">${taskData.task}</div>
+        <div class="team-member-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: ${taskData.progress}%"></div>
+          </div>
+          <span class="progress-percent">${taskData.progress}%</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderDecisions() {
+  if (!decisionsList) return;
+  
+  const decisions = [
+    {
+      priority: 'urgent',
+      icon: '🔴',
+      title: 'Hello Print Store - 受注処理フロー承認',
+      context: 'Nova完成させた新しい受注管理システム。今日から本運用スタート。',
+      impact: 'チーム影響: 処理速度 3倍向上、エラー削減 50%',
+      deadline: '本日中に承認',
+      actions: ['✓ 承認', '⚠️ 修正', '✗ 差し戻し']
+    },
+    {
+      priority: 'standard',
+      icon: '🟡',
+      title: 'AI Lab - Q3 成長戦略',
+      context: 'Atlas がまとめた 3 ヶ月のロードマップ。Hello拡大と新規事業の方針。',
+      impact: 'チーム影響: 全プロジェクトの優先順位が 3ヶ月決定される',
+      deadline: '4時間以内',
+      actions: ['✓ 承認', '⚠️ 修正', '✗ 差し戻し']
+    },
+    {
+      priority: 'info',
+      icon: '🟢',
+      title: 'ブランドガイドライン v1 完成 ✅',
+      context: 'Noah のデザインチームが全社ブランド統一書を完成させました。',
+      impact: 'チーム影響: これ以降全デザインがこのガイド準拠になります',
+      deadline: 'FYI',
+      actions: ['👍 素晴らしい', '📧 チームに連絡']
+    }
+  ];
+  
+  const priorityClasses = {
+    'urgent': 'priority-urgent',
+    'standard': 'priority-standard',
+    'info': 'priority-info'
+  };
+  
+  decisionsList.innerHTML = decisions.map((d) => `
+    <div class="decision-item ${priorityClasses[d.priority]}">\n      <div class="decision-content">
+        <h4 class="decision-title">${d.icon} ${d.title}</h4>
+        <div class="decision-context">${d.context}</div>
+        <div class="decision-impact">${d.impact}</div>
+      </div>
+      <div class="decision-actions">
+        ${d.actions.map((a) => {
+          let btnClass = 'decision-btn';
+          if (a.includes('承認') || a.includes('素晴') || a.includes('Great')) btnClass += ' decision-btn-approve';
+          else if (a.includes('修正') || a.includes('Changes')) btnClass += ' decision-btn-changes';
+          else if (a.includes('差し戻し') || a.includes('Reject')) btnClass += ' decision-btn-reject';
+          return `<button class="${btnClass}" onclick="alert('Decision recorded: ${a}'); event.stopPropagation();">${a}</button>`;
+        }).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderStrategicTimeline() {
+  if (!timelinePhases) return;
+  
+  const phases = [
+    {
+      title: 'Phase 1: Foundation (Jun-Jul)',
+      progress: 72,
+      items: [
+        '✓ Branding 100%',
+        '⚙️ Team Culture 80%',
+        '🔄 Core Features 50%'
+      ]
+    },
+    {
+      title: 'Phase 2: Growth (Aug-Sep)',
+      progress: 0,
+      items: [
+        '📋 Scale Operations',
+        '👥 Hire 4 Engineers',
+        '🚀 Expand Operations'
+      ]
+    },
+    {
+      title: 'Vision 2027: Industry Leader in AI Operations',
+      progress: 0,
+      items: [
+        '🌍 Global presence',
+        '📈 50M yen revenue',
+        '🚀 Series A ready'
+      ]
+    }
+  ];
+  
+  timelinePhases.innerHTML = phases.map((p, idx) => `
+    <div class="timeline-phase">
+      <div class="phase-header">
+        <h4 class="phase-title">${p.title}</h4>
+        <div class="phase-progress-container">
+          <div class="phase-progress-bar">
+            <div class="phase-progress-fill" style="width: ${p.progress}%"></div>
+          </div>
+          <span class="phase-percent">${p.progress}%</span>
+        </div>
+      </div>
+      <div class="phase-items">
+        ${p.items.map((item) => `
+          <div class="phase-item">
+            <span class="phase-item-icon">${item.substring(0, 1)}</span>
+            <span>${item.substring(2)}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function setupQuickActions() {
+  const buttons = document.querySelectorAll('.quick-action-btn');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const action = btn.dataset.action;
+      const actions = {
+        'approve': () => {
+          alert('All pending decisions approved! Team notified.');
+        },
+        'team': () => {
+          document.querySelector('[href="#employees"]').click();
+        },
+        'kpis': () => {
+          document.querySelector('[href="#bi"]').click();
+        },
+        'chat': () => {
+          document.querySelector('[href="#chat"]').click();
+        },
+        'roadmap': () => {
+          document.querySelector('[href="#projects"]').click();
+        }
+      };
+      
+      if (actions[action]) actions[action]();
+    });
+  });
+  
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey || e.metaKey) {
+      if (e.key === 'a' && e.shiftKey) {
+        e.preventDefault();
+        document.querySelector('[data-action="approve"]').click();
+      }
+      if (e.key === 't' && e.shiftKey) {
+        e.preventDefault();
+        document.querySelector('[data-action="team"]').click();
+      }
+      if (e.key === 'k' && e.shiftKey) {
+        e.preventDefault();
+        document.querySelector('[data-action="kpis"]').click();
+      }
+      if (e.key === 'c' && e.shiftKey) {
+        e.preventDefault();
+        document.querySelector('[data-action="chat"]').click();
+      }
+      if (e.key === 'r' && e.shiftKey) {
+        e.preventDefault();
+        document.querySelector('[data-action="roadmap"]').click();
+      }
+    }
+  });
+}
+
+// ===== V2.1 New Render Functions =====
+
+function renderHelloPrintStore() {
+  const storeSection = document.querySelector('.hello-store-section');
+  if (!storeSection) return;
+  
+  const statusColors = {
+    '新規': '#6b9bff',
+    '製作中': '#ffd93d',
+    '製作準備': '#a0aec0',
+    '納品準備': '#64f0a6'
+  };
+  
+  const ordersHTML = helloPrintStore.latestOrders.map(o => `
+    <div class="store-order-item" style="border-left: 3px solid ${statusColors[o.status]}">
+      <div class="order-header">
+        <span class="order-id">${o.id}</span>
+        <span class="order-status" style="color: ${statusColors[o.status]}">${o.status}</span>
+      </div>
+      <div class="order-details">${o.customer} • ${o.product}</div>
+      <div class="order-due">納期: ${o.dueDate}</div>
+    </div>
+  `).join('');
+  
+  const instagramEngagement = Math.round(helloPrintStore.instagram.engagement * 10) / 10;
+  
+  storeSection.innerHTML = `
+    <div class="store-header-grid">
+      <div class="store-metric">
+        <div class="metric-label">本日売上</div>
+        <div class="metric-value">¥${(helloPrintStore.todayRevenue / 1000).toFixed(1)}K</div>
+        <div class="metric-goal">目標: ¥${(helloPrintStore.todayTarget / 1000).toFixed(0)}K</div>
+      </div>
+      <div class="store-metric">
+        <div class="metric-label">受注状況</div>
+        <div class="metric-value">${helloPrintStore.orders.new} 新規</div>
+        <div class="metric-secondary">製作中: ${helloPrintStore.orders.inProduction}</div>
+      </div>
+      <div class="store-metric">
+        <div class="metric-label">Instagram</div>
+        <div class="metric-value">${helloPrintStore.instagram.followers.toLocaleString()}</div>
+        <div class="metric-secondary">エンゲージ: ${instagramEngagement}%</div>
+      </div>
+    </div>
+    <div class="store-orders">
+      <h4>最新注文</h4>
+      ${ordersHTML}
+    </div>
+  `;
+}
+
+function renderInvestmentDivision() {
+  const investSection = document.querySelector('.investment-section');
+  if (!investSection) return;
+  
+  const portfolio = investmentDivision.portfolio;
+  const changeColor = portfolio.todayChange >= 0 ? '#64f0a6' : '#ff6b6b';
+  const changeSign = portfolio.todayChange >= 0 ? '+' : '';
+  
+  const holdingsHTML = portfolio.holdings.map(h => `
+    <div class="holding-item">
+      <div class="holding-header">
+        <span class="holding-symbol">${h.symbol}</span>
+        <span class="holding-name">${h.name}</span>
+      </div>
+      <div class="holding-details">
+        <span>¥${h.price.toLocaleString()}</span>
+        <span>${h.shares}株</span>
+        <span style="color: ${h.change >= 0 ? '#64f0a6' : '#ff6b6b'}">
+          ${h.change >= 0 ? '+' : ''}¥${h.change}
+        </span>
+      </div>
+    </div>
+  `).join('');
+  
+  const watchlistHTML = investmentDivision.watchlist.map(w => `
+    <div class="watchlist-item">
+      <span>${w.symbol} ${w.name}</span>
+      <span style="color: ${w.change >= 0 ? '#64f0a6' : '#ff6b6b'}">
+        ${w.change >= 0 ? '+' : ''}${w.change}%
+      </span>
+    </div>
+  `).join('');
+  
+  investSection.innerHTML = `
+    <div class="investment-summary">
+      <div class="inv-metric">
+        <div class="inv-label">ポートフォリオ</div>
+        <div class="inv-value">¥${(portfolio.totalValue / 1000000).toFixed(1)}M</div>
+      </div>
+      <div class="inv-metric">
+        <div class="inv-label">本日損益</div>
+        <div class="inv-value" style="color: ${changeColor}">${changeSign}¥${(portfolio.todayChange / 1000).toFixed(0)}K</div>
+        <div class="inv-secondary" style="color: ${changeColor}">${changeSign}${portfolio.todayChangePercent.toFixed(2)}%</div>
+      </div>
+    </div>
+    <div class="investment-holdings">
+      <h4>保有銘柄</h4>
+      ${holdingsHTML}
+    </div>
+    <div class="investment-watchlist">
+      <h4>監視中</h4>
+      ${watchlistHTML}
+    </div>
+  `;
+}
+
+function renderFamilyHealth() {
+  const familySection = document.querySelector('.family-section');
+  if (!familySection) return;
+  
+  const health = personalData.health;
+  const stressColor = health.stressLevel <= 4 ? '#64f0a6' : health.stressLevel <= 7 ? '#ffd93d' : '#ff6b6b';
+  
+  familySection.innerHTML = `
+    <div class="family-health-grid">
+      <div class="health-card">
+        <h4>体調</h4>
+        <div class="health-metric">
+          <span class="health-label">体温</span>
+          <span class="health-value">${health.temperature}°C</span>
+        </div>
+        <div class="health-metric">
+          <span class="health-label">睡眠</span>
+          <span class="health-value">${health.sleepHours}時間</span>
+        </div>
+        <div class="health-metric">
+          <span class="health-label">睡眠質</span>
+          <span class="health-value">${health.sleepQuality}</span>
+        </div>
+      </div>
+      <div class="stress-card">
+        <h4>ストレス</h4>
+        <div class="stress-level" style="background: linear-gradient(to right, #64f0a6 0%, #ffd93d 50%, #ff6b6b 100%); background-size: 100%; background-position: ${(health.stressLevel / 10) * 100}% 0;">
+          <span style="color: ${stressColor}; font-weight: bold;">${health.stressLevel}/10</span>
+        </div>
+      </div>
+      <div class="family-card">
+        <h4>家族</h4>
+        <div class="family-status">${personalData.family.status}</div>
+        ${personalData.family.members.map(m => `
+          <div class="family-item">
+            <span>${m.name}</span>
+            <span class="family-time">${m.time}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div class="learning-section">
+      <h4>学習進捗: ${personalData.learning.course}</h4>
+      <div class="learning-progress">
+        <div class="progress-bar-v2">
+          <div class="progress-fill" style="width: ${personalData.learning.progress}%"></div>
+        </div>
+        <span>${personalData.learning.progress}%</span>
+      </div>
+    </div>
+  `;
+}
+
 function renderAll() {
+  renderCEOGreeting();
+  renderSnapshot();
+  renderTeamActivity();
+  renderDecisions();
+  renderStrategicTimeline();
+  renderHelloPrintStore();
+  renderInvestmentDivision();
+  renderFamilyHealth();
   renderEmployeeCards();
   renderProfile(state.selectedEmployee);
   renderDepartments();
@@ -785,6 +1364,7 @@ function wireEvents() {
 
 renderAll();
 wireEvents();
+setupQuickActions();
 
 function dismissLoadingScreen() {
   const screen = document.getElementById('loadingScreen');
