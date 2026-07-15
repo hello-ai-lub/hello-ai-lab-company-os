@@ -621,13 +621,14 @@ const companyOSData = {
   // 経営ダッシュボード（毎日更新）
   management: {
     currentPhase: 'Phase 1: 量産・パターン定着',
-    todayGoal: '1～2本の動画を完成・制作フロー検証',
-    todayProgress: 60,          // 進捗率（%）
+    todayGoal: 'MocchiZooのショート動画を1本YouTubeへ公開する',
+    todayProgress: 0,           // 進捗率（%）- 公開時に100に更新
     productionStatus: 'In Progress',  // In Progress | On Track | Behind | Blocked
-    publishingStatus: 'Scheduled',    // Scheduled | Delayed | Blocked
+    publishingStatus: 'Pending',      // Pending | Published | Failed
     activeTeam: 7,              // 稼働している社員数
     teamTotal: 8,
-    decisionsAwaitingCEO: 0
+    decisionsAwaitingCEO: 0,
+    kpiSuccess: false           // KPI達成フラグ
   },
 
   // 制作管理（毎日更新）
@@ -640,6 +641,18 @@ const companyOSData = {
     dailyTarget: 2,
     dailyCompleted: 1,
     qualityScore: 85            // 1～100
+  },
+
+  // 本日のKPI実績記録（公開後に記入）
+  todayKPIResult: {
+    kpiName: 'MocchiZooショート動画1本をYouTubeへ公開',
+    videoTitle: null,           // 公開した動画のタイトル
+    videoUrl: null,             // YouTube URL
+    publishedAt: null,          // 公開日時
+    productionTime: null,       // 制作時間（分）
+    aiUsed: [],                 // 使用したAI社員 例：['Nova', 'Kai', 'Noah']
+    improvements: [],           // 改善点 例：['スクリプトが長すぎた', '音声合成の品質を上げる']
+    insights: []                // 気付いたこと 例：['テンポが重要', '12秒以内が最適']
   },
 
   // 毎日のチェックリスト
@@ -1389,6 +1402,197 @@ function renderStrategicTimeline() {
   `).join('');
 }
 
+// ===== 本日のKPI管理 =====
+function renderTodayKPI() {
+  const kpiSection = document.getElementById('today-kpi');
+  if (!kpiSection) return;
+  
+  const result = companyOSData.todayKPIResult;
+  const kpiSuccess = companyOSData.management.kpiSuccess;
+  const publishingStatus = companyOSData.management.publishingStatus;
+  
+  // KPI達成状況
+  const statusColor = kpiSuccess ? '#64f0a6' : '#ffd93d';
+  const statusIcon = kpiSuccess ? '✅' : '⏳';
+  const statusText = kpiSuccess ? '達成完了' : '進行中';
+  
+  // 記録フォームのHTML
+  const recordForm = `
+    <div class="kpi-record-form">
+      <h4>📋 公開後の実績記録</h4>
+      <div class="form-group">
+        <label>動画タイトル</label>
+        <input type="text" id="videoTitle" placeholder="公開した動画のタイトルを入力" value="${result.videoTitle || ''}">
+      </div>
+      <div class="form-group">
+        <label>YouTube URL</label>
+        <input type="text" id="videoUrl" placeholder="https://youtube.com/watch?v=..." value="${result.videoUrl || ''}">
+      </div>
+      <div class="form-group">
+        <label>制作時間（分）</label>
+        <input type="number" id="productionTime" placeholder="例：120" value="${result.productionTime || ''}">
+      </div>
+      <div class="form-group">
+        <label>使用したAI社員</label>
+        <div class="employee-checkboxes">
+          ${Object.entries(companyOSData.aiEmployees).map(([key, emp]) => `
+            <label class="checkbox-label">
+              <input type="checkbox" class="ai-employee-check" value="${emp.name}" 
+                ${result.aiUsed.includes(emp.name) ? 'checked' : ''}>
+              ${emp.name}
+            </label>
+          `).join('')}
+        </div>
+      </div>
+      <div class="form-group">
+        <label>改善点（複数入力可）</label>
+        <textarea id="improvements" placeholder="例：&#10;- スクリプトが長かった&#10;- 音声品質を上げる必要がある" rows="3">${result.improvements.join('\n')}</textarea>
+      </div>
+      <div class="form-group">
+        <label>気付いたこと（複数入力可）</label>
+        <textarea id="insights" placeholder="例：&#10;- テンポが重要&#10;- 12秒以内が最適化できた" rows="3">${result.insights.join('\n')}</textarea>
+      </div>
+      <button onclick="saveTodayKPIResult()" class="kpi-save-btn">記録を保存</button>
+    </div>
+  `;
+  
+  // KPIステータス表示
+  kpiSection.innerHTML = `
+    <div class="kpi-header">
+      <h3>🎯 本日のKPI</h3>
+    </div>
+    <div class="kpi-goal">
+      <div class="kpi-goal-text">
+        <h4>${companyOSData.management.todayGoal}</h4>
+        <p class="kpi-status" style="color: ${statusColor};">
+          ${statusIcon} ${statusText}
+        </p>
+      </div>
+      <div class="kpi-progress">
+        <div class="kpi-progress-bar">
+          <div class="kpi-progress-fill" style="width: ${companyOSData.management.todayProgress}%; background: ${statusColor};"></div>
+        </div>
+        <span class="kpi-progress-text">${companyOSData.management.todayProgress}%</span>
+      </div>
+    </div>
+    
+    ${!kpiSuccess ? recordForm : `
+      <div class="kpi-completed">
+        <h4>✅ KPI達成完了</h4>
+        <div class="kpi-result-summary">
+          <div class="result-item">
+            <span class="result-label">動画タイトル</span>
+            <span class="result-value">${result.videoTitle}</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">YouTube URL</span>
+            <a href="${result.videoUrl}" target="_blank" class="result-value">${result.videoUrl}</a>
+          </div>
+          <div class="result-item">
+            <span class="result-label">制作時間</span>
+            <span class="result-value">${result.productionTime}分</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">使用したAI</span>
+            <span class="result-value">${result.aiUsed.join(', ')}</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">改善点</span>
+            <ul class="result-list">
+              ${result.improvements.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="result-item">
+            <span class="result-label">気付いたこと</span>
+            <ul class="result-list">
+              ${result.insights.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+        <button onclick="resetTodayKPI()" class="kpi-reset-btn">明日のKPIを設定</button>
+      </div>
+    `}
+  `;
+}
+
+function saveTodayKPIResult() {
+  const videoTitle = document.getElementById('videoTitle').value;
+  const videoUrl = document.getElementById('videoUrl').value;
+  const productionTime = document.getElementById('productionTime').value;
+  
+  // 使用したAI社員を取得
+  const aiUsed = [];
+  document.querySelectorAll('.ai-employee-check:checked').forEach(checkbox => {
+    aiUsed.push(checkbox.value);
+  });
+  
+  // 改善点と気付きを取得
+  const improvements = document.getElementById('improvements').value
+    .split('\n')
+    .map(s => s.trim())
+    .filter(s => s.length > 0);
+  
+  const insights = document.getElementById('insights').value
+    .split('\n')
+    .map(s => s.trim())
+    .filter(s => s.length > 0);
+  
+  // 入力値チェック
+  if (!videoTitle || !videoUrl || !productionTime || aiUsed.length === 0) {
+    alert('必須項目を入力してください：\n- 動画タイトル\n- YouTube URL\n- 制作時間\n- 使用AI（最低1人）');
+    return;
+  }
+  
+  // データ更新
+  companyOSData.todayKPIResult = {
+    kpiName: companyOSData.management.todayGoal,
+    videoTitle,
+    videoUrl,
+    publishedAt: new Date().toISOString(),
+    productionTime: parseInt(productionTime),
+    aiUsed,
+    improvements,
+    insights
+  };
+  
+  // KPI達成完了
+  companyOSData.management.kpiSuccess = true;
+  companyOSData.management.todayProgress = 100;
+  companyOSData.management.publishingStatus = 'Published';
+  companyOSData.production.published += 1;
+  
+  // 本日実績を反映
+  companyOSData.mochizoo.todayPublished += 1;
+  
+  // 再レンダリング
+  renderTodayKPI();
+  renderSnapshot();
+  
+  // コンソール出力
+  console.log('📊 KPI完了記録:', companyOSData.todayKPIResult);
+  alert('✅ KPI実績を記録しました！');
+}
+
+function resetTodayKPI() {
+  if (confirm('明日のKPIをリセットしますか？')) {
+    companyOSData.management.kpiSuccess = false;
+    companyOSData.management.todayProgress = 0;
+    companyOSData.management.publishingStatus = 'Pending';
+    companyOSData.todayKPIResult = {
+      kpiName: 'MocchiZooショート動画1本をYouTubeへ公開',
+      videoTitle: null,
+      videoUrl: null,
+      publishedAt: null,
+      productionTime: null,
+      aiUsed: [],
+      improvements: [],
+      insights: []
+    };
+    renderTodayKPI();
+    renderSnapshot();
+  }
+}
+
 function setupQuickActions() {
   const buttons = document.querySelectorAll('.quick-action-btn');
   buttons.forEach((btn) => {
@@ -2110,6 +2314,7 @@ function renderMocchiZooProhibited() {
 function renderAll() {
   renderCEOGreeting();
   renderSnapshot();
+  renderTodayKPI();
   renderTeamActivity();
   renderDecisions();
   renderStrategicTimeline();
