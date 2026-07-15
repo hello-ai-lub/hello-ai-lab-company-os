@@ -1138,10 +1138,80 @@ img { display: block; }
 }
 
 /* MocchiZoo Status Cards */
+/* MocchiZoo Overview Container */
+.mz-overview-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mz-philosophy {
+  background: linear-gradient(135deg, rgba(255, 107, 157, 0.15), rgba(255, 217, 61, 0.15));
+  border: 2px solid #ff6b9d;
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.mz-philosophy h4 {
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
+  color: #ff6b9d;
+}
+
+.mz-philosophy p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #ffd93d;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
 .mz-status-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
+}
+
+/* Concept Rules */
+.mz-concept-rules {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 12px;
+}
+
+.mz-concept-rules h4 {
+  margin: 0 0 10px 0;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.concept-rules-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.concept-rule {
+  background: rgba(100, 240, 166, 0.1);
+  border: 1px solid rgba(100, 240, 166, 0.3);
+  border-radius: var(--radius-md);
+  padding: 8px;
+  text-align: center;
+  font-size: 0.75rem;
+}
+
+.concept-rule strong {
+  display: block;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.concept-rule span {
+  color: #64f0a6;
+  font-weight: 600;
 }
 
 .mz-card {

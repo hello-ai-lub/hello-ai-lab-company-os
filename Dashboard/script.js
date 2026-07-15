@@ -298,32 +298,50 @@ const investmentDivision = {
 
 const mocchiZooProject = {
   name: 'MocchiZoo',
-  status: 'Active',
-  progress: 62,
+  status: 'PRODUCTION MODE 🔴',
+  philosophy: 'QUANTITY OVER QUALITY - Making Company Not Thinking Company',
+  progress: 30,  // 30/100 target videos published
   owner: 'Nova',
   team: ['Nova', 'Echo', 'Kai', 'Luna', 'Orion'],
   
-  // Project Status Overview
+  // 5 Core Concept Rules (MUST be satisfied)
+  conceptRules: [
+    { rule: 'Cute', status: '✅ REQUIRED', desc: 'Character & story appeal' },
+    { rule: 'Good Pacing', status: '✅ REQUIRED', desc: 'Fast tempo, engaging' },
+    { rule: 'Kid-friendly', status: '✅ REQUIRED', desc: 'Simple language & concepts' },
+    { rule: 'Slightly Educational', status: '✅ REQUIRED', desc: 'Light learning element' },
+    { rule: 'Gripping', status: '✅ REQUIRED', desc: 'Want to watch until the end' }
+  ],
+  
+  // Project Status Overview - PRODUCTION TARGETS
   overview: {
-    totalEpisodes: 48,
+    // Current State
     publishedEpisodes: 30,
-    videosInProduction: 12,
-    videosPending: 6,
+    videosInProduction: 25,  // Increased pipeline
     totalViews: 284500,
-    totalEngagement: 12840,
-    monthlyGrowth: 18.5,
-    targetViews: 500000,
+    
+    // Phase 1 Targets (Current Focus)
+    targetEpisodes: 100,
+    targetViews: 600000,
+    targetMonthlyProduction: 25,  // 25 videos per month
+    
+    // Revenue
     currentRevenue: 34500,
-    projectedMonthlyRevenue: 52000
+    projectedMonthlyRevenue: 52000,
+    
+    // Pattern Analysis
+    topPerformingPattern: 'Character Adventures (モッチーの日常)',
+    avgViewsPerVideo: 9483,
+    monthlyGrowth: 22
   },
 
-  // Today's Tasks
+  // Today's Tasks - PRODUCTION PRIORITY
   todaysTasks: [
-    { id: 'mz1', title: '新キャラクター「モチコ」デザイン完成', priority: 'urgent', owner: 'Noah', status: 'in-progress', dueTime: '14:00' },
-    { id: 'mz2', title: 'Episode 31 スクリプト最終レビュー', priority: 'urgent', owner: 'Kai', status: 'in-progress', dueTime: '12:30' },
-    { id: 'mz3', title: 'Shorts バッチ 20本 制作完了', priority: 'high', owner: 'Nova', status: 'completed', dueTime: '17:00' },
-    { id: 'mz4', title: 'サムネイル 5本 作成', priority: 'medium', owner: 'Echo', status: 'todo', dueTime: '16:00' },
-    { id: 'mz5', title: '週間分析レポート作成', priority: 'medium', owner: 'Orion', status: 'todo', dueTime: '18:00' }
+    { id: 'mz1', title: 'Episode 31-33 スクリプト完成【制作最優先】', priority: 'urgent', owner: 'Kai', status: 'in-progress', dueTime: '11:00' },
+    { id: 'mz2', title: 'Shorts 8本 制作完了【本日ノルマ】', priority: 'urgent', owner: 'Nova', status: 'in-progress', dueTime: '16:00' },
+    { id: 'mz3', title: 'サムネイル 6本 完成【投稿準備】', priority: 'high', owner: 'Echo', status: 'todo', dueTime: '14:00' },
+    { id: 'mz4', title: '既存動画パターン分析【午前完了】', priority: 'high', owner: 'Luna', status: 'todo', dueTime: '12:00' },
+    { id: 'mz5', title: '企画案5本提出【毎日必須】', priority: 'high', owner: 'Echo', status: 'todo', dueTime: '10:00' }
   ],
 
   // Character Management
@@ -404,13 +422,13 @@ const mocchiZooProject = {
     { id: 'idea4', title: 'クリスマススペシャル', submittedBy: 'Kai', likes: 8, status: 'new' }
   ],
 
-  // AI Employee Assignments
+  // AI Employee Assignments - PRODUCTION FIRST
   assignments: {
-    nova: { role: 'Production Director', tasks: 6, current: 'Episode 29 animation supervision' },
-    echo: { role: 'Design Lead', tasks: 4, current: 'Thumbnail creation for Ep 28-30' },
-    kai: { role: 'Script Manager', tasks: 5, current: 'Episode 31 & 32 script development' },
-    luna: { role: 'Creative Strategist', tasks: 3, current: 'Idea curation & growth strategy' },
-    orion: { role: 'Analytics Manager', tasks: 2, current: 'Performance tracking & reporting' }
+    nova: { role: 'Production Manager', tasks: 12, current: '本日8本制作・パイプライン管理' },
+    echo: { role: 'Ideation Lead', tasks: 5, current: '毎日5本企画案提出' },
+    kai: { role: 'Script Pipeline', tasks: 8, current: 'Episode 31-33スクリプト継続' },
+    luna: { role: 'Pattern Analyzer', tasks: 4, current: '既存動画パターン分析・最適化' },
+    orion: { role: 'Growth Tracker', tasks: 3, current: 'キャラ人気度・視聴データ追跡' }
   },
 
   // Growth Metrics
@@ -1411,29 +1429,47 @@ function renderMocchiZooOverview() {
   if (!section) return;
   
   const proj = mocchiZooProject.overview;
-  const revenueGrowth = ((proj.thisMonth - proj.lastMonth) / proj.lastMonth * 100).toFixed(1);
+  const revenueData = mocchiZooProject.revenueData;
+  const revenueGrowth = ((revenueData.thisMonth - revenueData.lastMonth) / revenueData.lastMonth * 100).toFixed(1);
+  const conceptRulesHTML = mocchiZooProject.conceptRules.map(rule => 
+    `<div class="concept-rule"><strong>${rule.rule}</strong><span>${rule.status}</span></div>`
+  ).join('');
   
   section.innerHTML = `
-    <div class="mz-status-grid">
-      <div class="mz-card primary">
-        <div class="mz-label">Project Status</div>
-        <div class="mz-value">${mocchiZooProject.progress}%</div>
-        <div class="progress-bar"><div class="progress-fill" style="width: ${mocchiZooProject.progress}%"></div></div>
+    <div class="mz-overview-container">
+      <div class="mz-philosophy">
+        <h4>🔴 PRODUCTION MODE</h4>
+        <p>QUANTITY OVER QUALITY</p>
       </div>
-      <div class="mz-card">
-        <div class="mz-label">Episodes</div>
-        <div class="mz-value">${proj.publishedEpisodes}/${proj.totalEpisodes}</div>
-        <div class="mz-secondary">12 in production</div>
+      
+      <div class="mz-status-grid">
+        <div class="mz-card primary">
+          <div class="mz-label">Progress to 100 Videos</div>
+          <div class="mz-value">${proj.publishedEpisodes}/${proj.targetEpisodes}</div>
+          <div class="progress-bar"><div class="progress-fill" style="width: ${mocchiZooProject.progress}%"></div></div>
+        </div>
+        <div class="mz-card">
+          <div class="mz-label">Total Views</div>
+          <div class="mz-value">${(proj.totalViews / 1000).toFixed(0)}K</div>
+          <div class="mz-secondary">Target: ${(proj.targetViews / 1000).toFixed(0)}K</div>
+        </div>
+        <div class="mz-card">
+          <div class="mz-label">Avg Views/Video</div>
+          <div class="mz-value">${proj.avgViewsPerVideo.toFixed(0)}</div>
+          <div class="mz-secondary">${proj.monthlyGrowth}% monthly growth</div>
+        </div>
+        <div class="mz-card">
+          <div class="mz-label">This Month Revenue</div>
+          <div class="mz-value">¥${(revenueData.thisMonth / 1000).toFixed(0)}K</div>
+          <div class="mz-secondary green">↑ ${revenueGrowth}% vs last month</div>
+        </div>
       </div>
-      <div class="mz-card">
-        <div class="mz-label">Total Views</div>
-        <div class="mz-value">${(proj.totalViews / 1000).toFixed(0)}K</div>
-        <div class="mz-secondary">Target: ${(proj.targetViews / 1000).toFixed(0)}K</div>
-      </div>
-      <div class="mz-card">
-        <div class="mz-label">This Month Revenue</div>
-        <div class="mz-value">¥${(proj.currentRevenue / 1000).toFixed(0)}K</div>
-        <div class="mz-secondary green">↑ ${revenueGrowth}% vs last month</div>
+      
+      <div class="mz-concept-rules">
+        <h4>5 Core Concept Rules</h4>
+        <div class="concept-rules-list">
+          ${conceptRulesHTML}
+        </div>
       </div>
     </div>
   `;
