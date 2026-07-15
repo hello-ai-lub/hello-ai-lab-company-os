@@ -298,20 +298,99 @@ const investmentDivision = {
 
 const mocchiZooProject = {
   name: 'MocchiZoo',
-  status: 'PRODUCTION MODE 🔴',
-  philosophy: 'QUANTITY OVER QUALITY - Making Company Not Thinking Company',
+  status: 'PRODUCTION PHASE 🎬',
+  phase: 'Phase 1: 量産・パターン定着',
+  missionStatement: '毎日1本、世界中の子どもを笑顔にする。',
+  ceoMessage: 'Hello AI Labは本日より「作る会社」として動きます。考えるだけでは会社ではありません。作品を公開した瞬間、本当の会社になります。',
+  philosophy: 'まずは現在の成功パターンを再現し、動画制作フローを完成させることを最優先',
   progress: 30,  // 30/100 target videos published
   owner: 'Nova',
   team: ['Nova', 'Echo', 'Kai', 'Luna', 'Orion'],
   
   // 5 Core Concept Rules (MUST be satisfied)
   conceptRules: [
-    { rule: 'Cute', status: '✅ REQUIRED', desc: 'Character & story appeal' },
-    { rule: 'Good Pacing', status: '✅ REQUIRED', desc: 'Fast tempo, engaging' },
-    { rule: 'Kid-friendly', status: '✅ REQUIRED', desc: 'Simple language & concepts' },
-    { rule: 'Slightly Educational', status: '✅ REQUIRED', desc: 'Light learning element' },
-    { rule: 'Gripping', status: '✅ REQUIRED', desc: 'Want to watch until the end' }
+    { rule: 'かわいい', status: '✅ REQUIRED', desc: 'キャラと世界観の魅力' },
+    { rule: 'テンポが良い', status: '✅ REQUIRED', desc: '早いテンポ、引き込まれる' },
+    { rule: '子どもでも楽しめる', status: '✅ REQUIRED', desc: 'シンプルな表現・概念' },
+    { rule: '少しだけ学べる', status: '✅ REQUIRED', desc: '軽い学習要素' },
+    { rule: '最後まで見たくなる', status: '✅ REQUIRED', desc: '最後までの引き込み' }
   ],
+  
+  // 制作フロー 8ステップ
+  productionFlow: [
+    { step: 1, name: '企画', desc: '動画ネタを作成', owner: 'Echo', duration: '30分' },
+    { step: 2, name: '台本', desc: 'スクリプトを完成させる', owner: 'Kai', duration: '45分' },
+    { step: 3, name: '画像生成', desc: 'AI画像生成ツール使用', owner: 'Noah', duration: '1時間' },
+    { step: 4, name: '動画生成', desc: 'アニメーション・合成制作', owner: 'Nova', duration: '1.5時間' },
+    { step: 5, name: '音声', desc: 'ボイスオーバー録音', owner: 'Nova', duration: '30分' },
+    { step: 6, name: 'BGM・効果音', desc: 'BGM・SFX追加', owner: 'Luna', duration: '30分' },
+    { step: 7, name: '字幕', desc: '字幕追加・最適化', owner: 'Echo', duration: '30分' },
+    { step: 8, name: 'YouTube投稿', desc: '投稿・スケジュール', owner: 'Orion', duration: '15分' }
+  ],
+  
+  // KPI 修正版
+  kpiTargets: {
+    currentPhase: '1～2本の安定稼働を構築',
+    priority: '制作速度よりも「継続」を優先',
+    keyRules: [
+      '毎日企画を止めない',
+      '毎日制作を止めない',
+      '毎日投稿を止めない'
+    ],
+    escalationPlan: [
+      { phase: '現在', target: '1～2本/日を安定稼働', status: '構築中' },
+      { phase: '次段階', target: '3～5本/日へ段階的拡大', status: '予定' },
+      { phase: '最終段階', target: '8本以上/日へ拡大', status: '目標' }
+    ]
+  },
+  
+  // 部署別タスク
+  departmentTasks: {
+    ideation: {
+      dept: '企画班',
+      owner: 'Echo',
+      tasks: [
+        '動画ネタを継続提案',
+        '既存動画の分析',
+        '再現性の高い企画作成'
+      ]
+    },
+    design: {
+      dept: 'Noah',
+      owner: 'Noah',
+      tasks: [
+        '動画で使用するキャラクター・背景・素材制作',
+        'サムネイル品質向上'
+      ]
+    },
+    development: {
+      dept: '開発部',
+      owner: 'Kai',
+      tasks: [
+        '制作フロー自動化',
+        'AIツール連携',
+        '投稿効率改善'
+      ]
+    },
+    management: {
+      dept: '管理部',
+      owner: 'Orion',
+      tasks: [
+        '進捗管理',
+        'データ整理',
+        '改善点の共有'
+      ]
+    }
+  },
+  
+  // 禁止事項（人気キャラクターが確立してから実施）
+  prohibitedItems: [
+    { item: '長編ストーリー制作', reason: 'パターン定着後に実施' },
+    { item: 'キャラクター設定作成', reason: '詳細な設定よりも量産を優先' },
+    { item: '世界観構築', reason: '既存パターンの再現を優先' },
+    { item: 'グッズ企画', reason: '人気キャラが確立後に実施' }
+  ],
+  prohibitedDesc: 'これらは人気キャラクターが確立してから行います。',
   
   // Project Status Overview - PRODUCTION TARGETS
   overview: {
@@ -335,13 +414,13 @@ const mocchiZooProject = {
     monthlyGrowth: 22
   },
 
-  // Today's Tasks - PRODUCTION PRIORITY
+  // Today's Tasks - PRODUCTION PRIORITY（制作速度より継続を優先）
   todaysTasks: [
-    { id: 'mz1', title: 'Episode 31-33 スクリプト完成【制作最優先】', priority: 'urgent', owner: 'Kai', status: 'in-progress', dueTime: '11:00' },
-    { id: 'mz2', title: 'Shorts 8本 制作完了【本日ノルマ】', priority: 'urgent', owner: 'Nova', status: 'in-progress', dueTime: '16:00' },
-    { id: 'mz3', title: 'サムネイル 6本 完成【投稿準備】', priority: 'high', owner: 'Echo', status: 'todo', dueTime: '14:00' },
-    { id: 'mz4', title: '既存動画パターン分析【午前完了】', priority: 'high', owner: 'Luna', status: 'todo', dueTime: '12:00' },
-    { id: 'mz5', title: '企画案5本提出【毎日必須】', priority: 'high', owner: 'Echo', status: 'todo', dueTime: '10:00' }
+    { id: 'mz1', title: '本日の企画案3本を提出【企画班】', priority: 'urgent', owner: 'Echo', status: 'in-progress', dueTime: '10:00' },
+    { id: 'mz2', title: 'スクリプト案作成【開発部】', priority: 'urgent', owner: 'Kai', status: 'in-progress', dueTime: '12:00' },
+    { id: 'mz3', title: '画像・素材制作【Noah】', priority: 'high', owner: 'Noah', status: 'todo', dueTime: '15:00' },
+    { id: 'mz4', title: '本日1～2本の動画制作完了【制作フロー通す】', priority: 'high', owner: 'Nova', status: 'in-progress', dueTime: '18:00' },
+    { id: 'mz5', title: '既存動画パターン分析・レポート【毎日必須】', priority: 'high', owner: 'Luna', status: 'todo', dueTime: '17:00' }
   ],
 
   // Character Management
@@ -422,13 +501,13 @@ const mocchiZooProject = {
     { id: 'idea4', title: 'クリスマススペシャル', submittedBy: 'Kai', likes: 8, status: 'new' }
   ],
 
-  // AI Employee Assignments - PRODUCTION FIRST
+  // AI Employee Assignments - PRODUCTION PHASE（制作フェーズ対応）
   assignments: {
-    nova: { role: 'Production Manager', tasks: 12, current: '本日8本制作・パイプライン管理' },
-    echo: { role: 'Ideation Lead', tasks: 5, current: '毎日5本企画案提出' },
-    kai: { role: 'Script Pipeline', tasks: 8, current: 'Episode 31-33スクリプト継続' },
-    luna: { role: 'Pattern Analyzer', tasks: 4, current: '既存動画パターン分析・最適化' },
-    orion: { role: 'Growth Tracker', tasks: 3, current: 'キャラ人気度・視聴データ追跡' }
+    echo: { role: 'Ideation Lead', dept: '企画班', tasks: 5, current: '毎日3本以上の企画案を提出・既存動画分析' },
+    kai: { role: 'Script & Development', dept: '開発部', tasks: 8, current: 'スクリプト制作・制作フロー自動化・AIツール連携' },
+    noah: { role: 'Design Director', dept: 'Design', tasks: 6, current: 'キャラ・背景・素材制作・サムネイル品質向上' },
+    nova: { role: 'Production Manager', dept: '制作', tasks: 12, current: '本日1～2本の制作実行・制作フロー管理・段階的拡大' },
+    orion: { role: 'Growth & Management', dept: '管理部', tasks: 3, current: '進捗管理・視聴データ分析・改善点共有' }
   },
 
   // Growth Metrics
@@ -1437,9 +1516,16 @@ function renderMocchiZooOverview() {
   
   section.innerHTML = `
     <div class="mz-overview-container">
+      <div class="phase-banner">
+        <div class="phase-info">
+          <h3>${mocchiZooProject.phase}</h3>
+          <p class="mission"><strong>Mission:</strong> ${mocchiZooProject.missionStatement}</p>
+        </div>
+      </div>
+      
       <div class="mz-philosophy">
-        <h4>🔴 PRODUCTION MODE</h4>
-        <p>QUANTITY OVER QUALITY</p>
+        <h4>🎬 ${mocchiZooProject.status}</h4>
+        <p>${mocchiZooProject.philosophy}</p>
       </div>
       
       <div class="mz-status-grid">
@@ -1466,7 +1552,7 @@ function renderMocchiZooOverview() {
       </div>
       
       <div class="mz-concept-rules">
-        <h4>5 Core Concept Rules</h4>
+        <h4>5つのコンセプトルール（必須）</h4>
         <div class="concept-rules-list">
           ${conceptRulesHTML}
         </div>
@@ -1789,6 +1875,7 @@ function renderMocchiZooTeam() {
     <div class="team-member-card">
       <h4>${assign.role}</h4>
       <div class="member-name">${key.charAt(0).toUpperCase() + key.slice(1)}</div>
+      <div class="member-dept">${assign.dept}</div>
       <div class="member-tasks">Tasks: ${assign.tasks}</div>
       <div class="member-current">
         <small>${assign.current}</small>
@@ -1797,6 +1884,125 @@ function renderMocchiZooTeam() {
   `).join('');
   
   section.innerHTML = `<div class="team-cards-grid">${teamHTML}</div>`;
+}
+
+// Phase 1: Production Flow (8 Steps)
+function renderMocchiZooProductionFlow() {
+  const section = document.querySelector('.mochizoo-production-flow');
+  if (!section) return;
+  
+  const flow = mocchiZooProject.productionFlow;
+  const flowHTML = flow.map(item => `
+    <div class="production-step">
+      <div class="step-number">${item.step}</div>
+      <div class="step-content">
+        <h4>${item.name}</h4>
+        <p>${item.desc}</p>
+        <small>Owner: ${item.owner} | Time: ${item.duration}</small>
+      </div>
+    </div>
+  `).join('');
+  
+  section.innerHTML = `
+    <div class="production-flow-container">
+      <div class="flow-intro">
+        <p><strong>制作フロー標準化（本日より実施）</strong></p>
+      </div>
+      <div class="production-steps">
+        ${flowHTML}
+      </div>
+    </div>
+  `;
+}
+
+// KPI Revised (Continuous Priority)
+function renderMocchiZooKPI() {
+  const section = document.querySelector('.mochizoo-kpi');
+  if (!section) return;
+  
+  const kpi = mocchiZooProject.kpiTargets;
+  const escalationHTML = kpi.escalationPlan.map(p => `
+    <div class="escalation-item">
+      <div class="phase-badge">${p.phase}</div>
+      <div class="phase-target">${p.target}</div>
+      <div class="phase-status">${p.status}</div>
+    </div>
+  `).join('');
+  
+  const rulesHTML = kpi.keyRules.map(rule => `
+    <div class="key-rule">✓ ${rule}</div>
+  `).join('');
+  
+  section.innerHTML = `
+    <div class="kpi-container">
+      <div class="kpi-priority">
+        <h4>優先方針</h4>
+        <p>${kpi.priority}</p>
+      </div>
+      
+      <div class="key-rules">
+        <h4>3つの止めないルール</h4>
+        ${rulesHTML}
+      </div>
+      
+      <div class="escalation-plan">
+        <h4>段階的拡大計画</h4>
+        <div class="escalation-items">
+          ${escalationHTML}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Department Tasks (By Department)
+function renderMocchiZooDepartments() {
+  const section = document.querySelector('.mochizoo-departments');
+  if (!section) return;
+  
+  const depts = mocchiZooProject.departmentTasks;
+  const deptHTML = Object.entries(depts).map(([key, dept]) => `
+    <div class="department-card">
+      <div class="dept-header">
+        <h4>${dept.dept}</h4>
+        <small>Owner: ${dept.owner}</small>
+      </div>
+      <ul class="dept-tasks">
+        ${dept.tasks.map(task => `<li>• ${task}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+  
+  section.innerHTML = `
+    <div class="departments-grid">
+      ${deptHTML}
+    </div>
+  `;
+}
+
+// Prohibited Items (Until Popular Characters Established)
+function renderMocchiZooProhibited() {
+  const section = document.querySelector('.mochizoo-prohibited');
+  if (!section) return;
+  
+  const prohibited = mocchiZooProject.prohibitedItems;
+  const prohibitedHTML = prohibited.map(p => `
+    <div class="prohibited-item">
+      <div class="prohibited-name">${p.item}</div>
+      <div class="prohibited-reason">→ ${p.reason}</div>
+    </div>
+  `).join('');
+  
+  section.innerHTML = `
+    <div class="prohibited-container">
+      <div class="prohibited-note">
+        <p>${mocchiZooProject.prohibitedDesc}</p>
+      </div>
+      <div class="prohibited-list">
+        ${prohibitedHTML}
+      </div>
+    </div>
+  `;
 }
 
 function renderAll() {
@@ -1819,6 +2025,10 @@ function renderAll() {
   renderMocchiZooAssets();
   renderMocchiZooIdeas();
   renderMocchiZooTeam();
+  renderMocchiZooProductionFlow();
+  renderMocchiZooKPI();
+  renderMocchiZooDepartments();
+  renderMocchiZooProhibited();
   renderEmployeeCards();
   renderProfile(state.selectedEmployee);
   renderDepartments();
