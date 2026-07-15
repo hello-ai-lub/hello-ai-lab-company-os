@@ -526,6 +526,133 @@ const mocchiZooProject = {
   }
 };
 
+// ===== HELLO AI LAB COMPANY OS - REAL DATA (手入力可能な実データベース) =====
+// 将来的にYouTube API・Google Sheets・GitHubと連携可能な設計
+const companyOSData = {
+  // 企業情報
+  company: {
+    name: 'Hello AI Lab',
+    phase: 'Phase 1',
+    mission: '毎日1本、世界中の子どもを笑顔にする。',
+    foundedDate: '2026-01-01',
+    lastUpdated: new Date().toISOString()
+  },
+
+  // MocchiZoo実データ（YouTube APIと連携予定）
+  mochizoo: {
+    totalVideos: 30,           // 公開済み動画数
+    todayProduced: 1,           // 本日制作した動画数
+    todayPublished: 0,          // 本日投稿した動画数
+    subscribers: 14940,         // YouTubeチャンネル登録者数
+    totalViews: 284500,         // 総再生回数
+    totalWatchTime: 2840,       // 総視聴時間（時間）
+    monthlyProduction: 10,      // 本月制作数
+    monthlyTarget: 25,          // 本月目標数
+    progressPercent: Math.round((30 / 100) * 100)  // 100本に向けた進捗率
+  },
+
+  // AI社員スタータス（毎日手入力更新予定）
+  aiEmployees: {
+    chappy: {
+      name: 'CEO Chappy',
+      department: 'Executive',
+      status: 'working',        // working | reviewing | meeting | waiting | offline
+      currentTask: '経営方針決定・制作フロー最適化',
+      tasksCompleted: 2,
+      tasksTotal: 3,
+      workingHours: 8
+    },
+    echo: {
+      name: 'Echo',
+      department: 'Ideation',
+      status: 'working',
+      currentTask: '企画案 5本制作中',
+      tasksCompleted: 3,
+      tasksTotal: 5,
+      workingHours: 6
+    },
+    kai: {
+      name: 'Kai',
+      department: 'Development',
+      status: 'working',
+      currentTask: 'スクリプト制作・制作フロー自動化',
+      tasksCompleted: 2,
+      tasksTotal: 4,
+      workingHours: 7
+    },
+    noah: {
+      name: 'Noah',
+      department: 'Design',
+      status: 'working',
+      currentTask: 'キャラクター・背景素材制作',
+      tasksCompleted: 1,
+      tasksTotal: 3,
+      workingHours: 7
+    },
+    nova: {
+      name: 'Nova',
+      department: 'Production',
+      status: 'working',
+      currentTask: '動画制作パイプライン実行',
+      tasksCompleted: 1,
+      tasksTotal: 2,
+      workingHours: 8
+    },
+    luna: {
+      name: 'Luna',
+      department: 'Analytics',
+      status: 'working',
+      currentTask: '既存動画パターン分析',
+      tasksCompleted: 2,
+      tasksTotal: 2,
+      workingHours: 5
+    },
+    orion: {
+      name: 'Orion',
+      department: 'Management',
+      status: 'working',
+      currentTask: '進捗管理・データ整理',
+      tasksCompleted: 3,
+      tasksTotal: 4,
+      workingHours: 6
+    }
+  },
+
+  // 経営ダッシュボード（毎日更新）
+  management: {
+    currentPhase: 'Phase 1: 量産・パターン定着',
+    todayGoal: '1～2本の動画を完成・制作フロー検証',
+    todayProgress: 60,          // 進捗率（%）
+    productionStatus: 'In Progress',  // In Progress | On Track | Behind | Blocked
+    publishingStatus: 'Scheduled',    // Scheduled | Delayed | Blocked
+    activeTeam: 7,              // 稼働している社員数
+    teamTotal: 8,
+    decisionsAwaitingCEO: 0
+  },
+
+  // 制作管理（毎日更新）
+  production: {
+    ideaCount: 12,              // 企画数
+    inProduction: 3,            // 制作中
+    completed: 1,               // 完成動画
+    awaitingPublish: 2,         // 投稿待ち
+    published: 0,               // 本日公開済み
+    dailyTarget: 2,
+    dailyCompleted: 1,
+    qualityScore: 85            // 1～100
+  },
+
+  // 毎日のチェックリスト
+  dailyChecklist: {
+    date: new Date().toISOString().split('T')[0],
+    ideationCompleted: true,
+    scriptingCompleted: true,
+    productionInProgress: true,
+    publishingScheduled: false,
+    analyticsReported: false
+  }
+};
+
 // Family & Personal
 const personalData = {
   family: {
@@ -1069,76 +1196,50 @@ function renderSnapshot() {
   const snapshotEl = document.querySelector('.snapshot-section');
   if (!snapshotEl) return;
   
-  // Calculate today's performance
-  const helloRevenue = helloPrintStore.todayRevenue;
-  const helloTarget = helloPrintStore.todayTarget;
-  const helloPercent = Math.round((helloRevenue / helloTarget) * 100);
+  const mz = companyOSData.mochizoo;
+  const mgmt = companyOSData.management;
+  const prod = companyOSData.production;
   
-  const aiLabStatus = 'Core systems ✓';
-  const investmentToday = investmentDivision.portfolio.todayChange;
-  const investmentPercent = investmentDivision.portfolio.todayChangePercent;
+  // Update MocchiZoo metrics
+  const totalVideoEl = snapshotEl.querySelector('#companyMochizooTotal');
+  if (totalVideoEl) totalVideoEl.textContent = mz.totalVideos;
   
-  // Update KPI cards
-  const revenueEl = snapshotEl.querySelector('#snapshotRevenue');
-  const teamEl = snapshotEl.querySelector('#snapshotTeam');
-  const healthEl = snapshotEl.querySelector('#snapshotHealth');
+  const todayProducedEl = snapshotEl.querySelector('#companyTodayProduced');
+  if (todayProducedEl) todayProducedEl.textContent = mz.todayProduced;
   
-  if (revenueEl) {
-    const trend = helloPercent >= 100 ? '↑' : '↓';
-    const trendColor = helloPercent >= 100 ? 'green' : 'orange';
-    revenueEl.innerHTML = `¥${(helloRevenue/1000).toFixed(1)}K <span style="color: ${trendColor}">${trend}${helloPercent}%</span>`;
+  const todayPublishedEl = snapshotEl.querySelector('#companyTodayPublished');
+  if (todayPublishedEl) todayPublishedEl.textContent = mz.todayPublished;
+  
+  // Update management metrics
+  const phaseEl = snapshotEl.querySelector('#companyPhase');
+  if (phaseEl) {
+    phaseEl.textContent = mgmt.currentPhase.split(':')[0].trim();
   }
   
-  if (teamEl) teamEl.textContent = `${8}/8 👥 Active`;
+  const progressEl = snapshotEl.querySelector('#companyProgress');
+  if (progressEl) progressEl.textContent = mgmt.todayProgress + '%';
   
-  if (healthEl) {
-    const temp = personalData.health.temperature;
-    const sleep = Math.floor(personalData.health.sleepHours);
-    healthEl.textContent = `${temp}°C | ${sleep}h sleep`;
-  }
+  const progressTrendEl = snapshotEl.querySelector('#companyProgressTrend');
+  if (progressTrendEl) progressTrendEl.textContent = mgmt.productionStatus;
   
-  // Update business segments
-  const segmentCards = Array.from(snapshotEl.querySelectorAll('.snapshot-card'));
+  const teamActiveEl = snapshotEl.querySelector('#companyTeamActive');
+  if (teamActiveEl) teamActiveEl.textContent = `${mgmt.activeTeam}/${mgmt.teamTotal}`;
   
-  // Hello事業 card
-  const helloCard = segmentCards.find(c => c.querySelector('.snapshot-label')?.textContent.includes('Hello'));
-  if (helloCard) {
-    const val = helloCard.querySelector('.snapshot-value');
-    if (val) val.innerHTML = `¥${(helloRevenue/1000).toFixed(1)}K<br><small style="opacity: 0.7">Today: ${helloPercent}%</small>`;
-  }
+  // Update production metrics
+  const ideasEl = snapshotEl.querySelector('#companyIdeas');
+  if (ideasEl) ideasEl.textContent = prod.ideaCount;
   
-  // AI Lab card
-  const aiLabCard = segmentCards.find(c => c.querySelector('.snapshot-label')?.textContent.includes('Lab'));
-  if (aiLabCard) {
-    const val = aiLabCard.querySelector('.snapshot-value');
-    if (val) val.textContent = aiLabStatus;
-  }
+  const inProductionEl = snapshotEl.querySelector('#companyInProduction');
+  if (inProductionEl) inProductionEl.textContent = prod.inProduction;
   
-  // 投資部 card
-  const investCard = segmentCards.find(c => c.querySelector('.snapshot-label')?.textContent.includes('投資'));
-  if (investCard) {
-    const val = investCard.querySelector('.snapshot-value');
-    if (val) {
-      const sign = investmentToday >= 0 ? '+' : '';
-      const color = investmentToday >= 0 ? '#64f0a6' : '#ff6b6b';
-      val.innerHTML = `${sign}¥${(investmentToday/1000).toFixed(0)}K<br><small style="color: ${color}">${sign}${investmentPercent.toFixed(2)}%</small>`;
-    }
-  }
+  const awaitingPublishEl = snapshotEl.querySelector('#companyAwaitingPublish');
+  if (awaitingPublishEl) awaitingPublishEl.textContent = prod.awaitingPublish;
 }
 
 function renderTeamActivity() {
   if (!teamActivityGrid) return;
   
-  const liveTaskData = {
-    'chappy': { task: '今週のプライオリティ整理', progress: 85, status: 'working' },
-    'atlas': { task: '戦略会議', progress: 100, status: 'meeting' },
-    'noah': { task: 'ヘッダー改善中', progress: 60, status: 'working' },
-    'nova': { task: '20本のコンセプト制作中', progress: 75, status: 'working' },
-    'luna': { task: 'AI調査中', progress: 80, status: 'working' },
-    'kai': { task: 'Task Manager実装', progress: 35, status: 'working' },
-    'echo': { task: 'ブランド設計中', progress: 45, status: 'reviewing' },
-    'orion': { task: 'Hello分析中', progress: 75, status: 'working' }
-  };
+  const aiEmployees = companyOSData.aiEmployees;
   
   const statusMap = {
     'working': { icon: '🟢', label: 'Working' },
@@ -1148,25 +1249,26 @@ function renderTeamActivity() {
     'offline': { icon: '🔘', label: 'Offline' }
   };
   
-  teamActivityGrid.innerHTML = Object.values(employeeProfiles).map((emp) => {
-    const taskData = liveTaskData[emp.id] || { task: 'On task', progress: 50, status: 'working' };
-    const statusInfo = statusMap[taskData.status] || statusMap['working'];
+  teamActivityGrid.innerHTML = Object.values(aiEmployees).map((emp) => {
+    const statusInfo = statusMap[emp.status] || statusMap['working'];
+    const taskProgress = (emp.tasksCompleted / emp.tasksTotal) * 100;
     
     return `
-      <div class="team-member-card" onclick="state.selectedEmployee='${emp.id}'; renderProfile('${emp.id}');">
+      <div class="team-member-card">
         <div class="team-member-header">
           <h4 class="team-member-name">${emp.name}</h4>
           <span class="team-status-badge">
-            <span class="team-status-dot status-${taskData.status}"></span>
+            <span class="team-status-dot status-${emp.status}"></span>
             ${statusInfo.label}
           </span>
         </div>
-        <div class="team-member-task">${taskData.task}</div>
+        <div class="team-member-dept">${emp.department}</div>
+        <div class="team-member-task">${emp.currentTask}</div>
         <div class="team-member-progress">
           <div class="progress-bar">
-            <div class="progress-fill" style="width: ${taskData.progress}%"></div>
+            <div class="progress-fill" style="width: ${taskProgress}%"></div>
           </div>
-          <span class="progress-percent">${taskData.progress}%</span>
+          <span class="progress-percent">${emp.tasksCompleted}/${emp.tasksTotal}</span>
         </div>
       </div>
     `;

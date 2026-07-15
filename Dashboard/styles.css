@@ -460,6 +460,13 @@ img { display: block; }
   line-height: 1.4;
 }
 
+.team-member-dept {
+  font-size: 0.75rem;
+  color: var(--green);
+  font-weight: 600;
+  margin: 0.3rem 0 0.5rem 0;
+}
+
 .team-member-progress {
   display: flex;
   gap: 8px;

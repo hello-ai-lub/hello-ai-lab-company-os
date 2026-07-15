@@ -91,62 +91,78 @@
           </div>
         </section>
 
-        <!-- Section 2: 5-Second Snapshot -->
+        <!-- Section 2: Company OS Dashboard - Real Data -->
         <section class="glass-card snapshot-section">
           <div class="snapshot-header">
-            <h3>Company Health</h3>
-            <div class="health-indicator health-green" id="healthIndicator">🟢 Green</div>
+            <h3>📊 Company OS Dashboard</h3>
+            <div class="health-indicator health-green" id="healthIndicator">🟢 Active</div>
           </div>
+          
+          <!-- MocchiZoo Metrics -->
           <div class="snapshot-grid">
             <div class="snapshot-card">
-              <div class="snapshot-label">Revenue WTD</div>
-              <div class="snapshot-value" id="snapshotRevenue">¥32.4M</div>
-              <div class="snapshot-trend positive">↑ 15% vs last week</div>
+              <div class="snapshot-label">Total Videos</div>
+              <div class="snapshot-value" id="companyMochizooTotal">30</div>
+              <div class="snapshot-trend">Target: 100</div>
+            </div>
+            <div class="snapshot-card">
+              <div class="snapshot-label">Today Produced</div>
+              <div class="snapshot-value" id="companyTodayProduced">1</div>
+              <div class="snapshot-trend">制作フロー実行中</div>
+            </div>
+            <div class="snapshot-card">
+              <div class="snapshot-label">Today Published</div>
+              <div class="snapshot-value" id="companyTodayPublished">0</div>
+              <div class="snapshot-trend">投稿予定あり</div>
+            </div>
+          </div>
+          
+          <div class="snapshot-divider"></div>
+          
+          <!-- Management Dashboard -->
+          <div class="snapshot-grid">
+            <div class="snapshot-card">
+              <div class="snapshot-label">Phase</div>
+              <div class="snapshot-value" id="companyPhase" style="font-size: 0.9rem;">Phase 1</div>
+              <div class="snapshot-trend">量産・パターン定着</div>
+            </div>
+            <div class="snapshot-card">
+              <div class="snapshot-label">Today Progress</div>
+              <div class="snapshot-value" id="companyProgress">60%</div>
+              <div class="snapshot-trend" id="companyProgressTrend">In Progress</div>
             </div>
             <div class="snapshot-card">
               <div class="snapshot-label">Active Team</div>
-              <div class="snapshot-value" id="snapshotTeam">8/8 👥</div>
-              <div class="snapshot-trend">100% ready</div>
-            </div>
-            <div class="snapshot-card">
-              <div class="snapshot-label">Decisions Pending</div>
-              <div class="snapshot-value snapshot-urgent" id="snapshotPending">2 🔴</div>
-              <div class="snapshot-trend urgent">1hr deadline</div>
-            </div>
-          </div>
-          <div class="snapshot-divider"></div>
-          <div class="snapshot-grid">
-            <div class="snapshot-card">
-              <div class="snapshot-label">Hello事業</div>
-              <div class="snapshot-value green">🟢 ¥28.1M</div>
-              <div class="snapshot-trend positive">↑ 12% vs BW</div>
-            </div>
-            <div class="snapshot-card">
-              <div class="snapshot-label">AI Lab Ops</div>
-              <div class="snapshot-value green">🟢 No blockers</div>
+              <div class="snapshot-value" id="companyTeamActive">7/8</div>
               <div class="snapshot-trend">稼働中</div>
             </div>
-            <div class="snapshot-card">
-              <div class="snapshot-label">投資部</div>
-              <div class="snapshot-value orange">🟠 3 pipeline</div>
-              <div class="snapshot-trend">評価中</div>
-            </div>
           </div>
+          
           <div class="snapshot-divider"></div>
-          <div class="personal-health">
-            <span class="health-item">37.0°C</span>
-            <span class="health-separator">|</span>
-            <span class="health-item">7h 23m sleep</span>
-            <span class="health-separator">|</span>
-            <span class="health-item">6/10 stress</span>
-            <span class="health-separator">|</span>
-            <span class="health-item">Family ✓</span>
+          
+          <!-- Production Status -->
+          <div class="snapshot-grid">
+            <div class="snapshot-card">
+              <div class="snapshot-label">Ideas</div>
+              <div class="snapshot-value" id="companyIdeas">12</div>
+              <div class="snapshot-trend">企画中</div>
+            </div>
+            <div class="snapshot-card">
+              <div class="snapshot-label">In Production</div>
+              <div class="snapshot-value" id="companyInProduction">3</div>
+              <div class="snapshot-trend">制作中</div>
+            </div>
+            <div class="snapshot-card">
+              <div class="snapshot-label">Awaiting Publish</div>
+              <div class="snapshot-value" id="companyAwaitingPublish">2</div>
+              <div class="snapshot-trend">投稿待ち</div>
+            </div>
           </div>
         </section>
 
-        <!-- Section 3: Live Team Activity -->
+        <!-- Section 3: AI Employee Status -->
         <section class="glass-card team-activity-section">
-          <div class="panel-head"><h3>Team Status</h3><p>What's happening right now</p></div>
+          <div class="panel-head"><h3>👥 AI Employee Status</h3><p>Current tasks & activity</p></div>
           <div class="team-activity-grid" id="teamActivityGrid"></div>
         </section>
 
