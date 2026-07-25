@@ -1,9 +1,11 @@
-# 🎬 MOCHIZOO STANDARD TEMPLATE v1.0
+# 🎬 MOCHIZOO STANDARD TEMPLATE v1.1
 
 **Status**: ✅ OFFICIAL TEMPLATE  
-**Effective Date**: 2026-07-25  
-**Version**: 1.0 (Golden Standard)  
+**Effective Date**: 2026-07-25 → 2026-07-26 (v1.1 更新)  
+**Version**: 1.1 (Enhanced with Visual Learning Requirement)  
 **Valid for**: Episode004 以降すべてのエピソード
+
+**🔴 NEW in v1.1**: 映像だけで雑学が伝わる演出の必須化
 
 ---
 
@@ -109,6 +111,15 @@
 ☑ 家族全員で安心して視聴できる
 ☑ リアルではなくアニメ調
 ☑ 自然な動きと表情
+
+【NEW in v1.1】映像で学びを表現
+☑ 雑学が映像だけで「少し」伝わる
+☑ 以下の5つの方法から最低1つ使用：
+   ① 他の動物との比較
+   ② キャラクターのリアクション
+   ③ 小物の活用
+   ④ ストーリー展開
+   ⑤ 背景演出
 ```
 
 ---
@@ -226,7 +237,133 @@ and security. All movements smooth and natural, demonstrating penguin social beh
 
 ---
 
-## 🎨 NARRATION TEMPLATE
+## 🎨 NEW IN v1.1: 映像で学びを表現する5つの方法
+
+**重要**: Episode004以降、以下の5つの方法から**必ず1つ以上**使用してください。
+
+### 方法①：他の動物との比較
+```
+用途：サイズ、能力、行動の違いを表現
+
+例1：カピバラ + ハツカネズミ
+  → 並べることで「世界最大のネズミ」が可視化
+
+例2：ペンギンの赤ちゃん + 大人ペンギン
+  → 成長速度が視覚的に理解される
+
+実装：画面に複数の動物を同時に表示
+効果度：⭐⭐⭐⭐⭐（最も効果的）
+```
+
+### 方法②：キャラクターのリアクション
+```
+用途：行動を通じた学びの表現
+
+例1：オッターが手をつなぐ
+  → 「つなぐ理由 = 流されないため」が行動で伝わる
+
+例2：ペンギンが親から狩りを学ぶ
+  → 「親が子に教える」が表情と動作で表現
+
+実装：自然な行動の中に学びを埋め込む
+効果度：⭐⭐⭐⭐⭐（最も自然）
+```
+
+### 方法③：小物の活用
+```
+用途：ツール、食べ物、環境を活用した学び
+
+例1：カワウソが石を使ってカキを割く
+  → 「石を使う」という行動で知識を表現
+
+例2：ペンギンが氷の中で素早く移動
+  → 「環境適応」が視覚的に理解される
+
+実装：動物の周囲に特徴的な小物を配置
+効果度：⭐⭐⭐⭐（効果的だが配置が難しい）
+```
+
+### 方法④：ストーリー展開
+```
+用途：時間経過を通じた学びの表現
+
+例1：ライオンの親子
+  0-3秒：親が狩りの真似をさせる
+  3-10秒：子が実践する
+  → 「親が狩りを教える」がストーリーで伝わる
+
+例2：アリの行進
+  → 「群れで働く」がシーン展開で理解される
+
+実装：複数シーンを組み合わせ、時系列で学びを表現
+効果度：⭐⭐⭐（複雑だが強力）
+```
+
+### 方法⑤：背景演出
+```
+用途：環境・姿勢・光で学びを暗示
+
+例1：キツネの耳が立つ
+  → 「耳がいい」という特徴が姿勢で表現
+
+例2：ホタルが光る
+  → 「光る能力」が背景で可視化
+
+例3：ナマケモノが逆さにぶら下がる
+  → 「木の上に住む」という習性が環境で示される
+
+実装：動物の特徴を背景や姿勢に反映
+効果度：⭐⭐⭐（微妙だが印象的）
+```
+
+### 推奨優先順位
+
+```
+【絶対に使う】
+① 他の動物との比較（最も分かりやすい）
+② キャラクターのリアクション（最も自然）
+
+【高確率で使う】
+③ 小物の活用
+
+【オプション】
+④ ストーリー展開
+⑤ 背景演出
+```
+
+---
+
+## 🎬 KLING PROMPT 更新（映像学習版）
+
+### PART 3: 学習シーン（2-10秒）- UPDATED
+
+```
+2-10 seconds (DISCOVERY & LEARNING): [ANIMAL] performs natural behavior showing 
+[LEARNING_FACT], using [VISUAL_LEARNING_METHOD]. 
+
+【新：Visual Learning Method を明示】
+
+For comparison method:
+  → [ANIMAL] interacts with other animals, size/ability difference becomes clear
+
+For reaction method:
+  → [ANIMAL]'s behavior/expression reveals the learning naturally
+
+For object method:
+  → [ANIMAL] uses [OBJECT] in a way that demonstrates the fact
+
+For story method:
+  → Sequential scenes show the learning progression
+
+For background method:
+  → Environment/positioning/light reveals the fact through visual design
+
+Warm golden light emphasizes the moment. This action IS the learning moment - 
+visual representation of knowledge. Expressions show [EMOTION]. All movements 
+smooth and natural, demonstrating [BEHAVIORAL_TRAIT].
+```
+
+---
 
 ### 日本語版
 
@@ -408,7 +545,8 @@ Step 5: YouTube投稿
 
 **Build with AI. Grow with People.**
 
-**MocchiZoo Standard Template v1.0**  
-**Effective: 2026-07-25**  
+**MocchiZoo Standard Template v1.1**  
+**Effective: 2026-07-26**  
+**Enhancement: Visual Learning Requirement**  
 **CEO Approved**
 
