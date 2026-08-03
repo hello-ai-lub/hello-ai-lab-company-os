@@ -1,228 +1,273 @@
-/* ============================================
-   Hello Print Store - JavaScript Interactions
-   ============================================ */
+// ============================================
+// Hello Print Store - Interactive Features
+// ============================================
 
-// DOM Elements
-const header = document.querySelector('.header');
-const menuToggle = document.querySelector('.menu-toggle');
-const headerNav = document.querySelector('.header-nav');
-const scrollIndicator = document.getElementById('scrollIndicator');
-const hero = document.getElementById('hero');
-const ctaButtons = document.querySelectorAll('.cta-button');
+document.addEventListener('DOMContentLoaded', () => {
+    initMobileMenu();
+    initScrollDetection();
+    initIntersectionObserver();
+    initCTAButtons();
+    initKeyboardNavigation();
+});
 
 // ============================================
 // Mobile Menu Toggle
 // ============================================
 
-menuToggle?.addEventListener('click', () => {
-    menuToggle.classList.toggle('active');
-    headerNav.classList.toggle('active');
-});
+function initMobileMenu() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const headerNav = document.querySelector('.header-nav');
 
-// Close menu when nav link clicked
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        menuToggle.classList.remove('active');
-        headerNav.classList.remove('active');
-    });
-});
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            headerNav.classList.toggle('active');
+        });
 
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.header')) {
-        menuToggle.classList.remove('active');
-        headerNav.classList.remove('active');
+        // Close menu when clicking a link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                headerNav.classList.remove('active');
+            });
+        });
     }
-});
+}
 
 // ============================================
 // Scroll Detection
 // ============================================
 
-let scrollTimeout;
-let isScrolling = false;
+function initScrollDetection() {
+    const header = document.querySelector('.header');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    let lastScrollPos = 0;
 
-window.addEventListener('scroll', () => {
-    const scrollPosition = window.scrollY;
-    const heroHeight = hero.offsetHeight;
+    window.addEventListener('scroll', () => {
+        const currentScrollPos = window.scrollY;
 
-    // Hide scroll indicator when user scrolls
-    if (scrollPosition > 100) {
-        scrollIndicator.classList.add('hide');
-        isScrolling = true;
-    } else {
-        scrollIndicator.classList.remove('hide');
-        isScrolling = false;
-    }
+        // Hide scroll indicator when scrolling
+        if (scrollIndicator) {
+            if (currentScrollPos > window.innerHeight * 0.3) {
+                scrollIndicator.classList.add('hide');
+            } else {
+                scrollIndicator.classList.remove('hide');
+            }
+        }
 
-    // Add shadow to header on scroll
-    if (scrollPosition > 10) {
-        header.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
-    } else {
-        header.style.boxShadow = 'none';
-    }
+        // Parallax effect on hero
+        const hero = document.querySelector('.hero-1');
+        if (hero && currentScrollPos < window.innerHeight) {
+            hero.style.backgroundPosition = `center ${currentScrollPos * 0.5}px`;
+        }
 
-    // Parallax effect on background (subtle)
-    const bgElement = document.querySelector('.hero-bg');
-    if (scrollPosition < heroHeight) {
-        const offset = scrollPosition * 0.5;
-        bgElement.style.transform = `translateY(${offset}px)`;
-    }
-}, { passive: true });
-
-// ============================================
-// Scroll Indicator Click
-// ============================================
-
-scrollIndicator?.addEventListener('click', () => {
-    window.scrollTo({
-        top: hero.offsetHeight,
-        behavior: 'smooth'
+        lastScrollPos = currentScrollPos;
     });
-});
+
+    // Scroll indicator click
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', () => {
+            const firstSection = document.querySelector('.section-culture');
+            if (firstSection) {
+                firstSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+}
 
 // ============================================
-// CTA Button Analytics (Placeholder)
+// Intersection Observer for Reveal Animations
 // ============================================
 
-ctaButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-        const text = button.textContent;
-        console.log(`CTA clicked: ${text}`);
-        
-        // Add visual feedback
-        button.style.transform = 'scale(0.98)';
-        setTimeout(() => {
-            button.style.transform = '';
-        }, 100);
+function initIntersectionObserver() {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -100px 0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Optional: stop observing after reveal
+                // observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe all elements with reveal attributes
+    const revealElements = document.querySelectorAll('[data-reveal-up], [data-reveal]');
+    revealElements.forEach(element => {
+        observer.observe(element);
     });
-});
+}
 
 // ============================================
-// Smooth Scroll Behavior Enhancement
+// CTA Buttons Analytics
 // ============================================
 
-// Improve scrollbar visibility on scroll
-let scrollbarVisibilityTimeout;
-document.addEventListener('wheel', () => {
-    clearTimeout(scrollbarVisibilityTimeout);
-    document.documentElement.style.scrollbarGutter = 'auto';
-    
-    scrollbarVisibilityTimeout = setTimeout(() => {
-        document.documentElement.style.scrollbarGutter = 'stable';
-    }, 2000);
-}, { passive: true });
+function initCTAButtons() {
+    const buttons = document.querySelectorAll('.button');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const buttonText = button.textContent.trim();
+            console.log(`CTA Button Clicked: ${buttonText}`);
+            
+            // Add ripple effect
+            const ripple = document.createElement('span');
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+        });
+    });
+}
 
 // ============================================
 // Keyboard Navigation
 // ============================================
 
-document.addEventListener('keydown', (e) => {
-    // Close menu on Escape
-    if (e.key === 'Escape' && headerNav.classList.contains('active')) {
-        menuToggle.classList.remove('active');
-        headerNav.classList.remove('active');
-    }
-    
-    // Space or Arrow Down to scroll
-    if (e.key === ' ' || e.key === 'ArrowDown') {
-        if (!isScrolling && scrollIndicator.offsetParent !== null) {
+function initKeyboardNavigation() {
+    document.addEventListener('keydown', (e) => {
+        // Close mobile menu with Escape
+        if (e.key === 'Escape') {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const headerNav = document.querySelector('.header-nav');
+            if (menuToggle && headerNav.classList.contains('active')) {
+                menuToggle.classList.remove('active');
+                headerNav.classList.remove('active');
+            }
+        }
+
+        // Keyboard navigation
+        if (e.key === ' ' && e.target === document.body) {
             e.preventDefault();
-            window.scrollTo({
-                top: hero.offsetHeight,
-                behavior: 'smooth'
-            });
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (scrollIndicator && !scrollIndicator.classList.contains('hide')) {
+                scrollIndicator.click();
+            }
+        }
+    });
+}
+
+// ============================================
+// Smooth Scroll for Navigation Links
+// ============================================
+
+document.addEventListener('click', (e) => {
+    if (e.target.matches('a[href^="#"]')) {
+        const targetId = e.target.getAttribute('href').slice(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+            e.preventDefault();
+            targetElement.scrollIntoView({ behavior: 'smooth' });
         }
     }
 });
 
 // ============================================
-// Responsive Behavior
+// Performance: Lazy Load Images
 // ============================================
 
-let isMobile = window.innerWidth <= 768;
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+                imageObserver.unobserve(img);
+            }
+        });
+    });
 
-window.addEventListener('resize', () => {
-    isMobile = window.innerWidth <= 768;
-    
-    // Close mobile menu on resize to desktop
-    if (!isMobile && headerNav.classList.contains('active')) {
-        menuToggle.classList.remove('active');
-        headerNav.classList.remove('active');
-    }
-}, { passive: true });
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
 
 // ============================================
-// Accessibility - Focus Management
+// Accessibility: Skip to Main Content
 // ============================================
 
-// Trap focus in mobile menu when open
-document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Tab' || !headerNav.classList.contains('active')) {
-        return;
-    }
-    
-    const focusableElements = headerNav.querySelectorAll('a, button');
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-    
-    if (e.shiftKey) {
-        if (document.activeElement === firstElement) {
-            e.preventDefault();
-            lastElement.focus();
-        }
-    } else {
-        if (document.activeElement === lastElement) {
-            e.preventDefault();
-            firstElement.focus();
-        }
-    }
+const skipLink = document.createElement('a');
+skipLink.textContent = 'Skip to main content';
+skipLink.href = '#main';
+skipLink.className = 'skip-link';
+skipLink.style.cssText = `
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-hello-orange);
+    color: var(--color-white);
+    padding: 8px;
+    z-index: 99999;
+    text-decoration: none;
+`;
+
+skipLink.addEventListener('focus', () => {
+    skipLink.style.top = '0';
 });
 
+skipLink.addEventListener('blur', () => {
+    skipLink.style.top = '-40px';
+});
+
+document.body.insertBefore(skipLink, document.body.firstChild);
+
 // ============================================
-// Preload Images
+// Preload Critical Images
 // ============================================
 
-function preloadImages() {
-    const images = document.querySelectorAll('img, [style*="background-image"]');
-    images.forEach(img => {
-        if (img.style.backgroundImage) {
-            const url = img.style.backgroundImage.slice(4, -1).replace(/"/g, '');
-            const image = new Image();
-            image.src = url;
-        }
+function preloadCriticalImages() {
+    const criticalImages = document.querySelectorAll('[data-critical-image]');
+    
+    criticalImages.forEach(img => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = img.style.backgroundImage.replace(/url\(['"]?([^'"]+)['"]?\)/g, '$1');
+        document.head.appendChild(link);
     });
 }
 
-// Call on page load
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', preloadImages);
-} else {
-    preloadImages();
-}
+preloadCriticalImages();
 
 // ============================================
-// Performance Monitoring
+// Scroll Progress Bar (Optional)
 // ============================================
 
-if (window.performance && window.performance.timing) {
-    window.addEventListener('load', () => {
-        const timingData = window.performance.timing;
-        const pageLoadTime = timingData.loadEventEnd - timingData.navigationStart;
-        console.log(`Page load time: ${pageLoadTime}ms`);
+function initScrollProgress() {
+    const progressBar = document.createElement('div');
+    progressBar.style.cssText = `
+        position: fixed;
+        top: 60px;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(to right, var(--color-hello-orange), var(--color-hello-orange));
+        z-index: 99;
+    `;
+    document.body.appendChild(progressBar);
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
     });
 }
 
-// ============================================
-// Service Worker Registration (Optional)
-// ============================================
+// Uncomment to enable scroll progress bar
+// initScrollProgress();
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        // Uncomment to enable service worker
-        // navigator.serviceWorker.register('/sw.js').catch(err => {
-        //     console.log('ServiceWorker registration failed:', err);
-        // });
-    });
-}
+console.log('Hello Print Store - Site loaded successfully ✓');
