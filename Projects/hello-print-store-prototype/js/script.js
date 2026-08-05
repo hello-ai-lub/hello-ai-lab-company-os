@@ -599,10 +599,56 @@ async function resolveInstagramBusinessAccount(accessToken) {
 
     const data = await fetchGraphJson(endpoint, 'pages_show_list');
     const pages = data && Array.isArray(data.data) ? data.data : [];
-    const pagesWithInstagram = pages.filter((page) => page && page.instagram_business_account && page.instagram_business_account.id);
+    const pageListSummary = pages.map((page) => ({
+        pageId: page && page.id ? page.id : null,
+        pageName: page && page.name ? page.name : null,
+        instagram_business_account: page && Object.prototype.hasOwnProperty.call(page, 'instagram_business_account')
+            ? page.instagram_business_account
+            : null
+    }));
+
+    const pageDetails = await Promise.all(pages
+        .filter((page) => page && page.id)
+        .map((page) => fetchPageInstagramBusinessAccount(page.id, accessToken, page.name || null)));
+
+    appendInstagramGraphDebugStep({
+        stage: 'pages_debug',
+        ok: true,
+        pages: pageListSummary,
+        pageDetailLookups: pageDetails
+    });
+
+    const detailById = new Map(pageDetails
+        .filter((detail) => detail && detail.pageId)
+        .map((detail) => [detail.pageId, detail]));
+
+    const enrichedPages = pages.map((page) => {
+        if (!page || !page.id) {
+            return page;
+        }
+
+        const detail = detailById.get(page.id);
+        const listInstagramAccount = Object.prototype.hasOwnProperty.call(page, 'instagram_business_account')
+            ? page.instagram_business_account
+            : null;
+        const detailInstagramAccount = detail && Object.prototype.hasOwnProperty.call(detail, 'instagram_business_account')
+            ? detail.instagram_business_account
+            : null;
+
+        const instagram_business_account = listInstagramAccount && listInstagramAccount.id
+            ? listInstagramAccount
+            : detailInstagramAccount;
+
+        return {
+            ...page,
+            instagram_business_account
+        };
+    });
+
+    const pagesWithInstagram = enrichedPages.filter((page) => page && page.instagram_business_account && page.instagram_business_account.id);
 
     if (!pagesWithInstagram.length) {
-        const firstPage = pages[0] || null;
+        const firstPage = enrichedPages[0] || null;
         appendInstagramGraphDebugStep({
             stage: 'instagram_business_account',
             ok: false,
@@ -645,6 +691,34 @@ async function resolveInstagramBusinessAccount(accessToken) {
         igUserId: businessAccount.id,
         handle
     };
+}
+
+async function fetchPageInstagramBusinessAccount(pageId, accessToken, pageName) {
+    const endpoint = new URL(`${INSTAGRAM_APP_CONFIG.graphApiBase}/${INSTAGRAM_APP_CONFIG.graphApiVersion}/${pageId}`);
+    endpoint.searchParams.set('fields', 'id,name,instagram_business_account{id,username}');
+    endpoint.searchParams.set('access_token', accessToken);
+
+    try {
+        const responseJson = await fetchGraphJson(endpoint, `page_detail_lookup_${pageId}`);
+        return {
+            pageId,
+            pageName: responseJson && responseJson.name ? responseJson.name : pageName,
+            endpoint: sanitizeGraphEndpoint(endpoint),
+            responseJson,
+            instagram_business_account: responseJson && Object.prototype.hasOwnProperty.call(responseJson, 'instagram_business_account')
+                ? responseJson.instagram_business_account
+                : null
+        };
+    } catch (error) {
+        return {
+            pageId,
+            pageName,
+            endpoint: sanitizeGraphEndpoint(endpoint),
+            responseJson: null,
+            instagram_business_account: null,
+            error: error && error.graph ? error.graph : { message: error.message || 'Unknown page detail lookup error' }
+        };
+    }
 }
 
 function getConfiguredInstagramUsername() {
