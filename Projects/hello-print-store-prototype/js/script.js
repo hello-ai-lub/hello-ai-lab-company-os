@@ -522,7 +522,7 @@ async function fetchInstagramGraphPosts(accessToken, limit) {
         endpoint: sanitizeGraphEndpoint(endpoint)
     });
 
-    const data = await fetchGraphJson(endpoint);
+    const data = await fetchGraphJson(endpoint, 'media_endpoint');
     if (!data || !Array.isArray(data.data)) {
         return [];
     }
@@ -551,11 +551,23 @@ async function resolveInstagramBusinessAccount(accessToken) {
         endpoint: sanitizeGraphEndpoint(endpoint)
     });
 
-    const data = await fetchGraphJson(endpoint);
+    const data = await fetchGraphJson(endpoint, 'pages_show_list');
     const pages = data && Array.isArray(data.data) ? data.data : [];
     const pagesWithInstagram = pages.filter((page) => page && page.instagram_business_account && page.instagram_business_account.id);
 
     if (!pagesWithInstagram.length) {
+        const firstPage = pages[0] || null;
+        appendInstagramGraphDebugStep({
+            stage: 'instagram_business_account',
+            ok: false,
+            selectedPageId: firstPage && firstPage.id ? firstPage.id : null,
+            selectedPageName: firstPage && firstPage.name ? firstPage.name : null,
+            instagram_business_account: firstPage && Object.prototype.hasOwnProperty.call(firstPage, 'instagram_business_account')
+                ? firstPage.instagram_business_account
+                : null,
+            igBusinessAccountId: null,
+            message: 'No page with instagram_business_account.id found.'
+        });
         throw new Error('No Facebook Page linked to an Instagram Business account was found for this access token.');
     }
 
@@ -574,10 +586,13 @@ async function resolveInstagramBusinessAccount(accessToken) {
     appendInstagramGraphDebugStep({
         stage: 'instagram_business_account',
         ok: true,
-        selectedPageId: selectedPage.id || '',
-        selectedPageName: selectedPage.name || '',
-        igBusinessAccountId: businessAccount.id || '',
-        igUsername: businessAccount.username || ''
+        selectedPageId: selectedPage.id || null,
+        selectedPageName: selectedPage.name || null,
+        instagram_business_account: Object.prototype.hasOwnProperty.call(selectedPage, 'instagram_business_account')
+            ? selectedPage.instagram_business_account
+            : null,
+        igBusinessAccountId: businessAccount.id || null,
+        igUsername: businessAccount.username || null
     });
 
     return {
@@ -595,7 +610,7 @@ function getConfiguredInstagramUsername() {
     }
 }
 
-async function fetchGraphJson(endpoint) {
+async function fetchGraphJson(endpoint, debugStage = 'graph_call') {
     const response = await fetch(endpoint.toString());
     const rawBody = await response.text();
     let data = null;
@@ -611,6 +626,7 @@ async function fetchGraphJson(endpoint) {
         const message = apiMessage || `Graph API request failed with status ${response.status}.`;
         const errorPayload = {
             ok: false,
+            stage: debugStage,
             endpoint: sanitizeGraphEndpoint(endpoint),
             httpStatus: response.status,
             httpStatusText: response.statusText || '',
@@ -629,10 +645,11 @@ async function fetchGraphJson(endpoint) {
     }
 
     appendInstagramGraphDebugStep({
-        stage: 'graph_call',
+        stage: debugStage,
         ok: true,
         endpoint: sanitizeGraphEndpoint(endpoint),
-        httpStatus: response.status
+        httpStatus: response.status,
+        responseJson: data
     });
 
     return data;
