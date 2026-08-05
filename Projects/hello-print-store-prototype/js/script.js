@@ -1,6 +1,6 @@
 const INSTAGRAM_CONFIG = {
     accessToken: '',
-    limit: 8,
+    limit: 4,
     profileUrl: 'https://instagram.com/helloprintstore/'
 };
 
