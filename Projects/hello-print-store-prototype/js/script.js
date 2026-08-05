@@ -12,7 +12,10 @@ const INSTAGRAM_APP_CONFIG = {
     oauthEndpoint: 'https://www.facebook.com/v23.0/dialog/oauth',
     graphApiBase: 'https://graph.facebook.com',
     graphApiVersion: 'v23.0',
-    oauthStateStorageKey: 'hps_instagram_oauth_state_v1'
+    oauthStateStorageKey: 'hps_instagram_oauth_state_v1',
+    oauthReturnUrlStorageKey: 'hps_instagram_oauth_return_url_v1',
+    accessTokenStorageKey: 'hps_instagram_access_token_v1',
+    oauthCodeStorageKey: 'hps_instagram_oauth_code_v1'
 };
 
 const INSTAGRAM_CACHE_KEY = 'hps_instagram_feed_cache_v1';
@@ -57,7 +60,8 @@ function getInstagramAuthConfig() {
         deprecatedAppIds: INSTAGRAM_APP_CONFIG.deprecatedAppIds,
         oauthEndpoint: INSTAGRAM_APP_CONFIG.oauthEndpoint,
         oauthStateStorageKey: INSTAGRAM_APP_CONFIG.oauthStateStorageKey,
-        responseType: 'code'
+        oauthReturnUrlStorageKey: INSTAGRAM_APP_CONFIG.oauthReturnUrlStorageKey,
+        responseType: 'token'
     };
 }
 
@@ -92,6 +96,8 @@ function logInstagramOAuthStart(config) {
     console.group('HPS Instagram OAuth Start');
     console.log('client_id:', config.appId);
     console.log('redirect_uri:', config.redirectUri);
+    console.log('current_origin:', window.location.origin);
+    console.log('current_path:', window.location.pathname);
     console.log('scope:', config.scope);
     console.log('response_type:', config.responseType);
     console.log('oauth_url:', buildInstagramOAuthUrl(config));
@@ -106,6 +112,7 @@ function startInstagramOAuth(config) {
 
     const state = createInstagramOAuthState();
     storeInstagramOAuthState(config.oauthStateStorageKey, state);
+    storeInstagramOAuthReturnUrl(config.oauthReturnUrlStorageKey);
 
     logInstagramOAuthStart(config);
     window.location.href = buildInstagramOAuthUrl(config, state);
@@ -130,6 +137,18 @@ function storeInstagramOAuthState(storageKey, state) {
         sessionStorage.setItem(storageKey, state);
     } catch (error) {
         console.warn('Failed to store OAuth state.', error);
+    }
+}
+
+function storeInstagramOAuthReturnUrl(storageKey) {
+    if (!storageKey || typeof sessionStorage === 'undefined') {
+        return;
+    }
+
+    try {
+        sessionStorage.setItem(storageKey, window.location.href);
+    } catch (error) {
+        console.warn('Failed to store OAuth return URL.', error);
     }
 }
 
@@ -422,8 +441,33 @@ function getInstagramToken() {
     const tokenFromWindow = typeof window !== 'undefined' ? window.__HPS_INSTAGRAM_ACCESS_TOKEN : '';
     const tokenFromMeta = document.querySelector('meta[name="instagram-access-token"]');
     const metaValue = tokenFromMeta ? tokenFromMeta.getAttribute('content') : '';
+    const tokenFromStorage = readStoredInstagramAccessToken();
 
-    return INSTAGRAM_CONFIG.accessToken || tokenFromWindow || metaValue || '';
+    return INSTAGRAM_CONFIG.accessToken || tokenFromWindow || metaValue || tokenFromStorage || '';
+}
+
+function readStoredInstagramAccessToken() {
+    try {
+        const raw = localStorage.getItem(INSTAGRAM_APP_CONFIG.accessTokenStorageKey);
+        if (!raw) {
+            return '';
+        }
+
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed.accessToken !== 'string') {
+            return '';
+        }
+
+        if (typeof parsed.expiresAt === 'number' && parsed.expiresAt > 0 && Date.now() >= parsed.expiresAt) {
+            localStorage.removeItem(INSTAGRAM_APP_CONFIG.accessTokenStorageKey);
+            return '';
+        }
+
+        return parsed.accessToken.trim();
+    } catch (error) {
+        console.warn('Failed to read stored Instagram access token.', error);
+        return '';
+    }
 }
 
 async function fetchInstagramGraphPosts(accessToken, limit) {

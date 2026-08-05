@@ -61,6 +61,8 @@ OAuth開始先は Facebook Login ダイアログを利用します。
 - `https://www.facebook.com/v23.0/dialog/oauth`
 - scope: `instagram_basic,pages_show_list`
 
+実装は `response_type=token` を使用し、Callbackで `access_token` を受け取り保存します。
+
 ### APIエンドポイント統一方針（重要）
 
 - この実装は **Instagram API with Facebook Login** に統一しています。
@@ -78,6 +80,22 @@ OAuth開始先は Facebook Login ダイアログを利用します。
 `GET https://graph.facebook.com/v23.0/oauth/access_token?grant_type=fb_exchange_token&client_id=APP_ID&client_secret=APP_SECRET&fb_exchange_token=SHORT_LIVED_USER_TOKEN`
 
 注: `client_secret` を扱うため、上記2ステップは必ずサーバー側で実行してください。
+
+### Callbackでの保存動作
+
+- Callbackファイル: `instagram-oauth-callback.html`
+- 受信優先順位:
+   1. `access_token`（hash/query）
+   2. `code`（query）
+- `access_token` 受信時は `localStorage` の `hps_instagram_access_token_v1` に保存し、自動で元ページへ戻ります。
+- `code` のみ受信時は `hps_instagram_oauth_code_v1` に保存し、サーバー側交換手順を表示します。
+- `state` は `sessionStorage` の `hps_instagram_oauth_state_v1` で検証します。
+
+### business/cancel 調査ポイント
+
+- `business/cancel` は Meta 側で認証フローが完了せず中断された場合に発生します。
+- 最優先確認は `redirect_uri` の完全一致（スキーム/ホスト/パス/末尾スラッシュ含む）です。
+- Callbackで `error`, `error_reason`, `error_description`, `state` を表示するため、失敗時はその値を確認してください。
 
 ### 仕様
 

@@ -60,18 +60,65 @@
         const payload = document.getElementById('payload');
         const nextStep = document.getElementById('nextStep');
         const params = new URLSearchParams(window.location.search);
+        const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
 
         const code = params.get('code');
+        const accessTokenFromQuery = params.get('access_token');
+        const accessTokenFromHash = hashParams.get('access_token');
+        const accessToken = accessTokenFromHash || accessTokenFromQuery;
+        const expiresInRaw = hashParams.get('expires_in') || params.get('expires_in');
+        const expiresIn = Number(expiresInRaw || 0);
         const state = params.get('state');
         const error = params.get('error');
         const errorReason = params.get('error_reason');
         const errorDescription = params.get('error_description');
         const stateStorageKey = 'hps_instagram_oauth_state_v1';
+        const returnUrlStorageKey = 'hps_instagram_oauth_return_url_v1';
+        const accessTokenStorageKey = 'hps_instagram_access_token_v1';
+        const oauthCodeStorageKey = 'hps_instagram_oauth_code_v1';
         const expectedState = sessionStorage.getItem(stateStorageKey);
+        const returnUrl = sessionStorage.getItem(returnUrlStorageKey);
 
         const callbackUrl = `${window.location.origin}${window.location.pathname}`;
 
-        if (code) {
+        function clearOAuthSessionState() {
+            sessionStorage.removeItem(stateStorageKey);
+            sessionStorage.removeItem(returnUrlStorageKey);
+        }
+
+        function redirectBackToSite() {
+            if (returnUrl) {
+                window.location.replace(returnUrl);
+                return;
+            }
+
+            const fallbackPath = window.location.pathname.replace(/instagram-oauth-callback\.html$/, '');
+            window.location.replace(`${window.location.origin}${fallbackPath}`);
+        }
+
+        if (accessToken) {
+            const expiresAt = Number.isFinite(expiresIn) && expiresIn > 0
+                ? Date.now() + (expiresIn * 1000)
+                : 0;
+
+            localStorage.setItem(accessTokenStorageKey, JSON.stringify({
+                accessToken,
+                expiresAt,
+                savedAt: Date.now(),
+                source: 'oauth-callback'
+            }));
+
+            status.textContent = 'Instagram連携が完了しました。ホームへ戻ります...';
+            payload.textContent = JSON.stringify({
+                state,
+                has_access_token: true,
+                expires_in: expiresIn || null,
+                callback_url: callbackUrl
+            }, null, 2);
+            nextStep.textContent = 'アクセストークンをlocalStorageへ保存しました。';
+            clearOAuthSessionState();
+            setTimeout(redirectBackToSite, 900);
+        } else if (code) {
             if (expectedState && state !== expectedState) {
                 status.textContent = 'OAuth認証は完了しましたが、state検証に失敗しました。再度ログインをやり直してください。';
                 payload.textContent = JSON.stringify({
@@ -83,6 +130,13 @@
                 nextStep.textContent = '';
                 console.error('HPS Instagram OAuth Callback state mismatch:', { state, expectedState });
             } else {
+                localStorage.setItem(oauthCodeStorageKey, JSON.stringify({
+                    code,
+                    state,
+                    callbackUrl,
+                    savedAt: Date.now()
+                }));
+
                 status.textContent = 'OAuth認証は成功しました。取得したcodeをサーバー側でアクセストークンに交換してください。';
                 payload.textContent = JSON.stringify({ code, state }, null, 2);
                 nextStep.textContent = [
@@ -97,25 +151,39 @@
                 console.log('HPS Instagram OAuth Callback code:', code);
             }
 
-            sessionStorage.removeItem(stateStorageKey);
+            clearOAuthSessionState();
         } else if (error) {
             status.textContent = 'OAuth認証でエラーが発生しました。以下を確認してください。';
             payload.textContent = JSON.stringify({
                 error,
                 error_reason: errorReason,
-                error_description: errorDescription
+                error_description: errorDescription,
+                callback_url: callbackUrl,
+                redirect_uri_expected: callbackUrl,
+                state,
+                expectedState
             }, null, 2);
-            nextStep.textContent = '';
+            nextStep.textContent = [
+                'business/cancel で停止する主な原因:',
+                '1) redirect_uri が Meta設定値と1文字でも不一致',
+                '2) callback が code 受信前に中断',
+                '3) ユーザーまたは設定上の権限キャンセル',
+                '',
+                'この画面のpayloadを保存し、Metaの有効なRedirect URI設定と完全一致を再確認してください。'
+            ].join('\n');
             console.error('HPS Instagram OAuth Callback error:', {
                 error,
                 error_reason: errorReason,
                 error_description: errorDescription
             });
+            clearOAuthSessionState();
         } else {
             status.textContent = 'codeまたはerrorが見つかりませんでした。OAuth開始URLを確認してください。';
             payload.textContent = JSON.stringify({
                 query: window.location.search,
-                hash: window.location.hash
+                hash: window.location.hash,
+                callback_url: callbackUrl,
+                expectedState
             }, null, 2);
             nextStep.textContent = '';
         }
