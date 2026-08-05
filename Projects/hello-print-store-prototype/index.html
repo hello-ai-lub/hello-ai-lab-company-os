@@ -3,25 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Hello Print Store - Design for Teams. Create for Culture.">
+    <meta name="description" content="Hello Print Store official website prototype">
+    <meta name="instagram-app-id" content="1626671125739257">
+    <meta name="instagram-redirect-uri" content="">
+    <meta name="instagram-oauth-scope" content="instagram_basic,pages_show_list">
+    <meta name="instagram-access-token" content="">
     <title>Hello Print Store</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Header (Fixed) -->
     <header class="header" id="header">
         <div class="header-container">
             <div class="header-logo">
-                <a href="#" class="logo-link">H</a>
+                <a href="#top" class="logo-link" aria-label="Hello Print Store home">
+                    <img src="assets/logo/01_logo/hello_logo_white.svg" alt="Hello Print Store logo white" class="brand-logo logo-white" id="headerLogoWhite">
+                    <img src="assets/logo/01_logo/hello_logo_black.svg" alt="Hello Print Store logo black" class="brand-logo logo-black" id="headerLogoBlack">
+                </a>
             </div>
             <nav class="header-nav">
                 <ul class="nav-list">
+                    <li><a href="#top" class="nav-link">TOP</a></li>
                     <li><a href="#works" class="nav-link">WORKS</a></li>
-                    <li><a href="#flow" class="nav-link">FLOW</a></li>
-                    <li><a href="#items" class="nav-link">ITEMS</a></li>
-                    <li><a href="#originals" class="nav-link">ORIGINALS</a></li>
-                    <li><a href="#" class="nav-link">ABOUT</a></li>
-                    <li><a href="#" class="nav-link">CONTACT</a></li>
+                    <li><a href="#about" class="nav-link">ABOUT</a></li>
+                    <li><a href="#order" class="nav-link">ORDER</a></li>
+                    <li><a href="#original-collab" class="nav-link">ORIGINAL / COLLAB</a></li>
+                    <li><a href="#contact" class="nav-link">CONTACT</a></li>
                 </ul>
             </nav>
             <button class="menu-toggle" aria-label="メニュー">
@@ -32,173 +38,254 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section 1: Full Screen Image -->
-        <section class="hero hero-1" id="hero">
-            <div class="hero-image" style="background-image: url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=1920&q=80');">
+    <main id="main">
+        <section class="hero" id="top">
+            <div class="hero-image" style="background-image: url('assets/hero/02_hero/_NNN0072.jpg');">
                 <div class="hero-overlay-dark"></div>
             </div>
             <div class="hero-content">
-                <div class="hero-text-wrapper" id="heroText">
-                    <h1 class="hero-title">
-                        <span class="title-line" data-reveal>Design</span>
-                        <span class="title-line" data-reveal>for Teams</span>
-                    </h1>
-                </div>
-                <div class="scroll-indicator" id="scrollIndicator">
-                    <span class="scroll-text">Scroll</span>
-                    <svg class="scroll-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 5v10M7 15l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                <div class="hero-logo" id="heroText">
+                    <img src="assets/logo/01_logo/hello_logo_white.svg" alt="Hello Print Store logo mark" class="hero-logo-mark">
                 </div>
             </div>
         </section>
 
-        <!-- Section 2: Culture Message -->
-        <section class="section-white section-culture">
+        <section class="section section-intro section-culture" id="intro">
             <div class="section-container">
-                <div class="culture-content" data-reveal-up>
-                    <h2 class="section-title">Create for<br><span class="highlight">Culture</span></h2>
-                    <p class="section-subtitle">ユニフォームは、単なる服ではありません。<br>チームの世界観。コミュニティの言語。</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 3: Split Layout - Image Left -->
-        <section class="section-split section-split-left">
-            <div class="split-image" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1200&q=80');">
-                <div class="image-overlay"></div>
-            </div>
-            <div class="split-content" data-reveal-up>
-                <h3 class="split-title">World of Hello</h3>
-                <p class="split-text">
-                    福岡発。ユニフォーム・ウェアを通じて、<br>
-                    チームの世界観を一緒に創造する。<br><br>
-                    商品ではなく、文化。<br>
-                    品質ではなく、共創。
-                </p>
-                <div class="split-cta">
-                    <a href="#" class="cta-link">View Our Story →</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 4: Works Grid -->
-        <section class="section-works" id="works">
-            <div class="works-header" data-reveal-up>
-                <h2 class="works-title">Our Works</h2>
-                <p class="works-subtitle">実績 × 世界観</p>
-            </div>
-            <div class="works-grid">
-                <div class="work-item work-large" style="background-image: url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=80');">
-                    <div class="work-overlay"></div>
-                    <div class="work-content">
-                        <h4>Team Unity</h4>
-                    </div>
-                </div>
-                <div class="work-item" style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80');">
-                    <div class="work-overlay"></div>
-                    <div class="work-content">
-                        <h4>Athletes</h4>
-                    </div>
-                </div>
-                <div class="work-item" style="background-image: url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&q=80');">
-                    <div class="work-overlay"></div>
-                    <div class="work-content">
-                        <h4>Fashion</h4>
-                    </div>
-                </div>
-                <div class="work-item" style="background-image: url('https://images.unsplash.com/photo-1505228395891-9a51e7e86e81?w=800&q=80');">
-                    <div class="work-overlay"></div>
-                    <div class="work-content">
-                        <h4>Sports</h4>
+                <div class="section-heading intro-reveal" data-reveal-up>
+                    <h2 class="heading-en">TEAM YOUR IDEA.</h2>
+                    <p class="heading-ja">チームの想いをデザインする。</p>
+                    <p class="body-ja">全国対応のオーダーユニフォーム・チームウェア製作。</p>
+                    <div class="button-row">
+                        <a href="#order" class="button button-primary">ORDER</a>
+                        <a href="#works" class="button button-secondary">WORKS</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 5: Process -->
-        <section class="section-process" id="flow">
-            <div class="process-header" data-reveal-up>
-                <h2 class="process-title">How We Work</h2>
+        <section class="section section-instagram" id="instagram">
+            <div class="section-heading" data-reveal-up>
+                <h2 class="heading-en">INSTAGRAM</h2>
+                <p class="heading-ja">最新の制作実績</p>
             </div>
-            <div class="process-steps">
-                <div class="step" data-reveal-up>
-                    <div class="step-number">01</div>
-                    <h4 class="step-title">Consultation</h4>
-                    <p class="step-text">チームの世界観をヒアリング</p>
+            <div class="instagram-feed instagram-grid" id="instagramFeed" data-reveal-up>
+                <div class="instagram-card instagram-card-loading" aria-live="polite">
+                    <div class="instagram-media-wrap"></div>
+                    <div class="instagram-caption-row">
+                        <span class="instagram-handle">@helloprintstore</span>
+                        <p class="instagram-date">読み込み中</p>
+                        <p class="instagram-caption">Instagramの最新投稿を取得しています...</p>
+                    </div>
                 </div>
-                <div class="step" data-reveal-up>
-                    <div class="step-number">02</div>
-                    <h4 class="step-title">Design</h4>
-                    <p class="step-text">あなたらしいデザインを提案</p>
-                </div>
-                <div class="step" data-reveal-up>
-                    <div class="step-number">03</div>
-                    <h4 class="step-title">Review</h4>
-                    <p class="step-text">フィードバックで完成へ</p>
-                </div>
-                <div class="step" data-reveal-up>
-                    <div class="step-number">04</div>
-                    <h4 class="step-title">Production</h4>
-                    <p class="step-text">高品質で製造</p>
-                </div>
-                <div class="step" data-reveal-up>
-                    <div class="step-number">05</div>
-                    <h4 class="step-title">Delivery</h4>
-                    <p class="step-text">あなたの世界へ</p>
+            </div>
+            <div class="button-row button-row-center" data-reveal-up>
+                <a class="button button-secondary" href="https://instagram.com/helloprintstore/" target="_blank" rel="noopener noreferrer">VIEW MORE</a>
+            </div>
+        </section>
+
+        <section class="section section-works" id="works">
+            <div class="section-heading" data-reveal-up>
+                <h2 class="heading-en">WORKS</h2>
+                <p class="heading-ja">制作実績</p>
+            </div>
+            <div class="works-magazine" data-reveal-up>
+                <article class="works-feature-block">
+                    <a class="works-feature" href="assets/works/03_works/LASTONE/IMG_6156.jpg" data-work-item data-work-title="THE LAST ONE" data-work-description="ストライプデザインを採用したオーダーユニフォーム。昇華プリントで細部まで表現しました。">
+                        <img src="assets/works/03_works/LASTONE/IMG_6156.jpg" alt="Works main photo">
+                    </a>
+                    <div class="works-copy">
+                        <h3>THE LAST ONE</h3>
+                        <p class="works-description">ストライプデザインを採用したオーダーユニフォーム。昇華プリントで細部まで表現しました。</p>
+                        <p class="works-feature-text">デザイン特徴: 胸中央のライン切替と番号の視認性。</p>
+                    </div>
+                </article>
+                <div class="works-side-grid">
+                    <article class="work-tile-block">
+                        <a class="work-tile" href="assets/works/03_works/HIRADO/IMG_6157.jpg" data-work-item data-work-title="HIRADO" data-work-description="チームカラーを軸に、試合で映える配色と動きやすさを両立しました。"><img src="assets/works/03_works/HIRADO/IMG_6157.jpg" alt="Works side photo 01"></a>
+                        <div class="works-copy">
+                            <h3>HIRADO</h3>
+                            <p class="works-description">チームカラーを軸に、試合で映える配色と動きやすさを両立しました。</p>
+                            <p class="works-feature-text">デザイン特徴: サイドパネルにグラデーション切替。</p>
+                        </div>
+                    </article>
+                    <article class="work-tile-block">
+                        <a class="work-tile" href="assets/works/03_works/GUYS/IMG_6159.jpg" data-work-item data-work-title="GUYS" data-work-description="ロゴと番号の視認性を高め、街でも着られるクリーンな仕上がりに。"><img src="assets/works/03_works/GUYS/IMG_6159.jpg" alt="Works side photo 02"></a>
+                        <div class="works-copy">
+                            <h3>GUYS</h3>
+                            <p class="works-description">ロゴと番号の視認性を高め、街でも着られるクリーンな仕上がりに。</p>
+                            <p class="works-feature-text">デザイン特徴: ミニマルロゴと袖のライン設計。</p>
+                        </div>
+                    </article>
+                    <article class="work-tile-block">
+                        <a class="work-tile" href="assets/works/03_works/FUJITSU/IMG_6160.jpg" data-work-item data-work-title="FUJITSU" data-work-description="企業チーム向けに上質感を重視し、統一感あるディテールで構成。"><img src="assets/works/03_works/FUJITSU/IMG_6160.jpg" alt="Works side photo 03"></a>
+                        <div class="works-copy">
+                            <h3>FUJITSU</h3>
+                            <p class="works-description">企業チーム向けに上質感を重視し、統一感あるディテールで構成。</p>
+                            <p class="works-feature-text">デザイン特徴: 細線ロゴと落ち着いた配色バランス。</p>
+                        </div>
+                    </article>
+                    <article class="work-tile-block">
+                        <a class="work-tile" href="assets/works/03_works/maiduru/IMG_6161.jpg" data-work-item data-work-title="MAIDURU" data-work-description="用途別に素材を選定し、耐久性と軽さのバランスを最適化しました。"><img src="assets/works/03_works/maiduru/IMG_6161.jpg" alt="Works side photo 04"></a>
+                        <div class="works-copy">
+                            <h3>MAIDURU</h3>
+                            <p class="works-description">用途別に素材を選定し、耐久性と軽さのバランスを最適化しました。</p>
+                            <p class="works-feature-text">デザイン特徴: 動きやすさを重視した立体パターン。</p>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- Section 6: Products -->
-        <section class="section-products" id="items">
-            <div class="products-header" data-reveal-up>
-                <h2 class="products-title">Our Products</h2>
-                <p class="products-subtitle">Uniforms × Culture × Quality</p>
+        <section class="section section-about" id="about">
+            <div class="section-heading" data-reveal-up>
+                <h2 class="heading-en">ABOUT</h2>
+                <p class="heading-ja">Hello Print Storeについて</p>
             </div>
-            <div class="products-showcase" data-reveal-up>
-                <div class="product-card" style="background-image: url('https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80');">
-                    <div class="product-name">Uniforms</div>
-                </div>
-                <div class="product-card" style="background-image: url('https://images.unsplash.com/photo-1578368566432-658bb7270fc1?w=600&q=80');">
-                    <div class="product-name">T-Shirts</div>
-                </div>
-                <div class="product-card" style="background-image: url('https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80');">
-                    <div class="product-name">Sportswear</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 7: CTA -->
-        <section class="section-cta">
-            <div class="cta-container" data-reveal-up>
-                <h2 class="cta-title">Ready to Create<br>Your World?</h2>
-                <div class="cta-buttons">
-                    <a href="#" class="button button-primary">Start Your Order</a>
-                    <a href="#" class="button button-secondary">View All Products</a>
+            <div class="about-layout" data-reveal-up>
+                <article class="about-copy-block">
+                    <h3>Hello Print Storeは</h3>
+                    <p>オーダーユニフォーム・チームウェアを中心に、デザインから製作まで一緒に進めることを大切にしています。</p>
+                    <p>全国対応で、用途・数量・納期に合わせた最適なご提案を行っています。チームごとの目的に合わせ、素材選びから仕上げまで丁寧にサポートします。</p>
+                    <p>私たちが大切にしているのは、見た目だけではなく、チームの想いや背景までデザインに落とし込むことです。ロゴ、配色、シルエット、細部のラインまで、着る人の気持ちが揃う一着を目指します。</p>
+                    <p>製作では、用途に応じた素材選びとプリント方法の組み合わせを重視しています。練習用、試合用、イベント用などシーンごとの使いやすさを確認し、着心地と耐久性のバランスを整えます。</p>
+                    <p>オーダーの流れは、ヒアリングからご提案、調整、製作、納品までを一貫してサポートします。初めての方でも進めやすいように、確認ポイントを分かりやすく整理してご案内しています。</p>
+                    <p>品質面では、色再現や番号の視認性、縫製の仕上がりまで丁寧にチェックし、長く使える完成度を基準にしています。写真映えだけでなく、実際の使用環境で安心して使えることを優先しています。</p>
+                    <p>お客様との関係は、納品して終わりではありません。追加オーダーやデザイン更新にも柔軟に対応し、チームの成長に寄り添いながら、次の一着につながる関係づくりを大切にしています。</p>
+                </article>
+                <div class="about-photo-stack">
+                    <img src="assets/about/04_about/IMG_6152.PNG" alt="Uniform details">
                 </div>
             </div>
         </section>
 
-        <!-- Section 8: Footer -->
+        <section class="section section-order" id="order">
+            <div class="section-heading" data-reveal-up>
+                <h2 class="heading-en">ORDER</h2>
+                <p class="heading-ja">オーダーの流れ</p>
+            </div>
+            <div class="order-flow" data-reveal-up>
+                <article class="order-step">
+                    <i data-lucide="message-circle"></i>
+                    <p class="order-no">01</p>
+                    <h4>CONTACT</h4>
+                    <p>お問い合わせ・ご相談</p>
+                </article>
+                <span class="order-arrow" aria-hidden="true">→</span>
+                <article class="order-step">
+                    <i data-lucide="clipboard-list"></i>
+                    <p class="order-no">02</p>
+                    <h4>HEARING</h4>
+                    <p>内容・数量・納期の確認</p>
+                </article>
+                <span class="order-arrow" aria-hidden="true">→</span>
+                <article class="order-step">
+                    <i data-lucide="pen-tool"></i>
+                    <p class="order-no">03</p>
+                    <h4>DESIGN</h4>
+                    <p>デザインのご提案・調整</p>
+                </article>
+                <span class="order-arrow" aria-hidden="true">→</span>
+                <article class="order-step">
+                    <i data-lucide="scissors"></i>
+                    <p class="order-no">04</p>
+                    <h4>PRODUCTION</h4>
+                    <p>製作・品質確認</p>
+                </article>
+                <span class="order-arrow" aria-hidden="true">→</span>
+                <article class="order-step">
+                    <i data-lucide="truck"></i>
+                    <p class="order-no">05</p>
+                    <h4>DELIVERY</h4>
+                    <p>全国へ発送・納品</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section-original" id="original-collab">
+            <div class="section-heading" data-reveal-up>
+                <h2 class="heading-en">ORIGINAL / COLLAB</h2>
+                <p class="heading-ja">オリジナル・コラボアイテム</p>
+            </div>
+            <div class="lookbook-layout" data-reveal-up>
+                <article class="lookbook-main">
+                    <img src="assets/original/05_original/IMG_6154.PNG" alt="Original lookbook main">
+                    <div class="lookbook-copy">
+                        <h4>HPS LOOKBOOK</h4>
+                        <p>オリジナルウェアとコラボアイテムの世界観。</p>
+                        <p class="item-price">¥8,800（税込）</p>
+                        <a class="button button-secondary" href="https://instagram.com/helloprintstore/" target="_blank" rel="noopener noreferrer">ONLINE STORE</a>
+                        <p class="item-link-note">外部サイトへ移動します</p>
+                    </div>
+                </article>
+                <div class="lookbook-side">
+                    <article class="original-item">
+                        <img src="assets/original/05_original/IMG_6149.PNG" alt="HPS OVERLAY SHORTS">
+                        <h4>HPS OVERLAY SHORTS</h4>
+                        <p>オリジナルショーツ</p>
+                        <p class="item-price">¥6,000（税込）</p>
+                        <a class="button button-secondary" href="https://instagram.com/helloprintstore/" target="_blank" rel="noopener noreferrer">ONLINE STORE</a>
+                        <p class="item-link-note">外部サイトへ移動します</p>
+                    </article>
+                    <article class="original-item">
+                        <img src="assets/original/05_original/IMG_6153.PNG" alt="Artist collab item">
+                        <h4>ARTIST COLLAB</h4>
+                        <p>コラボアイテム</p>
+                        <p class="item-price">¥7,500（税込）</p>
+                        <a class="button button-secondary" href="https://instagram.com/helloprintstore/" target="_blank" rel="noopener noreferrer">VIEW ITEM</a>
+                        <p class="item-link-note">外部サイトへ移動します</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-contact" id="contact">
+            <div class="section-heading" data-reveal-up>
+                <h2 class="heading-en">CONTACT</h2>
+                <p class="heading-ja">まずはご相談ください。</p>
+                <p class="body-ja">デザインが決まっていない場合でも、数量や用途のご相談から対応します。</p>
+                <div class="button-row button-row-center">
+                    <a href="#" class="button button-primary button-large">CONTACT US</a>
+                    <a href="https://instagram.com/helloprintstore/" target="_blank" rel="noopener noreferrer" class="button button-outline-light button-large">VIEW INSTAGRAM</a>
+                </div>
+                <p class="contact-note">まずはお気軽にご相談ください。</p>
+            </div>
+        </section>
         <footer class="footer">
             <div class="footer-content">
-                <div class="footer-logo">Hello Print Store</div>
-                <div class="footer-links">
-                    <a href="#">Instagram</a>
-                    <a href="#">Twitter</a>
-                    <a href="#">Contact</a>
+                <div class="footer-main">
+                    <h3 class="heading-en heading-en-sm">HELLO PRINT STORE</h3>
+                    <div class="footer-links">
+                        <a href="https://instagram.com/helloprintstore/" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+                        <a href="#order">ORDER</a>
+                        <a href="#original-collab">ORIGINAL / COLLAB</a>
+                        <a href="#contact">CONTACT</a>
+                        <a href="#">Privacy Policy</a>
+                    </div>
                 </div>
-                <div class="footer-text">
-                    <p>&copy; 2026 Hello Print Store. Design for Teams. Create for Culture.</p>
+                <div class="footer-sub">
+                    <p>〒810-0014 福岡市中央区平尾1丁目4-7 土橋ビル206</p>
+                    <p>営業時間 10:00〜17:00（平日）</p>
+                    <p>&copy; 2026 HELLO PRINT STORE</p>
                 </div>
             </div>
         </footer>
     </main>
 
-    <!-- Scripts -->
+    <div class="works-modal" id="worksModal" aria-hidden="true">
+        <button class="works-modal-close" id="worksModalClose" aria-label="Close image">&times;</button>
+        <button class="works-modal-nav works-modal-prev" id="worksModalPrev" aria-label="Previous work">&#10094;</button>
+        <figure class="works-modal-content">
+            <img class="works-modal-image" id="worksModalImage" alt="Expanded work image">
+            <figcaption class="works-modal-caption">
+                <h4 id="worksModalTitle">WORK TITLE</h4>
+                <p id="worksModalDescription">WORK DESCRIPTION</p>
+            </figcaption>
+        </figure>
+        <button class="works-modal-nav works-modal-next" id="worksModalNext" aria-label="Next work">&#10095;</button>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="js/script.js"></script>
 </body>
 </html>

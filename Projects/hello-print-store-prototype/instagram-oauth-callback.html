@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram OAuth Callback | Hello Print Store</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background: #f4f6fa;
+            color: #111111;
+            font-family: 'Noto Sans JP', sans-serif;
+            padding: 1.2rem;
+        }
+
+        .card {
+            width: min(760px, 96vw);
+            background: #ffffff;
+            border: 1px solid #d9e2f2;
+            border-radius: 12px;
+            padding: 1.2rem;
+            box-shadow: 0 10px 28px rgba(16, 26, 42, 0.08);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        p {
+            margin: 0.75rem 0 0;
+            color: #3f4a5e;
+            line-height: 1.6;
+        }
+
+        pre {
+            margin: 1rem 0 0;
+            background: #0e1626;
+            color: #d5e4ff;
+            padding: 0.9rem;
+            border-radius: 8px;
+            overflow: auto;
+            font-size: 0.82rem;
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>Instagram OAuth Callback</h1>
+        <p id="status">認証結果を確認しています...</p>
+        <pre id="payload"></pre>
+    </main>
+
+    <script>
+        const status = document.getElementById('status');
+        const payload = document.getElementById('payload');
+        const params = new URLSearchParams(window.location.search);
+
+        const code = params.get('code');
+        const error = params.get('error');
+        const errorReason = params.get('error_reason');
+        const errorDescription = params.get('error_description');
+
+        if (code) {
+            status.textContent = 'OAuth認証は成功しました。取得したcodeをサーバー側でアクセストークンに交換してください。';
+            payload.textContent = JSON.stringify({ code }, null, 2);
+            console.log('HPS Instagram OAuth Callback code:', code);
+        } else if (error) {
+            status.textContent = 'OAuth認証でエラーが発生しました。以下を確認してください。';
+            payload.textContent = JSON.stringify({
+                error,
+                error_reason: errorReason,
+                error_description: errorDescription
+            }, null, 2);
+            console.error('HPS Instagram OAuth Callback error:', {
+                error,
+                error_reason: errorReason,
+                error_description: errorDescription
+            });
+        } else {
+            status.textContent = 'codeまたはerrorが見つかりませんでした。OAuth開始URLを確認してください。';
+            payload.textContent = JSON.stringify({
+                query: window.location.search,
+                hash: window.location.hash
+            }, null, 2);
+        }
+    </script>
+</body>
+</html>

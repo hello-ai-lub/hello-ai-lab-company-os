@@ -7,6 +7,90 @@
 
 ---
 
+## Instagram Graph API Setup
+
+このサイトは Instagram Graph API で最新投稿を自動表示できます。
+
+### App ID統一方針（重要）
+
+- 採用App ID: `1626671125739257`
+- 非採用（廃止予定）App ID: `1479634687539283`
+
+このリポジトリでは、`index.html` の `meta[name="instagram-app-id"]` を単一の参照元として運用します。
+
+注: このプロトタイプは静的サイト構成のため `.env` や `NEXT_PUBLIC_FACEBOOK_APP_ID` は使用していません。
+App IDは `meta[name="instagram-app-id"]` で管理します。
+
+1. Meta for Developers でアプリを作成
+2. Instagram Business または Creator アカウントを Facebook ページに接続
+3. `instagram_basic` 権限でユーザーアクセストークンを発行
+4. 長期トークンへ交換（60日）
+5. 以下のどちらかでトークンを設定
+
+### 方法 A: meta タグへ設定
+
+`index.html` の `<meta name="instagram-access-token" content="">` にトークンを設定
+
+### 方法 B: JavaScript で設定
+
+`window.__HPS_INSTAGRAM_ACCESS_TOKEN = 'YOUR_TOKEN';`
+
+### OAuth開始時の実値ログ（client_id / redirect_uri / scope）
+
+ブラウザのDevToolsコンソールで次を実行すると、OAuth開始時の実際の値をログ確認できます。
+
+```js
+window.HPSInstagramOAuth.logStartParams();
+```
+
+実際にOAuth開始まで行う場合は次を実行します。
+
+```js
+window.HPSInstagramOAuth.startOAuth();
+```
+
+OAuth Callback URL:
+
+- ローカル: `http://localhost:8000/Projects/hello-print-store-prototype/instagram-oauth-callback.html`
+- 本番例: `https://<your-project>.vercel.app/instagram-oauth-callback.html`
+
+実装では `instagram-redirect-uri` が未指定の場合、現在のアクセスURLから自動でCallback URLを組み立てます。
+
+OAuth開始先は Facebook Login ダイアログを利用します。
+
+- `https://www.facebook.com/v23.0/dialog/oauth`
+- scope: `instagram_basic,pages_show_list`
+
+### 仕様
+
+- 表示件数: 最新8投稿
+- レイアウト: PCは4列、スマートフォンは2列（正方形サムネイル）
+- 表示情報: 投稿日、投稿本文冒頭（最大3行）
+- クリック: 各カードからInstagram投稿へ遷移
+- 導線: `VIEW MORE` ボタンで公式プロフィールへ遷移
+- 投稿反映: Instagram更新後、ページ再読み込みで自動反映
+- キャッシュ: API失敗時のみ直近15分キャッシュを表示
+- トークン未設定時: 連携案内カードを表示
+
+### 認証運用（実運用向け）
+
+- 推奨: Meta Graph API の長期アクセストークン（60日）を利用
+- トークン設置先: `index.html` の `meta[name="instagram-access-token"]`、または `window.__HPS_INSTAGRAM_ACCESS_TOKEN`
+- 更新運用: 期限前にトークン再発行し、同じ設定箇所を差し替える
+- 注意: 本番ではサーバー側注入または環境変数管理で、トークンの直書きを避ける
+
+### 調査メモ（実装側）
+
+- このプロジェクト本体には、外部で手入力したOAuth URLを生成する旧実装は存在しません
+- OAuth URLは `window.HPSInstagramOAuth.startOAuth()` で一元生成されるよう統一済みです
+
+### セキュリティ注意
+
+- 本番運用では、トークンをHTMLに直書きせず、サーバー側で安全に注入する運用を推奨
+- アクセストークンは公開リポジトリへコミットしない
+
+---
+
 ## 🎨 プロジェクト概要
 
 Hello Print Store のプレミアム ブランドサイト プロトタイプです。

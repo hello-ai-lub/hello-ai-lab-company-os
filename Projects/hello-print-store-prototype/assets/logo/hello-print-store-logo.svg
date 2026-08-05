@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="140" viewBox="0 0 640 140">
+  <rect width="640" height="140" fill="#ffffff"/>
+  <rect x="1" y="1" width="638" height="138" fill="none" stroke="#111111" stroke-width="2"/>
+  <text x="320" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" letter-spacing="3" fill="#111111">HELLO PRINT STORE</text>
+  <text x="320" y="92" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666666">Replace with official logo file</text>
+</svg>
