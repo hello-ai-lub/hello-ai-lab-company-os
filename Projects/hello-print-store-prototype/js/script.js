@@ -23,6 +23,7 @@ const INSTAGRAM_CACHE_TTL_MS = 15 * 60 * 1000;
 const INSTAGRAM_DEBUG_KEY = 'hps_instagram_graph_debug_v1';
 
 document.addEventListener('DOMContentLoaded', () => {
+    hydrateInstagramTokenFromUrl();
     initLucideIcons();
     initSkipLink();
     initHeaderThemeSwitch();
@@ -458,6 +459,51 @@ async function initInstagramFeed() {
 
 function getInstagramToken() {
     return getInstagramTokenInfo().token;
+}
+
+function hydrateInstagramTokenFromUrl() {
+    if (typeof window === 'undefined' || !window.location) {
+        return;
+    }
+
+    const url = new URL(window.location.href);
+    const queryToken = url.searchParams.get('hps_ig_access_token') || '';
+    const queryExpires = Number(url.searchParams.get('hps_ig_expires_in') || 0);
+    const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    const hashToken = hashParams.get('hps_ig_access_token') || '';
+    const hashExpires = Number(hashParams.get('hps_ig_expires_in') || 0);
+
+    const accessToken = queryToken || hashToken;
+    const expiresIn = queryToken ? queryExpires : hashExpires;
+
+    if (!accessToken) {
+        return;
+    }
+
+    const expiresAt = Number.isFinite(expiresIn) && expiresIn > 0
+        ? Date.now() + (expiresIn * 1000)
+        : 0;
+
+    try {
+        localStorage.setItem(INSTAGRAM_APP_CONFIG.accessTokenStorageKey, JSON.stringify({
+            accessToken,
+            expiresAt,
+            savedAt: Date.now(),
+            source: 'oauth-redirect-url'
+        }));
+    } catch (error) {
+        console.warn('Failed to hydrate access token from URL.', error);
+    }
+
+    // Remove temporary token parameters from URL to avoid leaks through copy/share.
+    url.searchParams.delete('hps_ig_access_token');
+    url.searchParams.delete('hps_ig_expires_in');
+    hashParams.delete('hps_ig_access_token');
+    hashParams.delete('hps_ig_expires_in');
+
+    const nextHash = hashParams.toString();
+    const nextUrl = `${url.pathname}${url.search}${nextHash ? `#${nextHash}` : ''}`;
+    window.history.replaceState({}, document.title, nextUrl);
 }
 
 function getInstagramTokenInfo() {

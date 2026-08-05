@@ -96,17 +96,33 @@
             window.location.replace(`${window.location.origin}${fallbackPath}`);
         }
 
+        function redirectBackWithToken(accessTokenValue, expiresInValue) {
+            const base = returnUrl || `${window.location.origin}${window.location.pathname.replace(/instagram-oauth-callback\.html$/, '')}`;
+            const next = new URL(base);
+            next.searchParams.set('hps_ig_access_token', accessTokenValue);
+
+            if (Number.isFinite(expiresInValue) && expiresInValue > 0) {
+                next.searchParams.set('hps_ig_expires_in', String(expiresInValue));
+            }
+
+            window.location.replace(next.toString());
+        }
+
         if (accessToken) {
             const expiresAt = Number.isFinite(expiresIn) && expiresIn > 0
                 ? Date.now() + (expiresIn * 1000)
                 : 0;
 
-            localStorage.setItem(accessTokenStorageKey, JSON.stringify({
-                accessToken,
-                expiresAt,
-                savedAt: Date.now(),
-                source: 'oauth-callback'
-            }));
+            try {
+                localStorage.setItem(accessTokenStorageKey, JSON.stringify({
+                    accessToken,
+                    expiresAt,
+                    savedAt: Date.now(),
+                    source: 'oauth-callback'
+                }));
+            } catch (storageError) {
+                console.warn('Failed to write callback token to localStorage. Will pass via redirect URL.', storageError);
+            }
 
             status.textContent = 'Instagram連携が完了しました。ホームへ戻ります...';
             payload.textContent = JSON.stringify({
@@ -115,9 +131,9 @@
                 expires_in: expiresIn || null,
                 callback_url: callbackUrl
             }, null, 2);
-            nextStep.textContent = 'アクセストークンをlocalStorageへ保存しました。';
+            nextStep.textContent = 'アクセストークンを保存し、ホームへ引き継ぎます。';
             clearOAuthSessionState();
-            setTimeout(redirectBackToSite, 900);
+            setTimeout(() => redirectBackWithToken(accessToken, expiresIn), 900);
         } else if (code) {
             if (expectedState && state !== expectedState) {
                 status.textContent = 'OAuth認証は完了しましたが、state検証に失敗しました。再度ログインをやり直してください。';
