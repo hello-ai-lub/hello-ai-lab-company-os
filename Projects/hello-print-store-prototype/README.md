@@ -52,9 +52,11 @@ window.HPSInstagramOAuth.startOAuth();
 OAuth Callback URL:
 
 - ローカル: `http://localhost:8000/Projects/hello-print-store-prototype/instagram-oauth-callback.html`
-- 本番例: `https://<your-project>.vercel.app/instagram-oauth-callback.html`
+- 本番固定: `https://hello-print-store.vercel.app/instagram-oauth-callback.html`
 
-実装では `instagram-redirect-uri` が未指定の場合、現在のアクセスURLから自動でCallback URLを組み立てます。
+実装では `instagram-redirect-uri` を固定指定しています。Meta Developers の Valid OAuth Redirect URI には以下を **完全一致** で登録してください。
+
+- `https://hello-print-store.vercel.app/instagram-oauth-callback.html`
 
 OAuth開始先は Facebook Login ダイアログを利用します。
 

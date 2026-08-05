@@ -7,7 +7,7 @@ const INSTAGRAM_CONFIG = {
 const INSTAGRAM_APP_CONFIG = {
     canonicalAppId: '1626671125739257',
     deprecatedAppIds: ['1479634687539283'],
-    redirectUri: '',
+    redirectUri: 'https://hello-print-store.vercel.app/instagram-oauth-callback.html',
     scope: 'instagram_basic,pages_show_list',
     oauthEndpoint: 'https://www.facebook.com/v23.0/dialog/oauth',
     graphApiBase: 'https://graph.facebook.com',
@@ -96,6 +96,7 @@ function logInstagramOAuthStart(config) {
     console.group('HPS Instagram OAuth Start');
     console.log('client_id:', config.appId);
     console.log('redirect_uri:', config.redirectUri);
+    console.log('meta_redirect_uri:', getMetaContent('instagram-redirect-uri'));
     console.log('current_origin:', window.location.origin);
     console.log('current_path:', window.location.pathname);
     console.log('scope:', config.scope);
