@@ -61,6 +61,24 @@ OAuth開始先は Facebook Login ダイアログを利用します。
 - `https://www.facebook.com/v23.0/dialog/oauth`
 - scope: `instagram_basic,pages_show_list`
 
+### APIエンドポイント統一方針（重要）
+
+- この実装は **Instagram API with Facebook Login** に統一しています。
+- 投稿取得・ページ解決・トークン交換は **`graph.facebook.com` のみ** を使用します。
+- `graph.instagram.com`（Instagram Basic Display API）はこのフローでは使用しません。
+
+### アクセストークン交換フロー（server-side）
+
+1. Callbackで受け取った `code` を短期ユーザートークンへ交換
+
+`GET https://graph.facebook.com/v23.0/oauth/access_token?client_id=APP_ID&client_secret=APP_SECRET&redirect_uri=CALLBACK_URL&code=CODE`
+
+2. 短期ユーザートークンを長期ユーザートークンへ交換
+
+`GET https://graph.facebook.com/v23.0/oauth/access_token?grant_type=fb_exchange_token&client_id=APP_ID&client_secret=APP_SECRET&fb_exchange_token=SHORT_LIVED_USER_TOKEN`
+
+注: `client_secret` を扱うため、上記2ステップは必ずサーバー側で実行してください。
+
 ### 仕様
 
 - 表示件数: 最新8投稿
@@ -83,6 +101,7 @@ OAuth開始先は Facebook Login ダイアログを利用します。
 
 - このプロジェクト本体には、外部で手入力したOAuth URLを生成する旧実装は存在しません
 - OAuth URLは `window.HPSInstagramOAuth.startOAuth()` で一元生成されるよう統一済みです
+- OAuth `state` は `sessionStorage` に保存し、Callbackで照合します
 
 ### セキュリティ注意
 

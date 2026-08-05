@@ -52,22 +52,52 @@
         <h1>Instagram OAuth Callback</h1>
         <p id="status">認証結果を確認しています...</p>
         <pre id="payload"></pre>
+        <pre id="nextStep"></pre>
     </main>
 
     <script>
         const status = document.getElementById('status');
         const payload = document.getElementById('payload');
+        const nextStep = document.getElementById('nextStep');
         const params = new URLSearchParams(window.location.search);
 
         const code = params.get('code');
+        const state = params.get('state');
         const error = params.get('error');
         const errorReason = params.get('error_reason');
         const errorDescription = params.get('error_description');
+        const stateStorageKey = 'hps_instagram_oauth_state_v1';
+        const expectedState = sessionStorage.getItem(stateStorageKey);
+
+        const callbackUrl = `${window.location.origin}${window.location.pathname}`;
 
         if (code) {
-            status.textContent = 'OAuth認証は成功しました。取得したcodeをサーバー側でアクセストークンに交換してください。';
-            payload.textContent = JSON.stringify({ code }, null, 2);
-            console.log('HPS Instagram OAuth Callback code:', code);
+            if (expectedState && state !== expectedState) {
+                status.textContent = 'OAuth認証は完了しましたが、state検証に失敗しました。再度ログインをやり直してください。';
+                payload.textContent = JSON.stringify({
+                    code,
+                    state,
+                    expectedState,
+                    error: 'state_mismatch'
+                }, null, 2);
+                nextStep.textContent = '';
+                console.error('HPS Instagram OAuth Callback state mismatch:', { state, expectedState });
+            } else {
+                status.textContent = 'OAuth認証は成功しました。取得したcodeをサーバー側でアクセストークンに交換してください。';
+                payload.textContent = JSON.stringify({ code, state }, null, 2);
+                nextStep.textContent = [
+                    'Next step (server-side only):',
+                    '',
+                    '1) Exchange code to short-lived user token',
+                    `GET https://graph.facebook.com/v23.0/oauth/access_token?client_id=APP_ID&client_secret=APP_SECRET&redirect_uri=${encodeURIComponent(callbackUrl)}&code=${encodeURIComponent(code)}`,
+                    '',
+                    '2) Exchange to long-lived user token',
+                    'GET https://graph.facebook.com/v23.0/oauth/access_token?grant_type=fb_exchange_token&client_id=APP_ID&client_secret=APP_SECRET&fb_exchange_token=SHORT_LIVED_USER_TOKEN'
+                ].join('\n');
+                console.log('HPS Instagram OAuth Callback code:', code);
+            }
+
+            sessionStorage.removeItem(stateStorageKey);
         } else if (error) {
             status.textContent = 'OAuth認証でエラーが発生しました。以下を確認してください。';
             payload.textContent = JSON.stringify({
@@ -75,6 +105,7 @@
                 error_reason: errorReason,
                 error_description: errorDescription
             }, null, 2);
+            nextStep.textContent = '';
             console.error('HPS Instagram OAuth Callback error:', {
                 error,
                 error_reason: errorReason,
@@ -86,6 +117,7 @@
                 query: window.location.search,
                 hash: window.location.hash
             }, null, 2);
+            nextStep.textContent = '';
         }
     </script>
 </body>

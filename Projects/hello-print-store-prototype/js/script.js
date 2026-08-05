@@ -9,7 +9,10 @@ const INSTAGRAM_APP_CONFIG = {
     deprecatedAppIds: ['1479634687539283'],
     redirectUri: '',
     scope: 'instagram_basic,pages_show_list',
-    oauthEndpoint: 'https://www.facebook.com/v23.0/dialog/oauth'
+    oauthEndpoint: 'https://www.facebook.com/v23.0/dialog/oauth',
+    graphApiBase: 'https://graph.facebook.com',
+    graphApiVersion: 'v23.0',
+    oauthStateStorageKey: 'hps_instagram_oauth_state_v1'
 };
 
 const INSTAGRAM_CACHE_KEY = 'hps_instagram_feed_cache_v1';
@@ -53,6 +56,7 @@ function getInstagramAuthConfig() {
         scope,
         deprecatedAppIds: INSTAGRAM_APP_CONFIG.deprecatedAppIds,
         oauthEndpoint: INSTAGRAM_APP_CONFIG.oauthEndpoint,
+        oauthStateStorageKey: INSTAGRAM_APP_CONFIG.oauthStateStorageKey,
         responseType: 'code'
     };
 }
@@ -72,13 +76,13 @@ function buildDefaultRedirectUri() {
     return `${url.origin}${basePath}instagram-oauth-callback.html`;
 }
 
-function buildInstagramOAuthUrl(config) {
+function buildInstagramOAuthUrl(config, stateValue) {
     const endpoint = new URL(config.oauthEndpoint);
     endpoint.searchParams.set('client_id', config.appId);
     endpoint.searchParams.set('redirect_uri', config.redirectUri);
     endpoint.searchParams.set('scope', config.scope);
     endpoint.searchParams.set('response_type', config.responseType);
-    endpoint.searchParams.set('state', 'hps_instagram_connect');
+    endpoint.searchParams.set('state', stateValue || 'hps_instagram_connect');
     endpoint.searchParams.set('auth_type', 'rerequest');
 
     return endpoint.toString();
@@ -95,8 +99,38 @@ function logInstagramOAuthStart(config) {
 }
 
 function startInstagramOAuth(config) {
+    if (!config.appId || !config.redirectUri) {
+        console.error('Instagram OAuth configuration is incomplete.', config);
+        return;
+    }
+
+    const state = createInstagramOAuthState();
+    storeInstagramOAuthState(config.oauthStateStorageKey, state);
+
     logInstagramOAuthStart(config);
-    window.location.href = buildInstagramOAuthUrl(config);
+    window.location.href = buildInstagramOAuthUrl(config, state);
+}
+
+function createInstagramOAuthState() {
+    if (typeof window !== 'undefined' && window.crypto && typeof window.crypto.getRandomValues === 'function') {
+        const values = new Uint8Array(12);
+        window.crypto.getRandomValues(values);
+        return Array.from(values, (value) => value.toString(16).padStart(2, '0')).join('');
+    }
+
+    return `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function storeInstagramOAuthState(storageKey, state) {
+    if (!storageKey || typeof sessionStorage === 'undefined') {
+        return;
+    }
+
+    try {
+        sessionStorage.setItem(storageKey, state);
+    } catch (error) {
+        console.warn('Failed to store OAuth state.', error);
+    }
 }
 
 function getMetaContent(name) {
@@ -354,7 +388,9 @@ async function initInstagramFeed() {
 
     const accessToken = getInstagramToken();
     if (!accessToken) {
-        renderInstagramStatus(feed, 'Instagram連携トークンが未設定です。設定後に最新投稿が自動表示されます。');
+        renderInstagramStatus(feed, 'Instagram連携トークンが未設定です。設定後に最新投稿が自動表示されます。', {
+            showConnectButton: true
+        });
         return;
     }
 
@@ -391,17 +427,13 @@ function getInstagramToken() {
 }
 
 async function fetchInstagramGraphPosts(accessToken, limit) {
-    const endpoint = new URL('https://graph.instagram.com/me/media');
+    const account = await resolveInstagramBusinessAccount(accessToken);
+    const endpoint = new URL(`${INSTAGRAM_APP_CONFIG.graphApiBase}/${INSTAGRAM_APP_CONFIG.graphApiVersion}/${account.igUserId}/media`);
     endpoint.searchParams.set('fields', 'id,caption,media_type,media_url,thumbnail_url,permalink,timestamp');
     endpoint.searchParams.set('limit', String(limit));
     endpoint.searchParams.set('access_token', accessToken);
 
-    const response = await fetch(endpoint.toString());
-    if (!response.ok) {
-        throw new Error('Failed to fetch Instagram Graph API');
-    }
-
-    const data = await response.json();
+    const data = await fetchGraphJson(endpoint);
     if (!data || !Array.isArray(data.data)) {
         return [];
     }
@@ -412,9 +444,70 @@ async function fetchInstagramGraphPosts(accessToken, limit) {
             image: post.media_url || post.thumbnail_url,
             caption: post.caption || '',
             permalink: post.permalink || INSTAGRAM_CONFIG.profileUrl,
-            timestamp: post.timestamp || ''
+            timestamp: post.timestamp || '',
+            handle: account.handle
         }))
         .filter((post) => Boolean(post.image));
+}
+
+async function resolveInstagramBusinessAccount(accessToken) {
+    const endpoint = new URL(`${INSTAGRAM_APP_CONFIG.graphApiBase}/${INSTAGRAM_APP_CONFIG.graphApiVersion}/me/accounts`);
+    endpoint.searchParams.set('fields', 'id,name,instagram_business_account{id,username}');
+    endpoint.searchParams.set('limit', '50');
+    endpoint.searchParams.set('access_token', accessToken);
+
+    const data = await fetchGraphJson(endpoint);
+    const pages = data && Array.isArray(data.data) ? data.data : [];
+    const pagesWithInstagram = pages.filter((page) => page && page.instagram_business_account && page.instagram_business_account.id);
+
+    if (!pagesWithInstagram.length) {
+        throw new Error('No Facebook Page linked to an Instagram Business account was found for this access token.');
+    }
+
+    const preferredUsername = getConfiguredInstagramUsername();
+    const matchedPage = preferredUsername
+        ? pagesWithInstagram.find((page) => {
+            const username = page.instagram_business_account && page.instagram_business_account.username;
+            return username && username.toLowerCase() === preferredUsername.toLowerCase();
+        })
+        : null;
+
+    const selectedPage = matchedPage || pagesWithInstagram[0];
+    const businessAccount = selectedPage.instagram_business_account;
+    const handle = businessAccount.username ? `@${businessAccount.username}` : '@helloprintstore';
+
+    return {
+        igUserId: businessAccount.id,
+        handle
+    };
+}
+
+function getConfiguredInstagramUsername() {
+    try {
+        const profileUrl = new URL(INSTAGRAM_CONFIG.profileUrl);
+        return profileUrl.pathname.replace(/\//g, '').trim();
+    } catch (_error) {
+        return '';
+    }
+}
+
+async function fetchGraphJson(endpoint) {
+    const response = await fetch(endpoint.toString());
+    let data = null;
+
+    try {
+        data = await response.json();
+    } catch (_error) {
+        data = null;
+    }
+
+    if (!response.ok || (data && data.error)) {
+        const apiMessage = data && data.error && data.error.message ? data.error.message : '';
+        const message = apiMessage || `Graph API request failed with status ${response.status}.`;
+        throw new Error(message);
+    }
+
+    return data;
 }
 
 function renderInstagramPosts(feed, posts) {
@@ -445,8 +538,9 @@ function renderInstagramPosts(feed, posts) {
         captionRow.className = 'instagram-caption-row';
         const safeCaption = escapeHtml(getExcerpt(post.caption || '', 100));
         const publishedAt = escapeHtml(formatJapaneseDate(post.timestamp));
+        const handle = escapeHtml(post.handle || '@helloprintstore');
         captionRow.innerHTML = [
-            '<span class="instagram-handle">@helloprintstore</span>',
+            `<span class="instagram-handle">${handle}</span>`,
             `<p class="instagram-date">${publishedAt}</p>`,
             `<p class="instagram-caption">${safeCaption || '詳細はInstagramでご覧ください。'}</p>`
         ].join('');
@@ -457,14 +551,12 @@ function renderInstagramPosts(feed, posts) {
     });
 }
 
-function renderInstagramStatus(feed, message) {
+function renderInstagramStatus(feed, message, options = {}) {
     feed.innerHTML = '';
+    const { showConnectButton = false } = options;
 
-    const card = document.createElement('a');
+    const card = document.createElement('div');
     card.className = 'instagram-card instagram-card-status';
-    card.href = INSTAGRAM_CONFIG.profileUrl;
-    card.target = '_blank';
-    card.rel = 'noopener noreferrer';
     card.innerHTML = [
         '<div class="instagram-media-wrap"></div>',
         '<div class="instagram-caption-row">',
@@ -474,7 +566,33 @@ function renderInstagramStatus(feed, message) {
         '</div>'
     ].join('');
 
+    if (showConnectButton) {
+        const captionRow = card.querySelector('.instagram-caption-row');
+        if (captionRow) {
+            const actionRow = document.createElement('div');
+            actionRow.className = 'button-row';
+
+            const connectButton = document.createElement('button');
+            connectButton.type = 'button';
+            connectButton.className = 'button button-primary';
+            connectButton.textContent = 'Instagramと連携する';
+            connectButton.addEventListener('click', triggerInstagramOAuthStart);
+
+            actionRow.appendChild(connectButton);
+            captionRow.appendChild(actionRow);
+        }
+    }
+
     feed.appendChild(card);
+}
+
+function triggerInstagramOAuthStart() {
+    if (window.HPSInstagramOAuth && typeof window.HPSInstagramOAuth.startOAuth === 'function') {
+        window.HPSInstagramOAuth.startOAuth();
+        return;
+    }
+
+    console.error('HPSInstagramOAuth.startOAuth is not available.');
 }
 
 function formatJapaneseDate(value) {
