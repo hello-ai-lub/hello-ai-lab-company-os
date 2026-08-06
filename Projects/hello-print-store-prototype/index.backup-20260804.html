@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hello Print Store - Design for Teams. Create for Culture.">
+    <title>Hello Print Store</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header (Fixed) -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <div class="header-logo">
+                <a href="#" class="logo-link">H</a>
+            </div>
+            <nav class="header-nav">
+                <ul class="nav-list">
+                    <li><a href="#works" class="nav-link">WORKS</a></li>
+                    <li><a href="#flow" class="nav-link">FLOW</a></li>
+                    <li><a href="#items" class="nav-link">ITEMS</a></li>
+                    <li><a href="#originals" class="nav-link">ORIGINALS</a></li>
+                    <li><a href="#" class="nav-link">ABOUT</a></li>
+                    <li><a href="#" class="nav-link">CONTACT</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section 1: Full Screen Image -->
+        <section class="hero hero-1" id="hero">
+            <div class="hero-image" style="background-image: url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=1920&q=80');">
+                <div class="hero-overlay-dark"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-text-wrapper" id="heroText">
+                    <h1 class="hero-title">
+                        <span class="title-line" data-reveal>Design</span>
+                        <span class="title-line" data-reveal>for Teams</span>
+                    </h1>
+                </div>
+                <div class="scroll-indicator" id="scrollIndicator">
+                    <span class="scroll-text">Scroll</span>
+                    <svg class="scroll-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5v10M7 15l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Culture Message -->
+        <section class="section-white section-culture">
+            <div class="section-container">
+                <div class="culture-content" data-reveal-up>
+                    <h2 class="section-title">Create for<br><span class="highlight">Culture</span></h2>
+                    <p class="section-subtitle">ユニフォームは、単なる服ではありません。<br>チームの世界観。コミュニティの言語。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Split Layout - Image Left -->
+        <section class="section-split section-split-left">
+            <div class="split-image" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1200&q=80');">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="split-content" data-reveal-up>
+                <h3 class="split-title">World of Hello</h3>
+                <p class="split-text">
+                    福岡発。ユニフォーム・ウェアを通じて、<br>
+                    チームの世界観を一緒に創造する。<br><br>
+                    商品ではなく、文化。<br>
+                    品質ではなく、共創。
+                </p>
+                <div class="split-cta">
+                    <a href="#" class="cta-link">View Our Story →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Works Grid -->
+        <section class="section-works" id="works">
+            <div class="works-header" data-reveal-up>
+                <h2 class="works-title">Our Works</h2>
+                <p class="works-subtitle">実績 × 世界観</p>
+            </div>
+            <div class="works-grid">
+                <div class="work-item work-large" style="background-image: url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=80');">
+                    <div class="work-overlay"></div>
+                    <div class="work-content">
+                        <h4>Team Unity</h4>
+                    </div>
+                </div>
+                <div class="work-item" style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80');">
+                    <div class="work-overlay"></div>
+                    <div class="work-content">
+                        <h4>Athletes</h4>
+                    </div>
+                </div>
+                <div class="work-item" style="background-image: url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&q=80');">
+                    <div class="work-overlay"></div>
+                    <div class="work-content">
+                        <h4>Fashion</h4>
+                    </div>
+                </div>
+                <div class="work-item" style="background-image: url('https://images.unsplash.com/photo-1505228395891-9a51e7e86e81?w=800&q=80');">
+                    <div class="work-overlay"></div>
+                    <div class="work-content">
+                        <h4>Sports</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Process -->
+        <section class="section-process" id="flow">
+            <div class="process-header" data-reveal-up>
+                <h2 class="process-title">How We Work</h2>
+            </div>
+            <div class="process-steps">
+                <div class="step" data-reveal-up>
+                    <div class="step-number">01</div>
+                    <h4 class="step-title">Consultation</h4>
+                    <p class="step-text">チームの世界観をヒアリング</p>
+                </div>
+                <div class="step" data-reveal-up>
+                    <div class="step-number">02</div>
+                    <h4 class="step-title">Design</h4>
+                    <p class="step-text">あなたらしいデザインを提案</p>
+                </div>
+                <div class="step" data-reveal-up>
+                    <div class="step-number">03</div>
+                    <h4 class="step-title">Review</h4>
+                    <p class="step-text">フィードバックで完成へ</p>
+                </div>
+                <div class="step" data-reveal-up>
+                    <div class="step-number">04</div>
+                    <h4 class="step-title">Production</h4>
+                    <p class="step-text">高品質で製造</p>
+                </div>
+                <div class="step" data-reveal-up>
+                    <div class="step-number">05</div>
+                    <h4 class="step-title">Delivery</h4>
+                    <p class="step-text">あなたの世界へ</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Products -->
+        <section class="section-products" id="items">
+            <div class="products-header" data-reveal-up>
+                <h2 class="products-title">Our Products</h2>
+                <p class="products-subtitle">Uniforms × Culture × Quality</p>
+            </div>
+            <div class="products-showcase" data-reveal-up>
+                <div class="product-card" style="background-image: url('https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80');">
+                    <div class="product-name">Uniforms</div>
+                </div>
+                <div class="product-card" style="background-image: url('https://images.unsplash.com/photo-1578368566432-658bb7270fc1?w=600&q=80');">
+                    <div class="product-name">T-Shirts</div>
+                </div>
+                <div class="product-card" style="background-image: url('https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80');">
+                    <div class="product-name">Sportswear</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: CTA -->
+        <section class="section-cta">
+            <div class="cta-container" data-reveal-up>
+                <h2 class="cta-title">Ready to Create<br>Your World?</h2>
+                <div class="cta-buttons">
+                    <a href="#" class="button button-primary">Start Your Order</a>
+                    <a href="#" class="button button-secondary">View All Products</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-logo">Hello Print Store</div>
+                <div class="footer-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="footer-text">
+                    <p>&copy; 2026 Hello Print Store. Design for Teams. Create for Culture.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+</body>
+</html>

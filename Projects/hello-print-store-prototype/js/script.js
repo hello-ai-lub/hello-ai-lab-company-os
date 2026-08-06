@@ -8,7 +8,7 @@ const INSTAGRAM_APP_CONFIG = {
     canonicalAppId: '1626671125739257',
     deprecatedAppIds: ['1479634687539283'],
     redirectUri: 'https://hello-print-store.vercel.app/instagram-oauth-callback.html',
-    scope: 'instagram_basic,pages_show_list',
+    scope: 'instagram_basic,pages_show_list,pages_read_engagement',
     oauthEndpoint: 'https://www.facebook.com/v23.0/dialog/oauth',
     graphApiBase: 'https://graph.facebook.com',
     graphApiVersion: 'v23.0',
@@ -411,10 +411,14 @@ async function initInstagramFeed() {
 
     const tokenInfo = getInstagramTokenInfo();
     const accessToken = tokenInfo.token;
+    const authConfig = getInstagramAuthConfig();
     writeInstagramGraphDebug({
         startedAt: new Date().toISOString(),
         token: {
             source: tokenInfo.source,
+            type: tokenInfo.tokenType,
+            oauthGrantedScopes: tokenInfo.grantedScopes,
+            requestedScopes: parseScopeList(authConfig.scope),
             present: Boolean(accessToken),
             preview: accessToken ? `${accessToken.slice(0, 10)}...` : ''
         },
@@ -429,7 +433,7 @@ async function initInstagramFeed() {
     }
 
     try {
-        const posts = await fetchInstagramGraphPosts(accessToken, INSTAGRAM_CONFIG.limit);
+        const posts = await fetchInstagramGraphPosts(tokenInfo, INSTAGRAM_CONFIG.limit);
         if (!posts.length) {
             renderInstagramStatus(feed, '表示できる投稿が見つかりませんでした。Instagramをご確認ください。');
             appendInstagramGraphDebugStep({ stage: 'media', ok: true, message: 'No media posts returned.' });
@@ -469,12 +473,15 @@ function hydrateInstagramTokenFromUrl() {
     const url = new URL(window.location.href);
     const queryToken = url.searchParams.get('hps_ig_access_token') || '';
     const queryExpires = Number(url.searchParams.get('hps_ig_expires_in') || 0);
+    const queryGrantedScopes = url.searchParams.get('hps_ig_granted_scopes') || '';
     const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
     const hashToken = hashParams.get('hps_ig_access_token') || '';
     const hashExpires = Number(hashParams.get('hps_ig_expires_in') || 0);
+    const hashGrantedScopes = hashParams.get('hps_ig_granted_scopes') || '';
 
     const accessToken = queryToken || hashToken;
     const expiresIn = queryToken ? queryExpires : hashExpires;
+    const grantedScopes = parseScopeList(queryToken ? queryGrantedScopes : hashGrantedScopes);
 
     if (!accessToken) {
         return;
@@ -489,7 +496,9 @@ function hydrateInstagramTokenFromUrl() {
             accessToken,
             expiresAt,
             savedAt: Date.now(),
-            source: 'oauth-redirect-url'
+            source: 'oauth-redirect-url',
+            tokenType: 'user_access_token_implicit',
+            grantedScopes
         }));
     } catch (error) {
         console.warn('Failed to hydrate access token from URL.', error);
@@ -498,8 +507,10 @@ function hydrateInstagramTokenFromUrl() {
     // Remove temporary token parameters from URL to avoid leaks through copy/share.
     url.searchParams.delete('hps_ig_access_token');
     url.searchParams.delete('hps_ig_expires_in');
+    url.searchParams.delete('hps_ig_granted_scopes');
     hashParams.delete('hps_ig_access_token');
     hashParams.delete('hps_ig_expires_in');
+    hashParams.delete('hps_ig_granted_scopes');
 
     const nextHash = hashParams.toString();
     const nextUrl = `${url.pathname}${url.search}${nextHash ? `#${nextHash}` : ''}`;
@@ -510,53 +521,86 @@ function getInstagramTokenInfo() {
     const tokenFromWindow = typeof window !== 'undefined' ? window.__HPS_INSTAGRAM_ACCESS_TOKEN : '';
     const tokenFromMeta = document.querySelector('meta[name="instagram-access-token"]');
     const metaValue = tokenFromMeta ? tokenFromMeta.getAttribute('content') : '';
-    const tokenFromStorage = readStoredInstagramAccessToken();
+    const tokenRecord = readStoredInstagramTokenRecord();
 
     if (INSTAGRAM_CONFIG.accessToken) {
-        return { token: INSTAGRAM_CONFIG.accessToken, source: 'config' };
+        return {
+            token: INSTAGRAM_CONFIG.accessToken,
+            source: 'config',
+            tokenType: 'static_config_token',
+            grantedScopes: []
+        };
     }
 
     if (tokenFromWindow) {
-        return { token: tokenFromWindow, source: 'window' };
+        return {
+            token: tokenFromWindow,
+            source: 'window',
+            tokenType: 'runtime_window_token',
+            grantedScopes: []
+        };
     }
 
     if (metaValue) {
-        return { token: metaValue, source: 'meta' };
+        return {
+            token: metaValue,
+            source: 'meta',
+            tokenType: 'meta_token',
+            grantedScopes: []
+        };
     }
 
-    if (tokenFromStorage) {
-        return { token: tokenFromStorage, source: 'localStorage' };
+    if (tokenRecord && tokenRecord.accessToken) {
+        return {
+            token: tokenRecord.accessToken,
+            source: tokenRecord.source || 'localStorage',
+            tokenType: tokenRecord.tokenType || 'stored_user_access_token',
+            grantedScopes: parseScopeList(tokenRecord.grantedScopes)
+        };
     }
 
-    return { token: '', source: 'none' };
+    return {
+        token: '',
+        source: 'none',
+        tokenType: 'none',
+        grantedScopes: []
+    };
 }
 
-function readStoredInstagramAccessToken() {
+function readStoredInstagramTokenRecord() {
     try {
         const raw = localStorage.getItem(INSTAGRAM_APP_CONFIG.accessTokenStorageKey);
         if (!raw) {
-            return '';
+            return null;
         }
 
         const parsed = JSON.parse(raw);
         if (!parsed || typeof parsed.accessToken !== 'string') {
-            return '';
+            return null;
         }
 
         if (typeof parsed.expiresAt === 'number' && parsed.expiresAt > 0 && Date.now() >= parsed.expiresAt) {
             localStorage.removeItem(INSTAGRAM_APP_CONFIG.accessTokenStorageKey);
-            return '';
+            return null;
         }
 
-        return parsed.accessToken.trim();
+        return {
+            accessToken: parsed.accessToken.trim(),
+            expiresAt: typeof parsed.expiresAt === 'number' ? parsed.expiresAt : 0,
+            savedAt: typeof parsed.savedAt === 'number' ? parsed.savedAt : 0,
+            source: typeof parsed.source === 'string' ? parsed.source : 'localStorage',
+            tokenType: typeof parsed.tokenType === 'string' ? parsed.tokenType : 'stored_user_access_token',
+            grantedScopes: parseScopeList(parsed.grantedScopes)
+        };
     } catch (error) {
         console.warn('Failed to read stored Instagram access token.', error);
-        return '';
+        return null;
     }
 }
 
-async function fetchInstagramGraphPosts(accessToken, limit) {
-    const account = await resolveInstagramBusinessAccount(accessToken);
+async function fetchInstagramGraphPosts(tokenInfo, limit) {
+    const accessToken = tokenInfo && tokenInfo.token ? tokenInfo.token : '';
+    const account = await resolveInstagramBusinessAccount(tokenInfo);
     const endpoint = new URL(`${INSTAGRAM_APP_CONFIG.graphApiBase}/${INSTAGRAM_APP_CONFIG.graphApiVersion}/${account.igUserId}/media`);
     endpoint.searchParams.set('fields', 'id,caption,media_type,media_url,thumbnail_url,permalink,timestamp');
     endpoint.searchParams.set('limit', String(limit));
@@ -586,14 +630,22 @@ async function fetchInstagramGraphPosts(accessToken, limit) {
 }
 
 async function resolveInstagramBusinessAccount(accessToken) {
+    const tokenInfo = typeof accessToken === 'string'
+        ? { token: accessToken, source: 'direct', tokenType: 'direct_token', grantedScopes: [] }
+        : accessToken;
+    const userAccessToken = tokenInfo && tokenInfo.token ? tokenInfo.token : '';
     const endpoint = new URL(`${INSTAGRAM_APP_CONFIG.graphApiBase}/${INSTAGRAM_APP_CONFIG.graphApiVersion}/me/accounts`);
-    endpoint.searchParams.set('fields', 'id,name,instagram_business_account{id,username}');
+    endpoint.searchParams.set('fields', 'id,name,access_token,tasks,instagram_business_account{id,username}');
     endpoint.searchParams.set('limit', '50');
-    endpoint.searchParams.set('access_token', accessToken);
+    endpoint.searchParams.set('access_token', userAccessToken);
 
     appendInstagramGraphDebugStep({
         stage: 'pages_show_list',
         ok: true,
+        tokenSource: tokenInfo && tokenInfo.source ? tokenInfo.source : 'unknown',
+        tokenType: tokenInfo && tokenInfo.tokenType ? tokenInfo.tokenType : 'unknown',
+        tokenPreview: userAccessToken ? `${userAccessToken.slice(0, 10)}...` : '',
+        oauthGrantedScopes: tokenInfo && Array.isArray(tokenInfo.grantedScopes) ? tokenInfo.grantedScopes : [],
         endpoint: sanitizeGraphEndpoint(endpoint)
     });
 
@@ -602,6 +654,9 @@ async function resolveInstagramBusinessAccount(accessToken) {
     const pageListSummary = pages.map((page) => ({
         pageId: page && page.id ? page.id : null,
         pageName: page && page.name ? page.name : null,
+        hasPageAccessToken: Boolean(page && page.access_token),
+        pageTokenPreview: page && page.access_token ? `${String(page.access_token).slice(0, 10)}...` : '',
+        tasks: page && Array.isArray(page.tasks) ? page.tasks : [],
         instagram_business_account: page && Object.prototype.hasOwnProperty.call(page, 'instagram_business_account')
             ? page.instagram_business_account
             : null
@@ -609,11 +664,27 @@ async function resolveInstagramBusinessAccount(accessToken) {
 
     const pageDetails = await Promise.all(pages
         .filter((page) => page && page.id)
-        .map((page) => fetchPageInstagramBusinessAccount(page.id, accessToken, page.name || null)));
+        .map((page) => {
+            const pageAccessToken = typeof page.access_token === 'string' ? page.access_token.trim() : '';
+            const tokenContext = pageAccessToken
+                ? {
+                    token: pageAccessToken,
+                    tokenType: 'page_access_token',
+                    tokenSource: '/me/accounts.access_token'
+                }
+                : {
+                    token: userAccessToken,
+                    tokenType: tokenInfo && tokenInfo.tokenType ? `${tokenInfo.tokenType}_fallback` : 'user_access_token_fallback',
+                    tokenSource: tokenInfo && tokenInfo.source ? `${tokenInfo.source}_fallback` : 'oauth_user_token_fallback'
+                };
+
+            return fetchPageInstagramBusinessAccount(page.id, tokenContext, page.name || null);
+        }));
 
     appendInstagramGraphDebugStep({
         stage: 'pages_debug',
         ok: true,
+        meAccountsResponse: sanitizeMeAccountsResponse(data),
         pages: pageListSummary,
         pageDetailLookups: pageDetails
     });
@@ -694,15 +765,23 @@ async function resolveInstagramBusinessAccount(accessToken) {
 }
 
 async function fetchPageInstagramBusinessAccount(pageId, accessToken, pageName) {
+    const tokenContext = typeof accessToken === 'string'
+        ? { token: accessToken, tokenType: 'direct_token', tokenSource: 'direct' }
+        : accessToken;
+    const tokenToUse = tokenContext && tokenContext.token ? tokenContext.token : '';
     const endpoint = new URL(`${INSTAGRAM_APP_CONFIG.graphApiBase}/${INSTAGRAM_APP_CONFIG.graphApiVersion}/${pageId}`);
     endpoint.searchParams.set('fields', 'id,name,instagram_business_account{id,username}');
-    endpoint.searchParams.set('access_token', accessToken);
+    endpoint.searchParams.set('access_token', tokenToUse);
 
     try {
         const responseJson = await fetchGraphJson(endpoint, `page_detail_lookup_${pageId}`);
         return {
             pageId,
             pageName: responseJson && responseJson.name ? responseJson.name : pageName,
+            tokenTypeUsed: tokenContext && tokenContext.tokenType ? tokenContext.tokenType : 'unknown',
+            tokenSourceUsed: tokenContext && tokenContext.tokenSource ? tokenContext.tokenSource : 'unknown',
+            tokenPreviewUsed: tokenToUse ? `${tokenToUse.slice(0, 10)}...` : '',
+            usedPageToken: Boolean(tokenContext && tokenContext.tokenType === 'page_access_token'),
             endpoint: sanitizeGraphEndpoint(endpoint),
             responseJson,
             instagram_business_account: responseJson && Object.prototype.hasOwnProperty.call(responseJson, 'instagram_business_account')
@@ -713,6 +792,10 @@ async function fetchPageInstagramBusinessAccount(pageId, accessToken, pageName) 
         return {
             pageId,
             pageName,
+            tokenTypeUsed: tokenContext && tokenContext.tokenType ? tokenContext.tokenType : 'unknown',
+            tokenSourceUsed: tokenContext && tokenContext.tokenSource ? tokenContext.tokenSource : 'unknown',
+            tokenPreviewUsed: tokenToUse ? `${tokenToUse.slice(0, 10)}...` : '',
+            usedPageToken: Boolean(tokenContext && tokenContext.tokenType === 'page_access_token'),
             endpoint: sanitizeGraphEndpoint(endpoint),
             responseJson: null,
             instagram_business_account: null,
@@ -750,7 +833,7 @@ async function fetchGraphJson(endpoint, debugStage = 'graph_call') {
             endpoint: sanitizeGraphEndpoint(endpoint),
             httpStatus: response.status,
             httpStatusText: response.statusText || '',
-            responseJson: data,
+            responseJson: sanitizeGraphResponse(debugStage, data),
             responseText: data ? '' : rawBody
         };
 
@@ -769,10 +852,78 @@ async function fetchGraphJson(endpoint, debugStage = 'graph_call') {
         ok: true,
         endpoint: sanitizeGraphEndpoint(endpoint),
         httpStatus: response.status,
-        responseJson: data
+        responseJson: sanitizeGraphResponse(debugStage, data)
     });
 
     return data;
+}
+
+function sanitizeGraphResponse(debugStage, data) {
+    if (!data || typeof data !== 'object') {
+        return data;
+    }
+
+    if (debugStage === 'pages_show_list' && Array.isArray(data.data)) {
+        return {
+            ...data,
+            data: data.data.map((page) => sanitizePageForDebug(page))
+        };
+    }
+
+    if (debugStage.startsWith('page_detail_lookup_')) {
+        return sanitizePageForDebug(data);
+    }
+
+    return data;
+}
+
+function sanitizePageForDebug(page) {
+    if (!page || typeof page !== 'object') {
+        return page;
+    }
+
+    const accessToken = typeof page.access_token === 'string' ? page.access_token : '';
+
+    return {
+        ...page,
+        access_token: accessToken ? `${accessToken.slice(0, 10)}...` : undefined
+    };
+}
+
+function sanitizeMeAccountsResponse(data) {
+    if (!data || !Array.isArray(data.data)) {
+        return { count: 0, data: [] };
+    }
+
+    return {
+        count: data.data.length,
+        data: data.data.map((page) => ({
+            id: page && page.id ? page.id : null,
+            name: page && page.name ? page.name : null,
+            tasks: page && Array.isArray(page.tasks) ? page.tasks : [],
+            pageAccessToken: page && page.access_token ? `${String(page.access_token).slice(0, 10)}...` : null,
+            instagram_business_account: page && Object.prototype.hasOwnProperty.call(page, 'instagram_business_account')
+                ? page.instagram_business_account
+                : null
+        }))
+    };
+}
+
+function parseScopeList(scopeValue) {
+    if (Array.isArray(scopeValue)) {
+        return scopeValue
+            .map((scope) => String(scope || '').trim())
+            .filter((scope, index, list) => scope && list.indexOf(scope) === index);
+    }
+
+    if (typeof scopeValue !== 'string') {
+        return [];
+    }
+
+    return scopeValue
+        .split(/[\s,]+/)
+        .map((scope) => scope.trim())
+        .filter((scope, index, list) => scope && list.indexOf(scope) === index);
 }
 
 function renderInstagramPosts(feed, posts) {

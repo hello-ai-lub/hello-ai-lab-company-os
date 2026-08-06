@@ -795,21 +795,6 @@ const teamActivityGrid = document.getElementById('teamActivityGrid');
 const decisionsList = document.getElementById('decisionsList');
 const timelinePhases = document.getElementById('timelinePhases');
 
-function getPreviewBaseUrl() {
-  if (window.location && window.location.origin && window.location.origin !== 'null') {
-    return window.location.origin;
-  }
-  return 'http://localhost:8000';
-}
-
-function renderProjectPreviewLinks() {
-  const helloPrintSiteUrlEl = document.getElementById('helloPrintSiteUrl');
-  if (!helloPrintSiteUrlEl) return;
-
-  const base = getPreviewBaseUrl();
-  helloPrintSiteUrlEl.textContent = `${base}/Projects/hello-print-store-prototype/`;
-}
-
 function escapeHtml(text) {
   return String(text)
     .replace(/&/g, '&amp;')
@@ -2327,7 +2312,6 @@ function renderMocchiZooProhibited() {
 }
 
 function renderAll() {
-  renderProjectPreviewLinks();
   renderCEOGreeting();
   renderSnapshot();
   renderTodayKPI();

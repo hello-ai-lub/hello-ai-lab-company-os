@@ -68,6 +68,15 @@
         const accessToken = accessTokenFromHash || accessTokenFromQuery;
         const expiresInRaw = hashParams.get('expires_in') || params.get('expires_in');
         const expiresIn = Number(expiresInRaw || 0);
+        const grantedScopesRaw = hashParams.get('granted_scopes')
+            || params.get('granted_scopes')
+            || hashParams.get('scope')
+            || params.get('scope')
+            || '';
+        const grantedScopes = grantedScopesRaw
+            .split(/[\s,]+/)
+            .map((scope) => scope.trim())
+            .filter((scope, index, list) => scope && list.indexOf(scope) === index);
         const state = params.get('state');
         const error = params.get('error');
         const errorReason = params.get('error_reason');
@@ -96,13 +105,17 @@
             window.location.replace(`${window.location.origin}${fallbackPath}`);
         }
 
-        function redirectBackWithToken(accessTokenValue, expiresInValue) {
+        function redirectBackWithToken(accessTokenValue, expiresInValue, grantedScopesValue) {
             const base = returnUrl || `${window.location.origin}${window.location.pathname.replace(/instagram-oauth-callback\.html$/, '')}`;
             const next = new URL(base);
             next.searchParams.set('hps_ig_access_token', accessTokenValue);
 
             if (Number.isFinite(expiresInValue) && expiresInValue > 0) {
                 next.searchParams.set('hps_ig_expires_in', String(expiresInValue));
+            }
+
+            if (typeof grantedScopesValue === 'string' && grantedScopesValue.trim()) {
+                next.searchParams.set('hps_ig_granted_scopes', grantedScopesValue.trim());
             }
 
             window.location.replace(next.toString());
@@ -118,7 +131,9 @@
                     accessToken,
                     expiresAt,
                     savedAt: Date.now(),
-                    source: 'oauth-callback'
+                    source: 'oauth-callback',
+                    tokenType: 'user_access_token_implicit',
+                    grantedScopes
                 }));
             } catch (storageError) {
                 console.warn('Failed to write callback token to localStorage. Will pass via redirect URL.', storageError);
@@ -129,11 +144,12 @@
                 state,
                 has_access_token: true,
                 expires_in: expiresIn || null,
+                granted_scopes: grantedScopes,
                 callback_url: callbackUrl
             }, null, 2);
             nextStep.textContent = 'アクセストークンを保存し、ホームへ引き継ぎます。';
             clearOAuthSessionState();
-            setTimeout(() => redirectBackWithToken(accessToken, expiresIn), 900);
+            setTimeout(() => redirectBackWithToken(accessToken, expiresIn, grantedScopes.join(',')), 900);
         } else if (code) {
             if (expectedState && state !== expectedState) {
                 status.textContent = 'OAuth認証は完了しましたが、state検証に失敗しました。再度ログインをやり直してください。';
