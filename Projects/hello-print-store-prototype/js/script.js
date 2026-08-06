@@ -1,7 +1,8 @@
 const INSTAGRAM_CONFIG = {
     accessToken: '',
     limit: 4,
-    profileUrl: 'https://instagram.com/helloprintstore/'
+    profileUrl: 'https://instagram.com/helloprintstore/',
+    serverEndpoint: '/api/instagram-feed'
 };
 
 const INSTAGRAM_APP_CONFIG = {
@@ -23,7 +24,6 @@ const INSTAGRAM_CACHE_TTL_MS = 15 * 60 * 1000;
 const INSTAGRAM_DEBUG_KEY = 'hps_instagram_graph_debug_v1';
 
 document.addEventListener('DOMContentLoaded', () => {
-    hydrateInstagramTokenFromUrl();
     initLucideIcons();
     initSkipLink();
     initHeaderThemeSwitch();
@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothAnchorScroll();
     initRevealAnimation();
     initWorksModal();
-    initInstagramOAuthDebug();
     initInstagramFeed();
 });
 
@@ -442,48 +441,17 @@ async function initInstagramFeed() {
     ensureInstagramFeedVisible(feed);
 
     try {
-        const tokenInfo = getInstagramTokenInfo();
-        const accessToken = tokenInfo.token;
-        const authConfig = getInstagramAuthConfig();
-        writeInstagramGraphDebug({
-            startedAt: new Date().toISOString(),
-            token: {
-                source: tokenInfo.source,
-                type: tokenInfo.tokenType,
-                oauthGrantedScopes: tokenInfo.grantedScopes,
-                requestedScopes: parseScopeList(authConfig.scope),
-                present: Boolean(accessToken),
-                preview: accessToken ? `${accessToken.slice(0, 10)}...` : ''
-            },
-            steps: [{ stage: 'init', ok: true }]
-        });
-
-        if (!accessToken) {
-            renderInstagramStatus(feed, 'Instagram連携トークンが未設定です。設定後に最新投稿が自動表示されます。', {
-                showConnectButton: true,
-                connectButtonLabel: 'Instagramと連携する',
-                debugPayload: readInstagramGraphDebug()
-            });
-            return;
-        }
-
-        const posts = await fetchInstagramGraphPosts(tokenInfo, INSTAGRAM_CONFIG.limit);
+        const posts = await fetchInstagramPostsFromServer(INSTAGRAM_CONFIG.limit);
         if (!posts.length) {
-            appendInstagramGraphDebugStep({ stage: 'media', ok: true, message: 'No media posts returned.' });
-            renderInstagramStatus(feed, '投稿の取得に失敗したため再連携が必要な可能性があります。', {
-                showConnectButton: true,
-                connectButtonLabel: '再連携する',
-                debugPayload: readInstagramGraphDebug()
-            });
+            renderInstagramStatus(feed, '現在表示できるInstagram投稿がありません。しばらくしてから再読み込みしてください。');
             return;
         }
 
         writeInstagramCache(posts);
-        appendInstagramGraphDebugStep({ stage: 'media', ok: true, message: `Fetched ${posts.length} posts.` });
         renderInstagramPosts(feed, posts);
         initLucideIcons();
     } catch (error) {
-        console.warn('Instagram API fetch failed. Trying cache.', error);
+        console.warn('Instagram feed API fetch failed. Trying cache.', error);
         const cachedPosts = readInstagramCache();
 
         if (cachedPosts.length) {
@@ -492,14 +460,39 @@ async function initInstagramFeed() {
             return;
         }
 
-        const graphDebug = readInstagramGraphDebug();
-        const failure = analyzeInstagramFailure(error, graphDebug);
-        renderInstagramStatus(feed, failure.message, {
-            showConnectButton: true,
-            connectButtonLabel: '再連携する',
-            debugPayload: graphDebug
-        });
+        renderInstagramStatus(feed, 'Instagram投稿を準備中です。最新情報は公式Instagramをご確認ください。');
     }
+}
+
+async function fetchInstagramPostsFromServer(limit) {
+    const endpoint = new URL(INSTAGRAM_CONFIG.serverEndpoint, window.location.origin);
+    endpoint.searchParams.set('limit', String(limit));
+
+    const response = await fetch(endpoint.toString(), {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json'
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(`Instagram feed endpoint failed with status ${response.status}.`);
+    }
+
+    const json = await response.json();
+    if (!json || !Array.isArray(json.data)) {
+        return [];
+    }
+
+    return json.data
+        .map((post) => ({
+            image: post && post.image ? post.image : '',
+            caption: post && post.caption ? post.caption : '',
+            permalink: post && post.permalink ? post.permalink : INSTAGRAM_CONFIG.profileUrl,
+            timestamp: post && post.timestamp ? post.timestamp : '',
+            handle: post && post.handle ? post.handle : '@helloprintstore'
+        }))
+        .filter((post) => Boolean(post.image));
 }
 
 function getInstagramToken() {
@@ -1300,23 +1293,8 @@ function renderInstagramStatus(feed, message, options = {}) {
         }
     }
 
-    const debugPayloadSummary = buildInstagramDebugSummary(debugPayload);
-    if (debugPayloadSummary) {
-        const captionRow = card.querySelector('.instagram-caption-row');
-        if (captionRow) {
-            const debugPre = document.createElement('pre');
-            debugPre.style.marginTop = '12px';
-            debugPre.style.padding = '10px';
-            debugPre.style.background = '#f2f5fb';
-            debugPre.style.borderRadius = '8px';
-            debugPre.style.whiteSpace = 'pre-wrap';
-            debugPre.style.wordBreak = 'break-word';
-            debugPre.style.fontSize = '12px';
-            debugPre.style.color = '#222';
-            debugPre.textContent = safeJsonStringify(debugPayloadSummary);
-            captionRow.appendChild(debugPre);
-        }
-    }
+    void connectButtonLabel;
+    void debugPayload;
 
     feed.appendChild(card);
 }
