@@ -2,6 +2,19 @@ const GRAPH_BASE = 'https://graph.facebook.com';
 const GRAPH_VERSION = 'v23.0';
 const DEFAULT_LIMIT = 4;
 
+function logGraphApiError(httpStatus, metaError) {
+    const errorObject = metaError && typeof metaError === 'object' ? metaError : {};
+
+    console.error('[instagram-feed] Graph API error', {
+        httpStatus,
+        code: Object.prototype.hasOwnProperty.call(errorObject, 'code') ? errorObject.code : null,
+        type: Object.prototype.hasOwnProperty.call(errorObject, 'type') ? errorObject.type : null,
+        message: Object.prototype.hasOwnProperty.call(errorObject, 'message') ? errorObject.message : null,
+        error_subcode: Object.prototype.hasOwnProperty.call(errorObject, 'error_subcode') ? errorObject.error_subcode : null,
+        fbtrace_id: Object.prototype.hasOwnProperty.call(errorObject, 'fbtrace_id') ? errorObject.fbtrace_id : null
+    });
+}
+
 function toInt(value, fallback) {
     const parsed = Number.parseInt(String(value || ''), 10);
     if (!Number.isFinite(parsed) || parsed <= 0) {
@@ -66,9 +79,22 @@ export default async function handler(request, response) {
         });
 
         const rawText = await apiResponse.text();
-        const json = rawText ? JSON.parse(rawText) : null;
+        let json = null;
+
+        try {
+            json = rawText ? JSON.parse(rawText) : null;
+        } catch (_parseError) {
+            logGraphApiError(apiResponse.status, null);
+            response.status(502).json({
+                ok: false,
+                message: 'Failed to fetch Instagram feed from Graph API.',
+                data: []
+            });
+            return;
+        }
 
         if (!apiResponse.ok || (json && json.error)) {
+            logGraphApiError(apiResponse.status, json && json.error ? json.error : null);
             response.status(502).json({
                 ok: false,
                 message: 'Failed to fetch Instagram feed from Graph API.',
@@ -89,6 +115,14 @@ export default async function handler(request, response) {
             data: posts
         });
     } catch (_error) {
+        console.error('[instagram-feed] Request failed before Graph response', {
+            httpStatus: null,
+            code: null,
+            type: null,
+            message: _error && _error.message ? _error.message : 'Unknown fetch error',
+            error_subcode: null,
+            fbtrace_id: null
+        });
         response.status(502).json({
             ok: false,
             message: 'Instagram feed request failed.',
