@@ -38,95 +38,125 @@
         <section class="section section-contact-form" data-reveal-up>
             <div class="section-container contact-page-container">
                 <form id="orderContactForm" class="order-form" novalidate data-endpoint="">
-                    <div class="order-form-grid">
-                        <label class="form-field" for="customerName">
-                            <span class="form-label">お名前 <em>*</em></span>
-                            <input id="customerName" name="customerName" type="text" autocomplete="name" required>
-                            <span class="form-error" data-error-for="customerName"></span>
-                        </label>
-
-                        <label class="form-field" for="teamName">
-                            <span class="form-label">チーム名 / 団体名 <small>任意</small></span>
-                            <input id="teamName" name="teamName" type="text" autocomplete="organization">
-                        </label>
-
-                        <label class="form-field" for="email">
-                            <span class="form-label">メールアドレス <em>*</em></span>
-                            <input id="email" name="email" type="email" autocomplete="email" required>
-                            <span class="form-error" data-error-for="email"></span>
-                        </label>
-
-                        <label class="form-field" for="phone">
-                            <span class="form-label">電話番号 <small>任意</small></span>
-                            <input id="phone" name="phone" type="tel" autocomplete="tel">
-                        </label>
-                    </div>
-
-                    <fieldset class="form-fieldset">
-                        <legend class="form-label">作りたいアイテム <em>*</em></legend>
-                        <div class="chip-grid" id="itemOptions">
-                            <label class="chip-option"><input type="checkbox" name="items" value="タンクトップ"><span>タンクトップ</span></label>
-                            <label class="chip-option"><input type="checkbox" name="items" value="Tシャツ"><span>Tシャツ</span></label>
-                            <label class="chip-option"><input type="checkbox" name="items" value="ハーフパンツ"><span>ハーフパンツ</span></label>
-                            <label class="chip-option"><input type="checkbox" name="items" value="バスケットボールシャツ"><span>バスケットボールシャツ</span></label>
-                            <label class="chip-option"><input type="checkbox" name="items" value="ロングTシャツ"><span>ロングTシャツ</span></label>
-                            <label class="chip-option"><input type="checkbox" name="items" value="リバーシブル"><span>リバーシブル</span></label>
-                            <label class="chip-option"><input type="checkbox" name="items" value="その他"><span>その他</span></label>
+                    <section class="form-block" aria-labelledby="block-your-info">
+                        <div class="form-block-head">
+                            <p class="form-block-no">01</p>
+                            <h2 class="form-block-title" id="block-your-info">YOUR INFO</h2>
+                            <p class="form-block-copy">ご連絡先だけ先にいただければ、内容は後から一緒に整理できます。</p>
                         </div>
-                        <span class="form-error" data-error-for="items"></span>
-                    </fieldset>
+                        <div class="order-form-grid">
+                            <label class="form-field" for="customerName">
+                                <span class="form-label">お名前 <em>*</em></span>
+                                <input id="customerName" name="customerName" type="text" autocomplete="name" required>
+                                <span class="form-error" data-error-for="customerName"></span>
+                            </label>
 
-                    <div class="order-form-grid order-form-grid-3">
-                        <label class="form-field" for="quantityRange">
-                            <span class="form-label">予定枚数 <em>*</em></span>
-                            <select id="quantityRange" name="quantityRange" required>
-                                <option value="">選択してください</option>
-                                <option value="1-5">1〜5枚</option>
-                                <option value="6-10">6〜10枚</option>
-                                <option value="11-20">11〜20枚</option>
-                                <option value="21-30">21〜30枚</option>
-                                <option value="31-50">31〜50枚</option>
-                                <option value="51+">51枚以上</option>
-                                <option value="unsure">まだ未定</option>
-                            </select>
-                            <span class="form-error" data-error-for="quantityRange"></span>
-                        </label>
+                            <label class="form-field" for="teamName">
+                                <span class="form-label">チーム名 / 団体名 <small>任意</small></span>
+                                <input id="teamName" name="teamName" type="text" autocomplete="organization">
+                            </label>
 
-                        <label class="form-field" for="deliveryTiming">
-                            <span class="form-label">希望納期 <small>未定でも可</small></span>
-                            <input id="deliveryTiming" name="deliveryTiming" type="text" placeholder="例: 10月中旬 / 未定">
-                        </label>
+                            <label class="form-field" for="email">
+                                <span class="form-label">メールアドレス <em>*</em></span>
+                                <input id="email" name="email" type="email" autocomplete="email" required>
+                                <span class="form-error" data-error-for="email"></span>
+                            </label>
 
-                        <label class="form-field" for="designStage">
-                            <span class="form-label">デザインについて <em>*</em></span>
-                            <select id="designStage" name="designStage" required>
-                                <option value="">選択してください</option>
-                                <option value="decided">デザインが決まっている</option>
-                                <option value="image-only">イメージがある</option>
-                                <option value="need-consultation">相談したい</option>
-                            </select>
-                            <span class="form-error" data-error-for="designStage"></span>
-                        </label>
-                    </div>
-
-                    <label class="form-field" for="details">
-                        <span class="form-label">お問い合わせ内容 / ご要望 <em>*</em></span>
-                        <textarea id="details" name="details" rows="6" placeholder="用途、希望カラー、参考チーム、予算感などを自由にご記入ください。" required></textarea>
-                        <span class="form-error" data-error-for="details"></span>
-                    </label>
-
-                    <fieldset class="form-fieldset">
-                        <legend class="form-label">画像・資料添付 <small>任意</small></legend>
-                        <div class="file-uploader" id="fileUploader">
-                            <input id="attachments" name="attachments" type="file" multiple accept=".jpg,.jpeg,.png,.webp,.pdf,.ai,.psd,.zip">
-                            <label for="attachments" class="button button-secondary">ファイルを選択</label>
-                            <p class="uploader-note">手書きラフ、参考画像、既存ユニフォーム、ロゴ、デザイン資料など</p>
-                            <ul class="file-list" id="attachmentPreview"></ul>
+                            <label class="form-field" for="phone">
+                                <span class="form-label">電話番号 <small>任意</small></span>
+                                <input id="phone" name="phone" type="tel" autocomplete="tel">
+                            </label>
                         </div>
-                    </fieldset>
+                    </section>
+
+                    <section class="form-block" aria-labelledby="block-what-you-want">
+                        <div class="form-block-head">
+                            <p class="form-block-no">02</p>
+                            <h2 class="form-block-title" id="block-what-you-want">WHAT YOU WANT</h2>
+                            <p class="form-block-copy">作りたいアイテムと予定枚数、納期感をざっくり教えてください。</p>
+                        </div>
+                        <fieldset class="form-fieldset">
+                            <legend class="form-label">作りたいアイテム <em>*</em></legend>
+                            <div class="chip-grid" id="itemOptions">
+                                <label class="chip-option"><input type="checkbox" name="items" value="タンクトップ"><span>タンクトップ</span></label>
+                                <label class="chip-option"><input type="checkbox" name="items" value="Tシャツ"><span>Tシャツ</span></label>
+                                <label class="chip-option"><input type="checkbox" name="items" value="ハーフパンツ"><span>ハーフパンツ</span></label>
+                                <label class="chip-option"><input type="checkbox" name="items" value="バスケットボールシャツ"><span>バスケットボールシャツ</span></label>
+                                <label class="chip-option"><input type="checkbox" name="items" value="ロングTシャツ"><span>ロングTシャツ</span></label>
+                                <label class="chip-option"><input type="checkbox" name="items" value="リバーシブル"><span>リバーシブル</span></label>
+                                <label class="chip-option"><input type="checkbox" name="items" value="その他"><span>その他</span></label>
+                            </div>
+                            <span class="form-error" data-error-for="items"></span>
+                        </fieldset>
+
+                        <div class="order-form-grid order-form-grid-3">
+                            <label class="form-field" for="quantityRange">
+                                <span class="form-label">予定枚数 <em>*</em></span>
+                                <select id="quantityRange" name="quantityRange" required>
+                                    <option value="">選択してください</option>
+                                    <option value="1-5">1〜5枚</option>
+                                    <option value="6-10">6〜10枚</option>
+                                    <option value="11-20">11〜20枚</option>
+                                    <option value="21-30">21〜30枚</option>
+                                    <option value="31-50">31〜50枚</option>
+                                    <option value="51+">51枚以上</option>
+                                    <option value="unsure">まだ未定</option>
+                                </select>
+                                <span class="form-error" data-error-for="quantityRange"></span>
+                            </label>
+
+                            <label class="form-field" for="deliveryTiming">
+                                <span class="form-label">希望納期 <small>未定でも可</small></span>
+                                <input id="deliveryTiming" name="deliveryTiming" type="text" placeholder="例: 10月中旬 / 未定">
+                            </label>
+                        </div>
+                    </section>
+
+                    <section class="form-block" aria-labelledby="block-your-idea">
+                        <div class="form-block-head">
+                            <p class="form-block-no">03</p>
+                            <h2 class="form-block-title" id="block-your-idea">YOUR IDEA</h2>
+                            <p class="form-block-copy">デザイン状況と、伝えたいことを自由に記入してください。</p>
+                        </div>
+                        <div class="order-form-grid">
+                            <label class="form-field" for="designStage">
+                                <span class="form-label">デザインについて <em>*</em></span>
+                                <select id="designStage" name="designStage" required>
+                                    <option value="">選択してください</option>
+                                    <option value="decided">デザインが決まっている</option>
+                                    <option value="image-only">イメージがある</option>
+                                    <option value="need-consultation">相談したい</option>
+                                </select>
+                                <span class="form-error" data-error-for="designStage"></span>
+                            </label>
+                        </div>
+
+                        <label class="form-field" for="details">
+                            <span class="form-label">お問い合わせ内容 / ご要望 <em>*</em></span>
+                            <textarea id="details" name="details" rows="7" placeholder="用途、希望カラー、参考チーム、予算感などを自由にご記入ください。" required></textarea>
+                            <span class="form-error" data-error-for="details"></span>
+                        </label>
+                    </section>
+
+                    <section class="form-block" aria-labelledby="block-files">
+                        <div class="form-block-head">
+                            <p class="form-block-no">04</p>
+                            <h2 class="form-block-title" id="block-files">FILES</h2>
+                            <p class="form-block-copy">ラフ・参考画像・ロゴなど、伝わる資料があれば添付してください。</p>
+                        </div>
+                        <fieldset class="form-fieldset">
+                            <legend class="form-label">画像・資料添付 <small>任意</small></legend>
+                            <div class="file-uploader" id="fileUploader">
+                                <input id="attachments" name="attachments" type="file" multiple accept=".jpg,.jpeg,.png,.webp,.pdf,.ai,.psd,.zip">
+                                <label for="attachments" class="button button-secondary">ファイルを選択</label>
+                                <p class="uploader-note">手書きラフ、参考画像、既存ユニフォーム、ロゴ、デザイン資料など</p>
+                                <ul class="file-list" id="attachmentPreview"></ul>
+                            </div>
+                        </fieldset>
+                    </section>
 
                     <div class="form-submit-row">
-                        <button id="orderSubmitButton" class="button button-primary button-large" type="submit">SEND REQUEST</button>
+                        <button id="orderSubmitButton" class="button button-primary button-large" type="submit" data-default-label="START ORDER CONSULTATION" data-loading-label="SENDING...">START ORDER CONSULTATION</button>
                         <p class="form-submit-note">初版では送信導線と入力確認UIを実装しています。送信先連携は次工程で接続可能です。</p>
                     </div>
 

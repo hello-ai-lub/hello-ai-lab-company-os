@@ -641,8 +641,11 @@ function setFormSubmittingState(button, isSubmitting) {
         return;
     }
 
+    const defaultLabel = button.getAttribute('data-default-label') || 'SEND REQUEST';
+    const loadingLabel = button.getAttribute('data-loading-label') || 'SENDING...';
+
     button.disabled = isSubmitting;
-    button.textContent = isSubmitting ? 'SENDING...' : 'SEND REQUEST';
+    button.textContent = isSubmitting ? loadingLabel : defaultLabel;
 }
 
 function updateOrderFormStatus(statusElement, type, message) {
