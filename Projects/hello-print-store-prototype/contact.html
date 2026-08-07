@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hello Print Store order contact form">
+    <title>Contact | Hello Print Store</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header header-static" id="header">
+        <div class="header-container">
+            <div class="header-logo">
+                <a href="index.html#top" class="logo-link" aria-label="Hello Print Store home">
+                    <img src="assets/logo/01_logo/hello_logo_black.svg" alt="Hello Print Store logo" class="brand-logo logo-black logo-force-visible">
+                </a>
+            </div>
+            <nav class="header-nav header-nav-desktop">
+                <ul class="nav-list nav-list-light">
+                    <li><a href="index.html#works" class="nav-link">WORKS</a></li>
+                    <li><a href="index.html#order" class="nav-link">ORDER</a></li>
+                    <li><a href="index.html#contact" class="nav-link">TOP CONTACT</a></li>
+                    <li><a href="https://instagram.com/helloprintstore/" target="_blank" rel="noopener noreferrer" class="nav-link">INSTAGRAM</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main" class="contact-page-main">
+        <section class="section section-contact-intro" data-reveal-up>
+            <div class="section-container contact-page-container">
+                <h1 class="heading-en">START YOUR ORDER</h1>
+                <p class="heading-ja">まずは、ざっくりしたご相談で大丈夫です。</p>
+                <p class="body-ja">チーム名・予定枚数・イメージだけでもOKです。後から一緒に整えていきます。</p>
+            </div>
+        </section>
+
+        <section class="section section-contact-form" data-reveal-up>
+            <div class="section-container contact-page-container">
+                <form id="orderContactForm" class="order-form" novalidate data-endpoint="">
+                    <div class="order-form-grid">
+                        <label class="form-field" for="customerName">
+                            <span class="form-label">お名前 <em>*</em></span>
+                            <input id="customerName" name="customerName" type="text" autocomplete="name" required>
+                            <span class="form-error" data-error-for="customerName"></span>
+                        </label>
+
+                        <label class="form-field" for="teamName">
+                            <span class="form-label">チーム名 / 団体名 <small>任意</small></span>
+                            <input id="teamName" name="teamName" type="text" autocomplete="organization">
+                        </label>
+
+                        <label class="form-field" for="email">
+                            <span class="form-label">メールアドレス <em>*</em></span>
+                            <input id="email" name="email" type="email" autocomplete="email" required>
+                            <span class="form-error" data-error-for="email"></span>
+                        </label>
+
+                        <label class="form-field" for="phone">
+                            <span class="form-label">電話番号 <small>任意</small></span>
+                            <input id="phone" name="phone" type="tel" autocomplete="tel">
+                        </label>
+                    </div>
+
+                    <fieldset class="form-fieldset">
+                        <legend class="form-label">作りたいアイテム <em>*</em></legend>
+                        <div class="chip-grid" id="itemOptions">
+                            <label class="chip-option"><input type="checkbox" name="items" value="タンクトップ"><span>タンクトップ</span></label>
+                            <label class="chip-option"><input type="checkbox" name="items" value="Tシャツ"><span>Tシャツ</span></label>
+                            <label class="chip-option"><input type="checkbox" name="items" value="ハーフパンツ"><span>ハーフパンツ</span></label>
+                            <label class="chip-option"><input type="checkbox" name="items" value="バスケットボールシャツ"><span>バスケットボールシャツ</span></label>
+                            <label class="chip-option"><input type="checkbox" name="items" value="ロングTシャツ"><span>ロングTシャツ</span></label>
+                            <label class="chip-option"><input type="checkbox" name="items" value="リバーシブル"><span>リバーシブル</span></label>
+                            <label class="chip-option"><input type="checkbox" name="items" value="その他"><span>その他</span></label>
+                        </div>
+                        <span class="form-error" data-error-for="items"></span>
+                    </fieldset>
+
+                    <div class="order-form-grid order-form-grid-3">
+                        <label class="form-field" for="quantityRange">
+                            <span class="form-label">予定枚数 <em>*</em></span>
+                            <select id="quantityRange" name="quantityRange" required>
+                                <option value="">選択してください</option>
+                                <option value="1-5">1〜5枚</option>
+                                <option value="6-10">6〜10枚</option>
+                                <option value="11-20">11〜20枚</option>
+                                <option value="21-30">21〜30枚</option>
+                                <option value="31-50">31〜50枚</option>
+                                <option value="51+">51枚以上</option>
+                                <option value="unsure">まだ未定</option>
+                            </select>
+                            <span class="form-error" data-error-for="quantityRange"></span>
+                        </label>
+
+                        <label class="form-field" for="deliveryTiming">
+                            <span class="form-label">希望納期 <small>未定でも可</small></span>
+                            <input id="deliveryTiming" name="deliveryTiming" type="text" placeholder="例: 10月中旬 / 未定">
+                        </label>
+
+                        <label class="form-field" for="designStage">
+                            <span class="form-label">デザインについて <em>*</em></span>
+                            <select id="designStage" name="designStage" required>
+                                <option value="">選択してください</option>
+                                <option value="decided">デザインが決まっている</option>
+                                <option value="image-only">イメージがある</option>
+                                <option value="need-consultation">相談したい</option>
+                            </select>
+                            <span class="form-error" data-error-for="designStage"></span>
+                        </label>
+                    </div>
+
+                    <label class="form-field" for="details">
+                        <span class="form-label">お問い合わせ内容 / ご要望 <em>*</em></span>
+                        <textarea id="details" name="details" rows="6" placeholder="用途、希望カラー、参考チーム、予算感などを自由にご記入ください。" required></textarea>
+                        <span class="form-error" data-error-for="details"></span>
+                    </label>
+
+                    <fieldset class="form-fieldset">
+                        <legend class="form-label">画像・資料添付 <small>任意</small></legend>
+                        <div class="file-uploader" id="fileUploader">
+                            <input id="attachments" name="attachments" type="file" multiple accept=".jpg,.jpeg,.png,.webp,.pdf,.ai,.psd,.zip">
+                            <label for="attachments" class="button button-secondary">ファイルを選択</label>
+                            <p class="uploader-note">手書きラフ、参考画像、既存ユニフォーム、ロゴ、デザイン資料など</p>
+                            <ul class="file-list" id="attachmentPreview"></ul>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-submit-row">
+                        <button id="orderSubmitButton" class="button button-primary button-large" type="submit">SEND REQUEST</button>
+                        <p class="form-submit-note">初版では送信導線と入力確認UIを実装しています。送信先連携は次工程で接続可能です。</p>
+                    </div>
+
+                    <div class="form-status" id="orderFormStatus" aria-live="polite"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

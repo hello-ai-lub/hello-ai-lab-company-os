@@ -22,6 +22,9 @@ const INSTAGRAM_APP_CONFIG = {
 const INSTAGRAM_CACHE_KEY = 'hps_instagram_feed_cache_v1';
 const INSTAGRAM_CACHE_TTL_MS = 15 * 60 * 1000;
 const INSTAGRAM_DEBUG_KEY = 'hps_instagram_graph_debug_v1';
+const ORDER_CONTACT_FORM_CONFIG = {
+    simulatedDelayMs: 950
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     initLucideIcons();
@@ -31,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothAnchorScroll();
     initRevealAnimation();
     initWorksModal();
+    initOrderContactForm();
     initInstagramFeed();
 });
 
@@ -430,6 +434,224 @@ function initWorksModal() {
             showNext();
         }
     });
+}
+
+function initOrderContactForm() {
+    const form = document.getElementById('orderContactForm');
+    if (!form) {
+        return;
+    }
+
+    const submitButton = document.getElementById('orderSubmitButton');
+    const statusElement = document.getElementById('orderFormStatus');
+    const fileInput = document.getElementById('attachments');
+    const filePreview = document.getElementById('attachmentPreview');
+
+    if (fileInput && filePreview) {
+        fileInput.addEventListener('change', () => {
+            renderAttachmentPreview(fileInput.files, filePreview);
+        });
+    }
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        clearFormErrors(form);
+
+        const validation = validateOrderContactForm(form);
+        if (!validation.ok) {
+            applyFormErrors(form, validation.errors);
+            updateOrderFormStatus(statusElement, 'error', '入力内容をご確認ください。必須項目が未入力です。');
+            return;
+        }
+
+        setFormSubmittingState(submitButton, true);
+        updateOrderFormStatus(statusElement, 'loading', '送信中です。しばらくお待ちください...');
+
+        const payload = buildOrderContactPayload(form);
+        const endpoint = (form.getAttribute('data-endpoint') || '').trim();
+
+        try {
+            if (endpoint) {
+                await submitOrderContactToEndpoint(endpoint, form, payload);
+            } else {
+                await simulateOrderContactSubmit();
+            }
+
+            form.reset();
+            if (filePreview) {
+                renderAttachmentPreview([], filePreview);
+            }
+
+            updateOrderFormStatus(
+                statusElement,
+                'success',
+                endpoint
+                    ? '送信が完了しました。担当者よりご連絡いたします。'
+                    : '送信デモが完了しました。初版では送信先未接続のため、次工程で本送信先を接続します。'
+            );
+
+            console.log('Order contact payload preview', payload);
+        } catch (error) {
+            console.error('Order contact submit failed', error);
+            updateOrderFormStatus(statusElement, 'error', '送信に失敗しました。時間をおいて再度お試しください。');
+        } finally {
+            setFormSubmittingState(submitButton, false);
+        }
+    });
+}
+
+function validateOrderContactForm(form) {
+    const errors = {};
+    const name = form.elements.customerName;
+    const email = form.elements.email;
+    const quantityRange = form.elements.quantityRange;
+    const designStage = form.elements.designStage;
+    const details = form.elements.details;
+    const itemCheckboxes = Array.from(form.querySelectorAll('input[name="items"]'));
+
+    if (!name || !String(name.value || '').trim()) {
+        errors.customerName = 'お名前を入力してください。';
+    }
+
+    if (!email || !String(email.value || '').trim()) {
+        errors.email = 'メールアドレスを入力してください。';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email.value).trim())) {
+        errors.email = '有効なメールアドレスを入力してください。';
+    }
+
+    if (!itemCheckboxes.some((input) => input.checked)) {
+        errors.items = '作りたいアイテムを1つ以上選択してください。';
+    }
+
+    if (!quantityRange || !String(quantityRange.value || '').trim()) {
+        errors.quantityRange = '予定枚数を選択してください。';
+    }
+
+    if (!designStage || !String(designStage.value || '').trim()) {
+        errors.designStage = 'デザインについて選択してください。';
+    }
+
+    if (!details || !String(details.value || '').trim()) {
+        errors.details = 'お問い合わせ内容をご入力ください。';
+    }
+
+    return {
+        ok: Object.keys(errors).length === 0,
+        errors
+    };
+}
+
+function applyFormErrors(form, errors) {
+    Object.entries(errors).forEach(([field, message]) => {
+        if (field === 'items') {
+            const group = document.getElementById('itemOptions');
+            if (group) {
+                const wrapper = group.closest('.form-fieldset');
+                if (wrapper) {
+                    wrapper.classList.add('field-error');
+                }
+            }
+        } else {
+            const input = form.elements[field];
+            if (input && input.closest('.form-field')) {
+                input.closest('.form-field').classList.add('field-error');
+            }
+        }
+
+        const errorNode = form.querySelector(`[data-error-for="${field}"]`);
+        if (errorNode) {
+            errorNode.textContent = message;
+        }
+    });
+}
+
+function clearFormErrors(form) {
+    form.querySelectorAll('.field-error').forEach((node) => node.classList.remove('field-error'));
+    form.querySelectorAll('.form-error').forEach((node) => {
+        node.textContent = '';
+    });
+}
+
+function buildOrderContactPayload(form) {
+    const selectedItems = Array.from(form.querySelectorAll('input[name="items"]:checked')).map((input) => input.value);
+    const fileInput = form.elements.attachments;
+    const files = fileInput && fileInput.files ? Array.from(fileInput.files).map((file) => file.name) : [];
+
+    return {
+        customerName: String(form.elements.customerName.value || '').trim(),
+        teamName: String(form.elements.teamName.value || '').trim(),
+        email: String(form.elements.email.value || '').trim(),
+        phone: String(form.elements.phone.value || '').trim(),
+        items: selectedItems,
+        quantityRange: String(form.elements.quantityRange.value || '').trim(),
+        deliveryTiming: String(form.elements.deliveryTiming.value || '').trim(),
+        designStage: String(form.elements.designStage.value || '').trim(),
+        details: String(form.elements.details.value || '').trim(),
+        attachmentNames: files,
+        submittedAt: new Date().toISOString()
+    };
+}
+
+async function submitOrderContactToEndpoint(endpoint, form, payload) {
+    const body = new FormData();
+    body.append('payload', JSON.stringify(payload));
+
+    const fileInput = form.elements.attachments;
+    if (fileInput && fileInput.files) {
+        Array.from(fileInput.files).forEach((file) => {
+            body.append('attachments', file, file.name);
+        });
+    }
+
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        body
+    });
+
+    if (!response.ok) {
+        throw new Error(`Order form endpoint failed with status ${response.status}`);
+    }
+
+    return response;
+}
+
+function simulateOrderContactSubmit() {
+    return new Promise((resolve) => {
+        window.setTimeout(resolve, ORDER_CONTACT_FORM_CONFIG.simulatedDelayMs);
+    });
+}
+
+function renderAttachmentPreview(fileList, container) {
+    const files = Array.from(fileList || []);
+    container.innerHTML = '';
+
+    if (!files.length) {
+        return;
+    }
+
+    files.forEach((file) => {
+        const item = document.createElement('li');
+        item.textContent = `${file.name} (${Math.max(1, Math.round(file.size / 1024))}KB)`;
+        container.appendChild(item);
+    });
+}
+
+function setFormSubmittingState(button, isSubmitting) {
+    if (!button) {
+        return;
+    }
+
+    button.disabled = isSubmitting;
+    button.textContent = isSubmitting ? 'SENDING...' : 'SEND REQUEST';
+}
+
+function updateOrderFormStatus(statusElement, type, message) {
+    if (!statusElement) {
+        return;
+    }
+
+    statusElement.className = `form-status visible ${type}`;
+    statusElement.textContent = message;
 }
 
 async function initInstagramFeed() {
