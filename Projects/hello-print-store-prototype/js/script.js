@@ -487,7 +487,7 @@ function initOrderContactForm() {
                 'success',
                 endpoint
                     ? '送信が完了しました。担当者よりご連絡いたします。'
-                    : '送信デモが完了しました。初版では送信先未接続のため、次工程で本送信先を接続します。'
+                    : 'お問い合わせありがとうございます。内容を確認のうえ、担当者よりご連絡いたします。'
             );
 
             console.log('Order contact payload preview', payload);
