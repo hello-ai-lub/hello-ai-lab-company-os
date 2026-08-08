@@ -37,8 +37,7 @@
         <section class="section section-contact-intro" data-reveal-up>
             <div class="section-container contact-page-container">
                 <h1 class="heading-en">START YOUR ORDER</h1>
-                <p class="heading-ja">まずは、ざっくりしたご相談で大丈夫です。</p>
-                <p class="body-ja">チーム名・予定枚数・イメージだけでも大丈夫です。まずは作りたいものをお聞かせください。</p>
+                <p class="heading-ja">まずは、作りたいものをざっくり教えてください。</p>
             </div>
         </section>
 
@@ -61,6 +60,7 @@
                             <label class="form-field" for="teamName">
                                 <span class="form-label">チーム名 / 団体名 <small>任意</small></span>
                                 <input id="teamName" name="teamName" type="text" autocomplete="organization">
+                                <span class="form-error" data-error-for="teamName"></span>
                             </label>
 
                             <label class="form-field" for="email">
@@ -72,6 +72,7 @@
                             <label class="form-field" for="phone">
                                 <span class="form-label">電話番号 <small>任意</small></span>
                                 <input id="phone" name="phone" type="tel" autocomplete="tel">
+                                <span class="form-error" data-error-for="phone"></span>
                             </label>
                         </div>
                     </section>
@@ -85,13 +86,13 @@
                         <fieldset class="form-fieldset">
                             <legend class="form-label">作りたいアイテム <em>*</em></legend>
                             <div class="chip-grid" id="itemOptions">
-                                <label class="chip-option"><input type="checkbox" name="items" value="タンクトップ"><span>ノースリーブシャツ</span></label>
-                                <label class="chip-option"><input type="checkbox" name="items" value="Tシャツ"><span>Tシャツ</span></label>
-                                <label class="chip-option"><input type="checkbox" name="items" value="ハーフパンツ"><span>ハーフパンツ</span></label>
-                                <label class="chip-option"><input type="checkbox" name="items" value="バスケットボールシャツ"><span>バスケットユニフォーム</span></label>
-                                <label class="chip-option"><input type="checkbox" name="items" value="ロングTシャツ"><span>ロングTシャツ</span></label>
-                                <label class="chip-option"><input type="checkbox" name="items" value="リバーシブル"><span>リバーシブルウェア</span></label>
-                                <label class="chip-option"><input type="checkbox" name="items" value="その他"><span>その他</span></label>
+                                <label class="chip-option"><input type="checkbox" name="items" value="タンクトップ"><span><span class="chip-option-content"><i data-lucide="shirt" class="chip-icon" aria-hidden="true"></i><span class="chip-text">ノースリーブシャツ</span></span></span></label>
+                                <label class="chip-option"><input type="checkbox" name="items" value="Tシャツ"><span><span class="chip-option-content"><i data-lucide="shirt" class="chip-icon" aria-hidden="true"></i><span class="chip-text">Tシャツ</span></span></span></label>
+                                <label class="chip-option"><input type="checkbox" name="items" value="ハーフパンツ"><span><span class="chip-option-content"><i data-lucide="minus" class="chip-icon" aria-hidden="true"></i><span class="chip-text">ハーフパンツ</span></span></span></label>
+                                <label class="chip-option"><input type="checkbox" name="items" value="バスケットボールシャツ"><span><span class="chip-option-content"><i data-lucide="circle" class="chip-icon" aria-hidden="true"></i><span class="chip-text">バスケットユニフォーム</span></span></span></label>
+                                <label class="chip-option"><input type="checkbox" name="items" value="ロングTシャツ"><span><span class="chip-option-content"><i data-lucide="ruler" class="chip-icon" aria-hidden="true"></i><span class="chip-text">ロングTシャツ</span></span></span></label>
+                                <label class="chip-option"><input type="checkbox" name="items" value="リバーシブル"><span><span class="chip-option-content"><i data-lucide="repeat" class="chip-icon" aria-hidden="true"></i><span class="chip-text">リバーシブルウェア</span></span></span></label>
+                                <label class="chip-option"><input type="checkbox" name="items" value="その他"><span><span class="chip-option-content"><i data-lucide="ellipsis" class="chip-icon" aria-hidden="true"></i><span class="chip-text">その他</span></span></span></label>
                             </div>
                             <span class="form-error" data-error-for="items"></span>
                         </fieldset>
@@ -118,11 +119,13 @@
                                     <option value="unsure">まだ未定</option>
                                 </select>
                                 <span class="form-error" data-error-for="quantityRange"></span>
+                                <p class="form-hint">※商品により最低ロットが異なります。詳しくはご相談ください。</p>
                             </label>
 
                             <label class="form-field" for="deliveryTiming">
                                 <span class="form-label">希望納期 <small>未定でも可</small></span>
                                 <input id="deliveryTiming" name="deliveryTiming" type="text" placeholder="例: 10月中旬 / 未定">
+                                <p class="form-hint">※通常、製作開始から納品まで約1ヶ月が目安です。</p>
                             </label>
 
                             <label class="form-field" for="designStage">
@@ -134,6 +137,7 @@
                                     <option value="need-consultation">相談したい</option>
                                 </select>
                                 <span class="form-error" data-error-for="designStage"></span>
+                                <p class="form-hint form-hint-placeholder" aria-hidden="true">placeholder</p>
                             </label>
                         </div>
 
