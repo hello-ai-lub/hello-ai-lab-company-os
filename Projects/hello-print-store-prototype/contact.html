@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hello Print Store order contact form">
+    <title>Contact | Hello Print Store</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="header header-static" id="header">
+        <div class="header-container">
+            <div class="header-logo">
+                <a href="/#top" class="logo-link" aria-label="Hello Print Store home">
+                    <img src="/assets/logo/01_logo/hello_logo_black.svg" alt="Hello Print Store logo" class="brand-logo logo-black logo-force-visible">
+                </a>
+            </div>
+            <nav class="header-nav">
+                <ul class="nav-list nav-list-light">
+                    <li><a href="/#top" class="nav-link">TOP</a></li>
+                    <li><a href="/#works" class="nav-link">WORKS</a></li>
+                    <li><a href="/#about" class="nav-link">ABOUT</a></li>
+                    <li><a href="/contact" class="nav-link">ORDER</a></li>
+                    <li><a href="/#original-collab" class="nav-link">ORIGINAL / COLLAB</a></li>
+                    <li><a href="/contact" class="nav-link">CONTACT</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main" class="contact-page-main">
+        <section class="section section-contact-intro" data-reveal-up>
+            <div class="section-container contact-page-container">
+                <h1 class="heading-en">START YOUR ORDER</h1>
+                <p class="heading-ja">まずは、作りたいものをざっくり教えてください。</p>
+            </div>
+        </section>
+
+        <section class="section section-contact-form" data-reveal-up>
+            <div class="section-container contact-page-container">
+                <form id="orderContactForm" class="order-form" novalidate data-endpoint="/api/order-contact">
+                    <ol class="form-step-nav" aria-label="お問い合わせフォームの入力ステップ">
+                        <li>01 YOUR INFO</li>
+                        <li>02 ITEM</li>
+                        <li>03 SPECS</li>
+                        <li>04 QTY / SIZE</li>
+                        <li>05 DESIGN</li>
+                        <li>06 DELIVERY</li>
+                        <li>07 REQUEST</li>
+                        <li>08 PRICE</li>
+                        <li>09 CONFIRM</li>
+                        <li>10 COMPLETE</li>
+                    </ol>
+
+                    <section class="form-block" aria-labelledby="block-your-info">
+                        <div class="form-block-head">
+                            <p class="form-block-no">01</p>
+                            <h2 class="form-block-title" id="block-your-info">YOUR INFO</h2>
+                            <p class="form-block-copy">ご連絡先だけ先にいただければ、内容は後から一緒に整理できます。</p>
+                        </div>
+                        <div class="order-form-grid">
+                            <label class="form-field" for="customerName">
+                                <span class="form-label">お名前 <em>*</em></span>
+                                <input id="customerName" name="customerName" type="text" autocomplete="name" required>
+                                <span class="form-error" data-error-for="customerName"></span>
+                            </label>
+
+                            <label class="form-field" for="teamName">
+                                <span class="form-label">チーム名 / 団体名 <small>任意</small></span>
+                                <input id="teamName" name="teamName" type="text" autocomplete="organization">
+                            </label>
+
+                            <label class="form-field" for="email">
+                                <span class="form-label">メールアドレス <em>*</em></span>
+                                <input id="email" name="email" type="email" autocomplete="email" required>
+                                <span class="form-error" data-error-for="email"></span>
+                            </label>
+
+                            <label class="form-field" for="phone">
+                                <span class="form-label">電話番号 <small>任意</small></span>
+                                <input id="phone" name="phone" type="tel" autocomplete="tel">
+                            </label>
+                        </div>
+                    </section>
+
+                    <section class="form-block" aria-labelledby="block-item">
+                        <div class="form-block-head">
+                            <p class="form-block-no">02</p>
+                            <h2 class="form-block-title" id="block-item">ITEM</h2>
+                            <p class="form-block-copy">作りたい商品を1つ選んでください。選択後に必要な仕様だけ表示されます。</p>
+                        </div>
+                        <div class="order-form-grid order-form-grid-2">
+                            <label class="form-field" for="productType">
+                                <span class="form-label">ご希望の商品 <em>*</em></span>
+                                <select id="productType" name="productType" required>
+                                    <option value="">商品を選択してください</option>
+                                    <option value="01">01 タンクトップ</option>
+                                    <option value="02">02 リバーシブル タンクトップ</option>
+                                    <option value="03">03 Tシャツ</option>
+                                    <option value="04">04 ロングスリーブTシャツ</option>
+                                    <option value="05">05 バスケットパンツ</option>
+                                    <option value="07">07 ハーフパンツ</option>
+                                    <option value="08">08 フットボールシャツ</option>
+                                    <option value="09">09 ロングスリーブ フットボールシャツ</option>
+                                    <option value="10">10 ベースボールシャツ</option>
+                                    <option value="11">11 ポロシャツ</option>
+                                    <option value="12">12 ロングスリーブ ポロシャツ</option>
+                                    <option value="13">13 スウェットトップス</option>
+                                    <option value="14">14 スウェットロングパンツ</option>
+                                    <option value="15">15 サイドボタンパンツ</option>
+                                    <option value="16">16 プルオーバーパーカー</option>
+                                    <option value="17">17 フルジップジャージ</option>
+                                    <option value="18">18 ウインドブレーカージャケット</option>
+                                    <option value="19">19 ウインドブレーカーパンツ</option>
+                                    <option value="20">20 フルメッシュキャップ</option>
+                                    <option value="21">21 オリジナルソックス</option>
+                                </select>
+                                <span class="form-error" data-error-for="productType"></span>
+                            </label>
+                            <article id="productPriceCard" class="product-meta-card" aria-live="polite">
+                                <h3 class="product-meta-title">参考価格・最低ロット</h3>
+                                <p class="product-meta-empty">商品を選択すると表示されます。</p>
+                            </article>
+                        </div>
+                        <p class="form-hint">表示価格は参考価格です。最終確定金額ではありません。</p>
+                    </section>
+
+                    <section class="form-block" aria-labelledby="block-specs">
+                        <div class="form-block-head">
+                            <p class="form-block-no">03</p>
+                            <h2 class="form-block-title" id="block-specs">SPECS</h2>
+                            <p class="form-block-copy">商品ごとに必要な仕様とオプションだけ表示されます。未定の場合は「相談したい」を選択してください。</p>
+                        </div>
+                        <div id="productSpecsContainer" class="dynamic-section">
+                            <p class="dynamic-empty">商品選択後に仕様項目が表示されます。</p>
+                        </div>
+                        <div id="paidOptionsContainer" class="dynamic-section"></div>
+                    </section>
+
+                    <section class="form-block" aria-labelledby="block-quantity-size">
+                        <div class="form-block-head">
+                            <p class="form-block-no">04</p>
+                            <h2 class="form-block-title" id="block-quantity-size">QTY / SIZE</h2>
+                            <p class="form-block-copy">サイズが未定でも問い合わせできます。決まっている範囲だけ入力してください。</p>
+                        </div>
+
+                        <label class="form-field" for="quantityDecision">
+                            <span class="form-label">サイズ・数量の決定状況 <em>*</em></span>
+                            <select id="quantityDecision" name="quantityDecision" required>
+                                <option value="">選択してください</option>
+                                <option value="decided">サイズ・枚数が決まっている</option>
+                                <option value="rough">おおよそ決まっている</option>
+                                <option value="undecided">まだ決まっていない</option>
+                            </select>
+                            <span class="form-error" data-error-for="quantityDecision"></span>
+                        </label>
+
+                        <div id="quantityKnownFields" class="is-hidden">
+                            <div class="order-form-grid order-form-grid-2 quantity-inline-row">
+                                <label class="form-field" for="totalQuantityKnown">
+                                    <span class="form-label">合計数量 <em>*</em></span>
+                                    <input id="totalQuantityKnown" name="totalQuantityKnown" type="number" min="0" step="1" inputmode="numeric" placeholder="サイズ入力から自動計算">
+                                    <p class="form-hint">サイズ別の数量を入力すると自動で反映されます。直接入力も可能です。</p>
+                                    <span class="form-error" data-error-for="totalQuantityKnown"></span>
+                                </label>
+                                <div class="form-field unit-inline-field">
+                                    <span class="form-label">数量単位</span>
+                                    <p class="inline-value inline-value-unit" id="unitPreview">枚</p>
+                                </div>
+                            </div>
+
+                            <fieldset class="form-fieldset size-fieldset">
+                                <legend class="form-label">サイズ別数量</legend>
+                                <div id="sizeInputsGrid" class="size-input-grid" role="group" aria-label="サイズ別数量入力"></div>
+                                <label class="form-field" for="otherSizeNote">
+                                    <span class="form-label">その他サイズ <small>任意</small></span>
+                                    <input id="otherSizeNote" name="otherSizeNote" type="text" placeholder="例: 7XL 2枚、キッズ95 3枚">
+                                </label>
+                            </fieldset>
+                        </div>
+
+                        <div id="quantityRoughFields" class="is-hidden">
+                            <label class="form-field" for="roughQuantity">
+                                <span class="form-label">おおよその数量 <small>任意</small></span>
+                                <input id="roughQuantity" name="roughQuantity" type="number" min="0" step="1" inputmode="numeric" placeholder="例: 20">
+                                <p class="form-hint">概算で問題ありません。未定なら空欄でもOKです。</p>
+                            </label>
+                        </div>
+
+                        <p id="minimumLotNotice" class="soft-warning is-hidden" aria-live="polite"></p>
+                    </section>
+
+                    <section class="form-block" aria-labelledby="block-design">
+                        <div class="form-block-head">
+                            <p class="form-block-no">05</p>
+                            <h2 class="form-block-title" id="block-design">DESIGN</h2>
+                            <p class="form-block-copy">デザインが未定でも問題ありません。イメージや参考だけでもご相談いただけます。</p>
+                        </div>
+                        <label class="form-field" for="designStatus">
+                            <span class="form-label">デザイン状況 <em>*</em></span>
+                            <select id="designStatus" name="designStatus" required>
+                                <option value="">選択してください</option>
+                                <option value="complete-data">完成データがある</option>
+                                <option value="has-image">デザインイメージがある</option>
+                                <option value="has-reference">参考画像がある</option>
+                                <option value="request-design">HPSにデザイン制作・修正を依頼したい</option>
+                                <option value="undecided">まだ何も決まっていない</option>
+                            </select>
+                            <span class="form-error" data-error-for="designStatus"></span>
+                        </label>
+
+                        <p id="designFeeNotice" class="soft-info is-hidden">HPSでデザイン制作・修正を行う場合、基本デザイン料 10,000円〜となります。ロゴ制作や複雑なデザインは内容確認後にお見積もりします。</p>
+
+                        <fieldset class="form-fieldset references-fieldset">
+                            <legend class="form-label">ファイル添付 <small>任意</small></legend>
+                            <div class="file-uploader references-uploader" id="fileUploader">
+                                <input id="attachments" name="attachments" type="file" multiple accept=".ai,.pdf,.psd,.png,.jpg,.jpeg,.zip">
+                                <label for="attachments" class="references-drop-area">
+                                    <span class="references-drop-title">ADD YOUR FILES</span>
+                                    <span class="references-drop-sub">AI / PDF / PSD / PNG / JPG / JPEG / ZIP</span>
+                                    <span class="references-drop-caption">クリックして資料を選択</span>
+                                </label>
+                                <ul class="file-list" id="attachmentPreview"></ul>
+                            </div>
+                        </fieldset>
+                    </section>
+
+                    <section class="form-block" aria-labelledby="block-delivery">
+                        <div class="form-block-head">
+                            <p class="form-block-no">06</p>
+                            <h2 class="form-block-title" id="block-delivery">DELIVERY</h2>
+                            <p class="form-block-copy">希望日がある場合のみ入力してください。</p>
+                        </div>
+                        <label class="form-field" for="deliveryPreference">
+                            <span class="form-label">ご希望納期 <em>*</em></span>
+                            <select id="deliveryPreference" name="deliveryPreference" required>
+                                <option value="">選択してください</option>
+                                <option value="has-date">希望日あり</option>
+                                <option value="no-preference">特に指定なし</option>
+                            </select>
+                            <span class="form-error" data-error-for="deliveryPreference"></span>
+                        </label>
+
+                        <label id="desiredDateWrap" class="form-field is-hidden" for="desiredDate">
+                            <span class="form-label">希望日</span>
+                            <input id="desiredDate" name="desiredDate" type="date">
+                            <span class="form-error" data-error-for="desiredDate"></span>
+                        </label>
+
+                        <p class="form-hint">通常納期は製作開始から約1ヶ月です。数量・仕様・工場状況により前後する場合があります。</p>
+                    </section>
+
+                    <section class="form-block" aria-labelledby="block-request">
+                        <div class="form-block-head">
+                            <p class="form-block-no">07</p>
+                            <h2 class="form-block-title" id="block-request">REQUEST</h2>
+                            <p class="form-block-copy">用途やご予算、試合日など自由にご記入ください。</p>
+                        </div>
+                        <label class="form-field" for="details">
+                            <span class="form-label">その他・ご要望</span>
+                            <textarea id="details" name="details" rows="7" placeholder="カラー、デザイン、用途、試合日、ご予算、その他ご不明点など自由にご記入ください。"></textarea>
+                        </label>
+                    </section>
+
+                    <section class="form-block" aria-labelledby="block-reference-price">
+                        <div class="form-block-head">
+                            <p class="form-block-no">08</p>
+                            <h2 class="form-block-title" id="block-reference-price">REFERENCE PRICE</h2>
+                            <p class="form-block-copy">数量や仕様から計算できる範囲で参考価格を表示します。</p>
+                        </div>
+                        <article class="price-estimate" id="referencePriceBox" aria-live="polite">
+                            <p class="price-estimate-empty">商品と数量を入力すると参考価格を表示します。</p>
+                        </article>
+                        <p class="form-hint">表示価格は参考価格です。デザイン内容、特殊仕様、数量等により最終金額が変わる場合があります。</p>
+                    </section>
+
+                    <div class="form-submit-row form-submit-row-staged" id="previewActionRow">
+                        <button id="previewButton" class="button button-primary button-large" type="button">入力内容を確認する</button>
+                    </div>
+
+                    <section class="form-block confirmation-block is-hidden" id="confirmationSection" aria-labelledby="block-confirm">
+                        <div class="form-block-head">
+                            <p class="form-block-no">09</p>
+                            <h2 class="form-block-title" id="block-confirm">CONFIRM</h2>
+                            <p class="form-block-copy">内容をご確認のうえ、問題なければお問い合わせを送信してください。</p>
+                        </div>
+                        <div id="confirmationSummary" class="confirmation-summary"></div>
+                        <div class="confirmation-actions">
+                            <button id="editButton" class="button button-secondary button-large" type="button">入力に戻る</button>
+                            <button id="orderSubmitButton" class="button button-primary button-large" type="submit" data-default-label="この内容で問い合わせる" data-loading-label="送信中...">この内容で問い合わせる</button>
+                        </div>
+                    </section>
+
+                    <section class="form-block completion-block is-hidden" id="completionSection" aria-labelledby="block-complete">
+                        <div class="form-block-head">
+                            <p class="form-block-no">10</p>
+                            <h2 class="form-block-title" id="block-complete">COMPLETE</h2>
+                        </div>
+                        <p class="completion-message">お問い合わせありがとうございます。<br>内容を確認後、Hello Print Storeよりご連絡いたします。</p>
+                    </section>
+
+                    <div class="form-status" id="orderFormStatus" aria-live="polite"></div>
+                </form>
+
+                <aside class="order-guide-teaser" data-reveal-up>
+                    <p class="order-guide-kicker">BEFORE YOU ORDER</p>
+                    <h2 class="order-guide-title">ご注文前にご確認ください</h2>
+                    <p class="order-guide-copy">納期、色味、縫製、追加注文などの詳細をORDER GUIDEにまとめています。</p>
+                    <a href="/order-guide.html" class="order-guide-link">ORDER GUIDE →</a>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>

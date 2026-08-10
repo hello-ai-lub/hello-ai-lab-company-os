@@ -7,6 +7,37 @@
 
 ---
 
+## Order Contact Mail Delivery (Vercel)
+
+`contact.html` の問い合わせフォームは `POST /api/order-contact` へ送信し、サーバー側で実メール送信します。
+
+### 実装方針
+
+- フロント側ではAPIキーを扱わない
+- Vercel Serverless Function でメール送信
+- 添付ファイルは Vercel Blob へ保存し、管理者向けメール本文にURLを記載
+- 管理者向け通知メールと、お客様向け自動返信メールを同時送信
+- 送信失敗時はCOMPLETE表示せず、エラーメッセージを返す
+
+### 必須環境変数（Vercel Project Settings）
+
+- `RESEND_API_KEY`: Resend APIキー
+- `HPS_CONTACT_TO_EMAIL`: Hello Print Store受信先メールアドレス
+- `HPS_MAIL_FROM`: 送信元メールアドレス（Resendで認証済みドメイン）
+- `BLOB_READ_WRITE_TOKEN`: Vercel Blob 保存トークン（添付ファイル保存用）
+
+### ローカル開発時の追加セットアップ
+
+```bash
+cd /Users/take/Desktop/Hello-AI-Lab/Projects/hello-print-store-prototype
+npm install
+```
+
+### 注意事項
+
+- 添付ファイルはメール添付ではなくBlob URLで確認する設計です。
+- Blob設定が無い状態でファイルを添付すると送信失敗になります。
+
 ## Instagram Graph API Setup
 
 このサイトは Instagram Graph API で最新投稿を自動表示できます。
@@ -149,29 +180,38 @@ Hello Print Store のプレミアム ブランドサイト プロトタイプで
 
 ---
 
-## 🚀 サーバー起動状況
+## 🚀 固定プレビューURL（運用ルール）
 
-### 現在実行中 ✅
+今後の Hello Print Store 開発確認は、以下の URL に固定します。
 
 ```
-Port: 8001
-Command: python3 -m http.server 8001
-Status: Running (Background Terminal)
-URL: http://localhost:8001/Projects/hello-print-store-prototype/
+http://localhost:8000/Projects/hello-print-store-prototype/
 ```
 
-### 新しい ターミナルで起動する場合
+- ポートは `8000` 固定
+- ユーザー確認入口は上記TOP URLのみ
+- 個別ページ（`contact.html` など）の直リンク運用は行わない
+
+### 起動コマンド（固定）
+
+```bash
+cd /Users/take/Desktop/Hello-AI-Lab
+python3 -m http.server 8000
+```
+
+### ORDER導線の回帰チェック
+
+トップのORDER CTAと問い合わせフォーム主要要素が残っているかは、以下で確認できます。
 
 ```bash
 cd /Users/take/Desktop/Hello-AI-Lab/Projects/hello-print-store-prototype
-python3 -m http.server 8001
+npm run test:order-cta
 ```
 
-### ブラウザで表示
+### 画面確認導線
 
-```
-http://localhost:8001/Projects/hello-print-store-prototype/
-```
+- TOP: `http://localhost:8000/Projects/hello-print-store-prototype/`
+- CONTACTフォーム: TOP内の `CONTACT US` または `START YOUR ORDER` から遷移
 
 ---
 

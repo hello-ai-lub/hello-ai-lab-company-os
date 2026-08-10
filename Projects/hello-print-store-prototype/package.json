@@ -1,0 +1,12 @@
+{
+  "name": "hello-print-store-prototype",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:order-cta": "node ./scripts/verify-order-cta.mjs"
+  },
+  "dependencies": {
+    "@vercel/blob": "^0.27.0",
+    "formidable": "^3.5.1"
+  }
+}
