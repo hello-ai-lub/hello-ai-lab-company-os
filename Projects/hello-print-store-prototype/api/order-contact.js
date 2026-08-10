@@ -18,7 +18,7 @@ const deliveryPreferenceLabelMap = {
 
 const designStatusLabelMap = {
     'complete-data': '完成データがある',
-    has-image: 'デザインイメージがある',
+    'has-image': 'デザインイメージがある',
     'has-reference': '参考画像がある',
     'request-design': 'HPSにデザイン制作・修正を依頼したい',
     undecided: 'まだ何も決まっていない'
