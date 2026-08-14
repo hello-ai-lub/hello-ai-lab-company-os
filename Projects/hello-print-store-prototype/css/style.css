@@ -480,6 +480,15 @@ a {
     min-height: 280px;
 }
 
+@media (min-width: 1200px) {
+    .instagram-grid,
+    .section-instagram .button-row {
+        max-width: min(68vw, 940px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 .works-magazine {
     max-width: var(--max-width);
     margin: 0 auto;
@@ -497,6 +506,7 @@ a {
 .works-feature-block,
 .work-tile-block {
     display: grid;
+    grid-template-rows: auto 1fr;
     gap: 0.42rem;
 }
 
@@ -523,6 +533,7 @@ a {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.65rem;
+    align-items: start;
 }
 
 .work-tile {
@@ -535,23 +546,31 @@ a {
 }
 
 .works-copy h3 {
+    margin: 0;
     font-family: 'Barlow', sans-serif;
     font-size: 0.96rem;
     letter-spacing: 0.05em;
+    line-height: 1.2;
 }
 
 .works-description {
-    margin-top: 0.16rem;
+    margin: 0;
     font-size: 0.78rem;
     color: var(--muted);
     line-height: 1.45;
 }
 
 .works-feature-text {
-    margin-top: 0.18rem;
+    margin: 0;
     font-size: 0.75rem;
     line-height: 1.4;
     color: #2f4267;
+}
+
+.works-copy {
+    display: grid;
+    align-content: start;
+    gap: 0.16rem;
 }
 
 .section-about {
