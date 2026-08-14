@@ -559,7 +559,7 @@ a {
     display: grid;
     grid-template-columns: minmax(0, 1.14fr) minmax(0, 0.52fr);
     gap: 2.6rem;
-    align-items: start;
+    align-items: center;
 }
 
 .about-copy-block h3 {
@@ -1885,6 +1885,10 @@ a {
     .lookbook-layout,
     .about-layout {
         grid-template-columns: 1fr;
+    }
+
+    .about-layout {
+        align-items: start;
     }
 
     .section-about {
