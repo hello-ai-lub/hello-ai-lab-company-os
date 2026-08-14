@@ -549,15 +549,15 @@ a {
 }
 
 .section-about {
-    background: var(--section-soft);
+    background: #edf1f4;
 }
 
 .about-layout {
     max-width: var(--max-width);
     margin: 0 auto;
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    gap: 1rem;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.68fr);
+    gap: 2.2rem;
     align-items: start;
 }
 
@@ -568,28 +568,29 @@ a {
 }
 
 .about-copy-block p {
-    margin-top: 0.7rem;
-    font-size: 0.95rem;
+    margin-top: 0.62rem;
+    font-size: 0.91rem;
     color: #444c5d;
-    line-height: 1.84;
+    line-height: 1.68;
 }
 
 .about-copy-block {
-    max-width: 600px;
+    max-width: 560px;
 }
 
 .about-copy-block p + p {
-    margin-top: 0.82rem;
+    margin-top: 0.62rem;
 }
 
 .about-photo-stack {
     display: grid;
     grid-template-columns: 1fr;
     gap: 0;
+    justify-items: end;
 }
 
 .about-photo-stack img {
-    width: 100%;
+    width: min(100%, 240px);
     display: block;
     border-radius: 2px;
     aspect-ratio: 4 / 5;
