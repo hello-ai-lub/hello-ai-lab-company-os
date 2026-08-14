@@ -488,6 +488,12 @@ a {
     gap: 0.75rem;
 }
 
+@media (min-width: 1200px) {
+    .works-magazine {
+        max-width: min(68vw, 940px);
+    }
+}
+
 .works-feature-block,
 .work-tile-block {
     display: grid;
