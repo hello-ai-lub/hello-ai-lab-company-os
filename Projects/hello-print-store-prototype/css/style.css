@@ -581,13 +581,47 @@ a {
     }
 
     .section-original .original-gallery-meta h4 {
-        font-size: 15px;
+        font-size: 14px;
         line-height: 1.2;
     }
 
     .section-original .original-gallery-meta p {
         margin-top: 3px;
         font-size: 11px;
+    }
+
+    .section-original .original-gallery-note {
+        margin-top: 6px;
+        display: block;
+        font-family: 'Barlow', sans-serif;
+        font-size: 12px;
+        line-height: 1.45;
+        letter-spacing: 0.02em;
+        color: #4e5768;
+    }
+
+    .section-original .original-gallery-item:nth-child(1) .original-gallery-meta h4 {
+        font-size: 18px;
+        line-height: 1.16;
+        letter-spacing: 0.04em;
+    }
+
+    .section-original .original-gallery-item:nth-child(2) .original-gallery-meta h4 {
+        font-size: 15px;
+        line-height: 1.2;
+        letter-spacing: 0.05em;
+    }
+
+    .section-original .original-gallery-item:nth-child(3) .original-gallery-meta p,
+    .section-original .original-gallery-item:nth-child(4) .original-gallery-meta p {
+        display: none;
+    }
+
+    .section-original .original-gallery-item:nth-child(3) .original-gallery-meta h4,
+    .section-original .original-gallery-item:nth-child(4) .original-gallery-meta h4 {
+        font-size: 12px;
+        line-height: 1.15;
+        letter-spacing: 0.06em;
     }
 }
 
@@ -870,6 +904,9 @@ a {
     font-size: 0.72rem;
     letter-spacing: 0.11em;
     color: #6c7484;
+}
+.original-gallery-note {
+    display: none;
 }
 
 .original-gallery-cta {
@@ -1236,7 +1273,6 @@ a {
 
 .confirmation-block {
     border-color: #c7d7f8;
-    background: #fbfdff;
 }
 
 .confirmation-summary {
