@@ -151,10 +151,12 @@
                         return '';
                     }
 
+                    const categoryIndex = String(categoryOrder.indexOf(category) + 1).padStart(2, '0');
+
                     const list = group.map((item) => {
                         const names = productDisplayNames[item.code] || { en: item.category || 'ITEM', ja: item.name || '' };
                         const taxPrice = Number(item.basePriceExcl) > 0
-                            ? `${new Intl.NumberFormat('ja-JP').format(Math.round(Number(item.basePriceExcl) * 1.1))}円〜`
+                            ? `¥${new Intl.NumberFormat('ja-JP').format(Math.round(Number(item.basePriceExcl) * 1.1))}〜`
                             : '要相談';
                         const minLot = Number(item.minLot) > 0
                             ? `${item.minLot}${String(item.unit || '').trim()}〜`
@@ -167,8 +169,14 @@
                                     <p class="price-item-ja">${escapeHtml(names.ja || item.name || '')}</p>
                                 </div>
                                 <div class="price-item-meta">
-                                    <span>${escapeHtml(taxPrice)}</span>
-                                    <span>${escapeHtml(minLot)}</span>
+                                    <p class="price-value">
+                                        <span class="price-label">PRICE</span>
+                                        <span class="price-amount">${escapeHtml(taxPrice)}</span>
+                                    </p>
+                                    <p class="lot-value">
+                                        <span class="price-label">MIN LOT</span>
+                                        <span class="lot-amount">${escapeHtml(minLot)}</span>
+                                    </p>
                                 </div>
                             </li>
                         `;
@@ -176,6 +184,7 @@
 
                     return `
                         <article class="price-category-panel">
+                            <p class="price-category-index">${escapeHtml(categoryIndex)}</p>
                             <h2 class="price-category-title">${escapeHtml(category)}</h2>
                             <ul class="price-item-list">${list}</ul>
                         </article>
