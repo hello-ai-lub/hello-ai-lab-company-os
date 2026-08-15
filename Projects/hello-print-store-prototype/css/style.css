@@ -739,6 +739,66 @@ a.news-item-row:hover .news-title {
     }
 }
 
+@media (min-width: 981px) {
+    #order {
+        padding-bottom: 1.25rem;
+    }
+
+    #products-item {
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
+
+    #price-guide {
+        padding-top: 1.25rem;
+    }
+
+    #original-collab {
+        padding-bottom: 1.25rem;
+    }
+
+    #instagram {
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
+
+    #contact {
+        padding-top: 1.25rem;
+    }
+
+    #order .order-cta-row,
+    #products-item .products-view-all,
+    #original-collab .original-gallery-cta {
+        margin-top: 2.4rem;
+    }
+
+    #instagram .button-row {
+        margin-top: 1.25rem;
+    }
+
+    #about {
+        padding-top: 2.8rem;
+        padding-bottom: 2.5rem;
+    }
+
+    #about .about-layout {
+        gap: 0.76rem;
+        align-items: start;
+    }
+
+    #about .about-copy-block h3 {
+        margin-top: 0;
+    }
+
+    #about .about-photo-stack {
+        justify-items: end;
+    }
+
+    #about .about-photo-stack img {
+        width: min(100%, 380px);
+    }
+}
+
 .section-works .works-magazine {
     max-width: var(--max-width);
     margin: 0 auto;
@@ -825,7 +885,7 @@ a.news-item-row:hover .news-title {
 
 .section-about {
     background: #edf1f4;
-    padding: 2.9rem 1.5rem;
+    padding: 2.8rem 1.5rem 2.5rem;
 }
 
 .about-layout {
@@ -1699,6 +1759,14 @@ a.news-item-row:hover .news-title {
 
 .original-gallery-cta {
     margin-top: 1rem;
+}
+
+.section-instagram .button-row {
+    margin-top: 1rem;
+}
+
+.section-contact {
+    padding-top: 3.8rem;
 }
 
 .original-gallery-cta .button {
@@ -3011,7 +3079,7 @@ a.news-item-row:hover .news-title {
     }
 
     .section-about {
-        padding: 2.4rem 1rem;
+        padding: 2.6rem 1rem 2.4rem;
     }
 
     .about-copy-block p {
@@ -3035,8 +3103,8 @@ a.news-item-row:hover .news-title {
     .section-about,
     .section-original,
     .section-instagram {
-        padding-top: 2.4rem;
-        padding-bottom: 2.4rem;
+        padding-top: 2.2rem;
+        padding-bottom: 2.2rem;
     }
 
     .logo-link {
