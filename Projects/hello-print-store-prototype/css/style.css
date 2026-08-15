@@ -1899,7 +1899,14 @@ a.news-item-row:hover .news-title {
 }
 
 .order-guide-container {
-    max-width: 980px;
+    max-width: var(--max-width);
+    width: 100%;
+}
+
+@media (min-width: 1200px) {
+    .order-guide-container {
+        max-width: min(68vw, 940px);
+    }
 }
 
 .section-order-guide-intro {
@@ -2012,17 +2019,18 @@ a.news-item-row:hover .news-title {
     border-radius: 8px;
     overflow: hidden;
     background: #f3f3f3;
+    width: min(100%, 540px);
 }
 
 .guide-photo img {
     width: 100%;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 4 / 3;
     object-fit: cover;
     display: block;
 }
 
 .guide-photo-feature img {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
 }
 
 .guide-keyfact {
