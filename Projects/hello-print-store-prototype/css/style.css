@@ -963,8 +963,8 @@ a.news-item-row:hover .news-title {
 }
 
 .section-price-guide .heading-en {
-    color: #1f4ea0;
-    letter-spacing: 0.07em;
+    color: #111111;
+    letter-spacing: 0.06em;
 }
 
 .price-guide-subcopy {
@@ -1014,6 +1014,7 @@ a.news-item-row:hover .news-title {
 }
 
 .product-line-icon .garment-shell {
+    fill: #ffffff;
     stroke-width: 1.45;
 }
 
@@ -1059,11 +1060,12 @@ a.news-item-row:hover .news-title {
     border: 1px solid #c4d4ef;
     border-radius: 8px;
     background: #ffffff;
-    padding: 1rem 1rem 0.92rem;
-    min-height: 252px;
-    display: grid;
-    grid-template-rows: auto auto auto 1fr auto;
-    gap: 0.4rem;
+    padding: 1rem 1.02rem 0.94rem;
+    min-height: 346px;
+    aspect-ratio: 0.85 / 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.34rem;
     text-decoration: none;
     color: inherit;
     transition: border-color 220ms ease, background-color 220ms ease;
@@ -1079,27 +1081,32 @@ a.news-item-row:hover .news-title {
 
 .price-guide-badge {
     margin: 0;
-    width: 52px;
-    height: 46px;
+    width: 102px;
+    height: 102px;
     background: #1f4ea0;
-    clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
     display: grid;
-    place-items: center;
+    place-items: start;
+    padding: 0.95rem 0 0 0.9rem;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .price-guide-no {
     margin: 0;
     font-family: 'Barlow', sans-serif;
-    font-size: 1.06rem;
-    letter-spacing: 0.04em;
+    font-size: clamp(1.9rem, 2.35vw, 2.35rem);
+    letter-spacing: 0.02em;
     color: #ffffff;
     line-height: 1;
+    font-weight: 700;
 }
 
 .price-guide-icon {
     width: 44px;
     height: 44px;
-    margin-top: 0.16rem;
+    margin-top: 5.5rem;
 }
 
 .price-guide-icon path,
@@ -1117,22 +1124,24 @@ a.news-item-row:hover .news-title {
 .price-guide-title {
     margin: 0;
     font-family: 'Barlow', sans-serif;
-    font-size: clamp(1.24rem, 1.85vw, 1.66rem);
-    letter-spacing: 0.06em;
+    font-size: clamp(1.76rem, 2.25vw, 2.1rem);
+    letter-spacing: 0.04em;
     line-height: 1.02;
+    font-weight: 700;
+    color: #111111;
 }
 
 .price-guide-copy {
     margin-top: auto;
-    font-size: 0.84rem;
-    color: #4c586e;
+    font-size: 0.86rem;
+    color: #2d3442;
     line-height: 1.5;
 }
 
 .price-guide-link {
     margin-top: 0.1rem;
     font-family: 'Barlow', sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     letter-spacing: 0.1em;
     color: #223759;
 }
@@ -2405,7 +2414,26 @@ a.news-item-row:hover .news-title {
     }
 
     .price-guide-card {
-        min-height: 218px;
+        min-height: 292px;
+        aspect-ratio: auto;
+    }
+
+    .price-guide-badge {
+        width: 88px;
+        height: 88px;
+        padding: 0.78rem 0 0 0.72rem;
+    }
+
+    .price-guide-no {
+        font-size: 1.85rem;
+    }
+
+    .price-guide-icon {
+        margin-top: 4.6rem;
+    }
+
+    .price-guide-title {
+        font-size: 1.62rem;
     }
 }
 
