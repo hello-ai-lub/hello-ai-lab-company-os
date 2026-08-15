@@ -46,6 +46,19 @@
             </div>
         </section>
 
+        <section class="section section-news" id="news">
+            <div class="section-container">
+                <div class="news-heading" data-reveal-up>
+                    <h2 class="heading-en heading-en-sm">NEWS / INFORMATION</h2>
+                </div>
+                <ul class="news-list" id="newsList" data-reveal-up aria-live="polite"></ul>
+                <div class="news-view-all" data-reveal-up>
+                    <a class="news-view-all-link" id="newsViewAllLink" href="#" hidden>VIEW ALL &rarr;</a>
+                    <span class="news-view-all-link is-disabled" id="newsViewAllText" hidden>VIEW ALL &rarr;</span>
+                </div>
+            </div>
+        </section>
+
         <section class="section section-intro section-culture" id="intro">
             <div class="section-container">
                 <div class="section-heading intro-reveal" data-reveal-up>
@@ -60,23 +73,50 @@
             </div>
         </section>
 
-        <section class="section section-instagram" id="instagram">
+        <section class="section section-order" id="order">
             <div class="section-heading" data-reveal-up>
-                <h2 class="heading-en">INSTAGRAM</h2>
-                <p class="heading-ja">最新の制作実績</p>
+                <h2 class="heading-en">ORDER</h2>
+                <p class="heading-ja">オーダーの流れ</p>
             </div>
-            <div class="instagram-feed instagram-grid" id="instagramFeed" data-reveal-up>
-                <div class="instagram-card instagram-card-loading" aria-live="polite">
-                    <div class="instagram-media-wrap"></div>
-                    <div class="instagram-caption-row">
-                        <span class="instagram-handle">@helloprintstore</span>
-                        <p class="instagram-date">読み込み中</p>
-                        <p class="instagram-caption">Instagramの最新投稿を取得しています...</p>
-                    </div>
-                </div>
+            <div class="order-flow" data-reveal-up>
+                <article class="order-step">
+                    <i data-lucide="message-circle"></i>
+                    <p class="order-no">01</p>
+                    <h4>CONTACT</h4>
+                    <p>お問い合わせ・ご相談</p>
+                </article>
+                <span class="order-arrow" aria-hidden="true">→</span>
+                <article class="order-step">
+                    <i data-lucide="clipboard-list"></i>
+                    <p class="order-no">02</p>
+                    <h4>HEARING</h4>
+                    <p>内容・数量・納期の確認</p>
+                </article>
+                <span class="order-arrow" aria-hidden="true">→</span>
+                <article class="order-step">
+                    <i data-lucide="pen-tool"></i>
+                    <p class="order-no">03</p>
+                    <h4>DESIGN</h4>
+                    <p>デザインのご提案・調整</p>
+                </article>
+                <span class="order-arrow" aria-hidden="true">→</span>
+                <article class="order-step">
+                    <i data-lucide="scissors"></i>
+                    <p class="order-no">04</p>
+                    <h4>PRODUCTION</h4>
+                    <p>製作・品質確認</p>
+                </article>
+                <span class="order-arrow" aria-hidden="true">→</span>
+                <article class="order-step">
+                    <i data-lucide="truck"></i>
+                    <p class="order-no">05</p>
+                    <h4>DELIVERY</h4>
+                    <p>全国へ発送・納品</p>
+                </article>
             </div>
-            <div class="button-row button-row-center" data-reveal-up>
-                <a class="button button-secondary" href="https://instagram.com/helloprintstore/" target="_blank" rel="noopener noreferrer">VIEW MORE</a>
+            <div class="button-row button-row-center order-cta-row" data-reveal-up id="orderStartActions">
+                <a href="contact" class="button button-primary button-large" id="orderStartCta" data-order-entry="start" aria-label="オーダーを始める。問い合わせフォームへ進む">START YOUR ORDER</a>
+                <a href="order-guide.html" class="button button-secondary button-large">ORDER GUIDE</a>
             </div>
         </section>
 
@@ -152,53 +192,6 @@
             </div>
         </section>
 
-        <section class="section section-order" id="order">
-            <div class="section-heading" data-reveal-up>
-                <h2 class="heading-en">ORDER</h2>
-                <p class="heading-ja">オーダーの流れ</p>
-            </div>
-            <div class="order-flow" data-reveal-up>
-                <article class="order-step">
-                    <i data-lucide="message-circle"></i>
-                    <p class="order-no">01</p>
-                    <h4>CONTACT</h4>
-                    <p>お問い合わせ・ご相談</p>
-                </article>
-                <span class="order-arrow" aria-hidden="true">→</span>
-                <article class="order-step">
-                    <i data-lucide="clipboard-list"></i>
-                    <p class="order-no">02</p>
-                    <h4>HEARING</h4>
-                    <p>内容・数量・納期の確認</p>
-                </article>
-                <span class="order-arrow" aria-hidden="true">→</span>
-                <article class="order-step">
-                    <i data-lucide="pen-tool"></i>
-                    <p class="order-no">03</p>
-                    <h4>DESIGN</h4>
-                    <p>デザインのご提案・調整</p>
-                </article>
-                <span class="order-arrow" aria-hidden="true">→</span>
-                <article class="order-step">
-                    <i data-lucide="scissors"></i>
-                    <p class="order-no">04</p>
-                    <h4>PRODUCTION</h4>
-                    <p>製作・品質確認</p>
-                </article>
-                <span class="order-arrow" aria-hidden="true">→</span>
-                <article class="order-step">
-                    <i data-lucide="truck"></i>
-                    <p class="order-no">05</p>
-                    <h4>DELIVERY</h4>
-                    <p>全国へ発送・納品</p>
-                </article>
-            </div>
-            <div class="button-row button-row-center order-cta-row" data-reveal-up id="orderStartActions">
-                <a href="contact" class="button button-primary button-large" id="orderStartCta" data-order-entry="start" aria-label="オーダーを始める。問い合わせフォームへ進む">START YOUR ORDER</a>
-                <a href="order-guide.html" class="button button-secondary button-large">ORDER GUIDE</a>
-            </div>
-        </section>
-
         <section class="section section-original" id="original-collab">
             <div class="section-heading" data-reveal-up>
                 <h2 class="heading-en">ORIGINAL / COLLAB</h2>
@@ -243,6 +236,26 @@
                 </div>
             </div>
             <div class="original-gallery-cta button-row button-row-center" data-reveal-up>
+                <a class="button button-secondary" href="https://instagram.com/helloprintstore/" target="_blank" rel="noopener noreferrer">VIEW MORE</a>
+            </div>
+        </section>
+
+        <section class="section section-instagram" id="instagram">
+            <div class="section-heading" data-reveal-up>
+                <h2 class="heading-en">INSTAGRAM</h2>
+                <p class="heading-ja">最新の制作実績</p>
+            </div>
+            <div class="instagram-feed instagram-grid" id="instagramFeed" data-reveal-up>
+                <div class="instagram-card instagram-card-loading" aria-live="polite">
+                    <div class="instagram-media-wrap"></div>
+                    <div class="instagram-caption-row">
+                        <span class="instagram-handle">@helloprintstore</span>
+                        <p class="instagram-date">読み込み中</p>
+                        <p class="instagram-caption">Instagramの最新投稿を取得しています...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row button-row-center" data-reveal-up>
                 <a class="button button-secondary" href="https://instagram.com/helloprintstore/" target="_blank" rel="noopener noreferrer">VIEW MORE</a>
             </div>
         </section>
@@ -295,6 +308,7 @@
     </div>
 
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/news-data.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>

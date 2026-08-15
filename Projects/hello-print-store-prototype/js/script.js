@@ -341,11 +341,111 @@ document.addEventListener('DOMContentLoaded', () => {
     initHeaderThemeSwitch();
     initMobileMenu();
     initSmoothAnchorScroll();
+    initNewsSection();
     initRevealAnimation();
     initWorksModal();
     initOrderContactForm();
     initInstagramFeed();
 });
+
+function initNewsSection() {
+    const newsList = document.getElementById('newsList');
+    if (!newsList) {
+        return;
+    }
+
+    const source = window.HPS_NEWS_DATA && typeof window.HPS_NEWS_DATA === 'object'
+        ? window.HPS_NEWS_DATA
+        : { items: [], viewAllUrl: '' };
+    const items = Array.isArray(source.items) ? source.items.slice(0, 3) : [];
+    const viewAllUrl = typeof source.viewAllUrl === 'string' ? source.viewAllUrl.trim() : '';
+
+    newsList.innerHTML = '';
+
+    if (!items.length) {
+        const emptyItem = document.createElement('li');
+        emptyItem.className = 'news-item news-item-empty';
+        emptyItem.textContent = '現在お知らせはありません。';
+        newsList.appendChild(emptyItem);
+    } else {
+        items.forEach((item) => {
+            const date = formatNewsDate(item && item.date ? item.date : '');
+            const title = item && item.title ? String(item.title).trim() : '';
+            const url = item && typeof item.url === 'string' ? item.url.trim() : '';
+
+            if (!title) {
+                return;
+            }
+
+            const listItem = document.createElement('li');
+            listItem.className = 'news-item';
+
+            const row = document.createElement(url ? 'a' : 'div');
+            row.className = 'news-item-row';
+            if (url) {
+                row.href = url;
+            }
+
+            const dateEl = document.createElement('time');
+            dateEl.className = 'news-date';
+            if (item && item.date) {
+                dateEl.dateTime = item.date;
+            }
+            dateEl.textContent = date;
+
+            const titleEl = document.createElement('p');
+            titleEl.className = 'news-title';
+            titleEl.textContent = title;
+
+            row.appendChild(dateEl);
+            row.appendChild(titleEl);
+            listItem.appendChild(row);
+            newsList.appendChild(listItem);
+        });
+    }
+
+    const viewAllLink = document.getElementById('newsViewAllLink');
+    const viewAllText = document.getElementById('newsViewAllText');
+    if (viewAllLink) {
+        if (viewAllUrl) {
+            viewAllLink.href = viewAllUrl;
+            viewAllLink.hidden = false;
+            if (viewAllText) {
+                viewAllText.hidden = true;
+            }
+        } else {
+            viewAllLink.hidden = true;
+            if (viewAllText) {
+                viewAllText.hidden = false;
+            }
+        }
+    }
+}
+
+function formatNewsDate(dateString) {
+    if (!dateString) {
+        return '';
+    }
+
+    const normalized = String(dateString).trim().replace(/\//g, '-');
+    const parts = normalized.split('-');
+    if (parts.length === 3) {
+        const [year, month, day] = parts;
+        if (year && month && day) {
+            return `${year}.${month.padStart(2, '0')}.${day.padStart(2, '0')}`;
+        }
+    }
+
+    const parsed = new Date(normalized);
+    if (Number.isNaN(parsed.getTime())) {
+        return dateString;
+    }
+
+    const y = parsed.getFullYear();
+    const m = String(parsed.getMonth() + 1).padStart(2, '0');
+    const d = String(parsed.getDate()).padStart(2, '0');
+    return `${y}.${m}.${d}`;
+}
 
 function initInstagramOAuthDebug() {
     const config = getInstagramAuthConfig();
