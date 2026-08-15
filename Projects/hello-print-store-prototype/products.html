@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hello Print Store products catalog">
+    <title>Products | Hello Print Store</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header header-static" id="header">
+        <div class="header-container">
+            <div class="header-logo">
+                <a href="index.html#top" class="logo-link" aria-label="Hello Print Store home">
+                    <img src="assets/logo/01_logo/hello_logo_black.svg" alt="Hello Print Store logo" class="brand-logo logo-black logo-force-visible">
+                </a>
+            </div>
+            <nav class="header-nav">
+                <ul class="nav-list nav-list-light">
+                    <li><a href="index.html#top" class="nav-link">TOP</a></li>
+                    <li><a href="index.html#works" class="nav-link">WORKS</a></li>
+                    <li><a href="index.html#about" class="nav-link">ABOUT</a></li>
+                    <li><a href="contact" class="nav-link">ORDER</a></li>
+                    <li><a href="index.html#original-collab" class="nav-link">ORIGINAL / COLLAB</a></li>
+                    <li><a href="contact" class="nav-link">CONTACT</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main" class="products-page-main">
+        <section class="section section-products-intro" data-reveal-up>
+            <div class="section-container products-page-container">
+                <p class="products-page-kicker">MAKEABLE ITEMS</p>
+                <h1 class="heading-en">PRODUCTS / ITEM</h1>
+                <p class="heading-ja">Hello Print Storeで製作できるアイテムを、価格・最低ロットとあわせて確認できます。</p>
+                <p class="body-ja">商品を選び、仕様を確認し、そのまま相談・オーダーへ進める製作カタログです。</p>
+            </div>
+        </section>
+
+        <section class="section section-products-reference" data-reveal-up>
+            <div class="section-container products-page-container">
+                <article class="products-common-info">
+                    <h2 class="products-subtitle">COMMON INFO</h2>
+                    <dl class="products-common-grid">
+                        <div>
+                            <dt>通常納期</dt>
+                            <dd>製作開始から約1ヶ月</dd>
+                        </div>
+                        <div>
+                            <dt>サイズ</dt>
+                            <dd>110〜160 / S〜6XL（商品により異なる場合あり）</dd>
+                        </div>
+                        <div>
+                            <dt>最低ロット</dt>
+                            <dd>基本10枚〜（商品条件を優先）</dd>
+                        </div>
+                        <div>
+                            <dt>番号・個人名</dt>
+                            <dd>昇華商品の場合は基本無料</dd>
+                        </div>
+                    </dl>
+                    <p class="products-common-note">※各商品の詳細条件は下記カードの記載を優先してください。</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section-products-catalog" data-reveal-up>
+            <div class="section-container products-page-container">
+                <div class="products-category-nav" id="productsCategoryNav" aria-label="Product categories"></div>
+                <div class="products-catalog-grid" id="productCatalogGrid"></div>
+            </div>
+        </section>
+
+        <section class="section section-product-details" data-reveal-up>
+            <div class="section-container products-page-container">
+                <div class="products-section-headline">
+                    <h2 class="heading-en heading-en-sm">ITEM DETAILS</h2>
+                    <p class="heading-ja">商品仕様・選択可能項目・サイズ・カラーの確認</p>
+                </div>
+                <div class="product-detail-list" id="productDetailList"></div>
+            </div>
+        </section>
+
+        <section class="section section-products-links" data-reveal-up>
+            <div class="section-container products-page-container">
+                <div class="products-related-links">
+                    <h2 class="products-subtitle">PRICE / SIZE / COLOR</h2>
+                    <p class="body-ja">価格・サイズ・カラーの確認に使える関連情報です。</p>
+                    <div class="button-row button-row-center products-link-row">
+                        <a href="order-guide.html" class="button button-secondary">PRICE</a>
+                        <a href="order-guide.html" class="button button-secondary">SIZE GUIDE</a>
+                        <a href="order-guide.html" class="button button-secondary">COLOR CHART</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-products-cta" data-reveal-up>
+            <div class="section-container products-page-container">
+                <div class="products-cta-wrap">
+                    <h2 class="guide-block-en">READY TO START?</h2>
+                    <p class="guide-block-ja">商品確認後、そのままご相談いただけます。</p>
+                    <div class="button-row button-row-center">
+                        <a href="contact" class="button button-primary button-large">START YOUR ORDER</a>
+                        <a href="contact" class="button button-secondary button-large">ORDER CONSULTATION</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <svg width="0" height="0" style="position:absolute;left:-9999px;top:-9999px;overflow:hidden" aria-hidden="true" focusable="false">
+        <symbol id="icon-tank-top" viewBox="0 0 160 120">
+            <path class="garment-shell" d="M52 22H70L74 34H86L90 22H108L114 38V98H46V38Z" />
+            <path class="garment-detail" d="M70 22C72 27 88 27 90 22" />
+            <path class="garment-detail" d="M74 34H86" />
+            <path class="garment-detail" d="M58 43V98" />
+            <path class="garment-detail" d="M102 43V98" />
+        </symbol>
+        <symbol id="icon-t-shirt" viewBox="0 0 160 120">
+            <path class="garment-shell" d="M30 40L52 26H108L130 40L122 58L108 52V98H52V52L38 58Z" />
+            <path class="garment-detail" d="M66 26C68 32 92 32 94 26" />
+            <path class="garment-detail" d="M52 26L60 38" />
+            <path class="garment-detail" d="M108 26L100 38" />
+            <path class="garment-detail" d="M43 46L53 52" />
+            <path class="garment-detail" d="M117 46L107 52" />
+            <path class="garment-detail" d="M58 52V98" />
+            <path class="garment-detail" d="M102 52V98" />
+        </symbol>
+        <symbol id="icon-long-sleeve" viewBox="0 0 160 120">
+            <path class="garment-shell" d="M22 42L52 25H108L138 42L126 70L110 58V98H50V58L34 70Z" />
+            <path class="garment-detail" d="M66 25C68 32 92 32 94 25" />
+            <path class="garment-detail" d="M52 25L60 39" />
+            <path class="garment-detail" d="M108 25L100 39" />
+            <path class="garment-detail" d="M35 69L46 58" />
+            <path class="garment-detail" d="M125 69L114 58" />
+            <path class="garment-detail" d="M45 63H57" />
+            <path class="garment-detail" d="M103 63H115" />
+            <path class="garment-detail" d="M58 58V98" />
+            <path class="garment-detail" d="M102 58V98" />
+        </symbol>
+        <symbol id="icon-shorts" viewBox="0 0 160 120">
+            <path class="garment-shell" d="M48 22H112L106 98H84L80 68L76 98H54Z" />
+            <path class="garment-detail" d="M54 34H106" />
+            <path class="garment-detail" d="M80 34V98" />
+            <path class="garment-detail" d="M66 86H94" />
+        </symbol>
+        <symbol id="icon-reversible" viewBox="0 0 160 120">
+            <path class="garment-shell" d="M24 41L50 25H110L136 41L124 60L110 53V98H50V53L36 60Z" />
+            <path class="garment-detail" d="M67 25L80 39L93 25" />
+            <path class="garment-detail" d="M50 53L63 62" />
+            <path class="garment-detail" d="M110 53L97 62" />
+            <path class="garment-detail" d="M80 53V98" />
+            <path class="garment-detail" d="M58 98H102" />
+        </symbol>
+        <symbol id="icon-sweat" viewBox="0 0 160 120">
+            <path class="garment-shell" d="M26 43L52 28H108L134 43L123 63L109 56V98H51V56L37 63Z" />
+            <path class="garment-detail" d="M66 28C68 34 92 34 94 28" />
+            <path class="garment-detail" d="M51 56L62 64" />
+            <path class="garment-detail" d="M109 56L98 64" />
+            <path class="garment-detail" d="M58 98H102" />
+            <path class="garment-detail" d="M80 56V98" />
+        </symbol>
+        <symbol id="icon-sweat-pants" viewBox="0 0 160 120">
+            <path class="garment-shell" d="M54 22H106L100 98H84L80 72L76 98H60Z" />
+            <path class="garment-detail" d="M58 34H102" />
+            <path class="garment-detail" d="M80 34V98" />
+            <path class="garment-detail" d="M66 98H94" />
+            <path class="garment-detail" d="M70 86H90" />
+        </symbol>
+        <symbol id="icon-jersey" viewBox="0 0 160 120">
+            <path class="garment-shell" d="M24 44L50 29H110L136 44L124 63L110 56V98H50V56L36 63Z" />
+            <path class="garment-detail" d="M66 29V42H94V29" />
+            <path class="garment-detail" d="M50 56L63 63" />
+            <path class="garment-detail" d="M110 56L97 63" />
+            <path class="garment-detail" d="M80 42V98" />
+            <path class="garment-detail" d="M58 83H102" />
+        </symbol>
+        <symbol id="icon-outer" viewBox="0 0 160 120">
+            <path class="garment-shell" d="M30 42L50 30H110L130 42L122 63L110 56V98H50V56L38 63Z" />
+            <path class="garment-detail" d="M66 30H94" />
+            <path class="garment-detail" d="M80 30V98" />
+            <path class="garment-detail" d="M56 50H104" />
+            <path class="garment-detail" d="M62 62L80 76L98 62" />
+        </symbol>
+        <symbol id="icon-other" viewBox="0 0 160 120">
+            <path class="garment-shell" d="M44 36L58 26H102L116 36L111 48L104 45V98H56V45L49 48Z" />
+            <path class="garment-detail" d="M74 26V40H86V26" />
+            <path class="garment-detail" d="M80 40V98" />
+            <path class="garment-detail" d="M62 58H98" />
+            <path class="garment-detail" d="M62 74H98" />
+        </symbol>
+    </svg>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof ORDER_PRODUCT_MASTER === 'undefined') {
+                return;
+            }
+
+            const categoryOrder = [
+                'TANK TOP',
+                'T-SHIRT',
+                'LONG SLEEVE',
+                'SHORTS',
+                'REVERSIBLE',
+                'SWEAT',
+                'SWEAT PANTS',
+                'JERSEY',
+                'OUTER',
+                'OTHER'
+            ];
+
+            const codeToCategory = {
+                '01': 'TANK TOP',
+                '02': 'REVERSIBLE',
+                '03': 'T-SHIRT',
+                '04': 'LONG SLEEVE',
+                '05': 'SHORTS',
+                '07': 'SHORTS',
+                '08': 'JERSEY',
+                '09': 'LONG SLEEVE',
+                '10': 'OTHER',
+                '11': 'T-SHIRT',
+                '12': 'LONG SLEEVE',
+                '13': 'SWEAT',
+                '14': 'SWEAT PANTS',
+                '15': 'SWEAT PANTS',
+                '16': 'SWEAT',
+                '17': 'JERSEY',
+                '18': 'OUTER',
+                '19': 'OUTER',
+                '20': 'OTHER',
+                '21': 'OTHER'
+            };
+
+            const categoryIcon = {
+                'TANK TOP': 'tank-top',
+                'T-SHIRT': 't-shirt',
+                'LONG SLEEVE': 'long-sleeve',
+                'SHORTS': 'shorts',
+                'REVERSIBLE': 'reversible',
+                'SWEAT': 'sweat',
+                'SWEAT PANTS': 'sweat-pants',
+                'JERSEY': 'jersey',
+                'OUTER': 'outer',
+                'OTHER': 'other'
+            };
+
+            const categoryCopy = {
+                'TANK TOP': 'ゲーム用ノースリーブの定番カテゴリ',
+                'T-SHIRT': '半袖ベースのチームウェアカテゴリ',
+                'LONG SLEEVE': '長袖トップスカテゴリ',
+                'SHORTS': 'ハーフ丈・ショーツカテゴリ',
+                'REVERSIBLE': 'リバーシブル対応カテゴリ',
+                'SWEAT': 'スウェットトップスカテゴリ',
+                'SWEAT PANTS': 'スウェットパンツカテゴリ',
+                'JERSEY': 'ジャージ・トレーニングカテゴリ',
+                'OUTER': '防風アウターカテゴリ',
+                'OTHER': 'キャップ・ソックスなどのその他カテゴリ'
+            };
+
+            const products = Object.values(ORDER_PRODUCT_MASTER)
+                .slice()
+                .sort((a, b) => Number(a.code) - Number(b.code))
+                .map((item) => ({ ...item, category: codeToCategory[item.code] || 'OTHER' }));
+
+            const categoryNav = document.getElementById('productsCategoryNav');
+            const catalogGrid = document.getElementById('productCatalogGrid');
+            const detailList = document.getElementById('productDetailList');
+
+            if (!categoryNav || !catalogGrid || !detailList) {
+                return;
+            }
+
+            categoryNav.innerHTML = categoryOrder.map((category) => {
+                const count = products.filter((item) => item.category === category).length;
+                return `
+                    <a class="products-category-pill" href="#category-${toSlug(category)}">
+                        <span>${escapeHtml(category)}</span>
+                        <small>${count} ITEMS</small>
+                    </a>
+                `;
+            }).join('');
+
+            const cards = [];
+            categoryOrder.forEach((category) => {
+                const group = products.filter((item) => item.category === category);
+                if (!group.length) {
+                    return;
+                }
+
+                cards.push(`
+                    <article class="catalog-category-block" id="category-${toSlug(category)}">
+                        <header class="catalog-category-head">
+                            <h3>${escapeHtml(category)}</h3>
+                            <p>${escapeHtml(categoryCopy[category] || '')}</p>
+                        </header>
+                        <div class="catalog-item-grid">
+                            ${group.map((item) => renderCatalogCard(item, categoryIcon[category])).join('')}
+                        </div>
+                    </article>
+                `);
+            });
+            catalogGrid.innerHTML = cards.join('');
+
+            detailList.innerHTML = products.map((item) => renderDetail(item, categoryIcon[item.category])).join('');
+
+            function renderCatalogCard(item, iconKey) {
+                const taxPrice = Math.round(Number(item.basePriceExcl) * 1.1);
+                return `
+                    <article class="catalog-item-card" id="item-${escapeHtml(item.code)}">
+                        <div class="catalog-item-top">
+                            ${renderIcon(iconKey)}
+                            <div class="catalog-item-meta">
+                                <p class="catalog-item-code">${escapeHtml(item.code)}</p>
+                                <h4>${escapeHtml(item.name)}</h4>
+                            </div>
+                        </div>
+                        <dl class="catalog-item-info">
+                            <div><dt>税込価格</dt><dd>${formatYen(taxPrice)}</dd></div>
+                            <div><dt>最低ロット</dt><dd>${renderMinLotLabel(item)}</dd></div>
+                        </dl>
+                        <a class="catalog-detail-link" href="#detail-${escapeHtml(item.code)}">VIEW DETAILS →</a>
+                    </article>
+                `;
+            }
+
+            function renderDetail(item, iconKey) {
+                const taxPrice = Math.round(Number(item.basePriceExcl) * 1.1);
+                const options = Array.isArray(item.paidOptions) ? item.paidOptions : [];
+                const specs = Array.isArray(item.specs) ? item.specs : [];
+                const sizeText = getSizeText(item);
+                const minLotNotes = Array.isArray(item.minLotNotes) ? item.minLotNotes : [];
+                const notes = Array.isArray(item.notes) ? item.notes : [];
+
+                return `
+                    <article class="product-detail-card" id="detail-${escapeHtml(item.code)}">
+                        <div class="product-detail-priority">
+                            <div class="product-detail-heading">
+                                <p class="product-detail-code">${escapeHtml(item.code)} / ${escapeHtml(item.category)}</p>
+                                <h3>${escapeHtml(item.name)}</h3>
+                                <p class="product-detail-sub">商品を確認して、そのまま相談へ進めます。</p>
+                            </div>
+                            <div class="product-detail-figure">${renderIcon(iconKey)}</div>
+                        </div>
+
+                        <dl class="product-detail-core">
+                            <div><dt>税込価格</dt><dd>${formatYen(taxPrice)}</dd></div>
+                            <div><dt>最低ロット</dt><dd>${renderMinLotLabel(item)}</dd></div>
+                            <div><dt>通常納期目安</dt><dd>製作開始から約1ヶ月</dd></div>
+                            <div><dt>番号・個人名</dt><dd>昇華商品の場合は基本無料</dd></div>
+                        </dl>
+
+                        ${minLotNotes.length ? `<p class="product-detail-note">${minLotNotes.map((line) => escapeHtml(line)).join('<br>')}</p>` : ''}
+
+                        <div class="product-detail-grid">
+                            <section>
+                                <h4>商品仕様</h4>
+                                <ul class="product-detail-list">
+                                    ${specs.map((spec) => `<li><span>${escapeHtml(spec.label)}</span><span>${escapeHtml(renderOptions(spec.options))}</span></li>`).join('')}
+                                </ul>
+                            </section>
+                            <section>
+                                <h4>サイズ展開</h4>
+                                <p>${escapeHtml(sizeText)}</p>
+                                <h4>カラーについて</h4>
+                                <p>フルカラー昇華での製作に対応しています。最終色味は生産条件で差が出る場合があります。</p>
+                                <h4>オプション</h4>
+                                ${options.length ? `<ul class="product-detail-option-list">${options.map((option) => `<li>${escapeHtml(renderOptionLabel(option))}</li>`).join('')}</ul>` : '<p>追加オプションはありません（標準仕様で製作可能）。</p>'}
+                                ${notes.length ? `<p class="product-detail-note">${notes.map((line) => escapeHtml(line)).join('<br>')}</p>` : ''}
+                            </section>
+                        </div>
+
+                        <div class="product-detail-actions">
+                            <div class="button-row">
+                                <a href="order-guide.html" class="button button-secondary">PRICE</a>
+                                <a href="order-guide.html" class="button button-secondary">SIZE GUIDE</a>
+                                <a href="order-guide.html" class="button button-secondary">COLOR CHART</a>
+                            </div>
+                            <div class="button-row">
+                                <a href="contact" class="button button-primary">START YOUR ORDER</a>
+                                <a href="contact" class="button button-secondary">ORDER CONSULTATION</a>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }
+
+            function renderIcon(iconKey) {
+                const safe = escapeHtml(iconKey || 'other');
+                return `
+                    <svg class="product-line-icon products-page-icon" viewBox="0 0 160 120" aria-hidden="true">
+                        <use href="#icon-${safe}"></use>
+                    </svg>
+                `;
+            }
+
+            function renderOptions(options) {
+                if (!Array.isArray(options) || !options.length) {
+                    return '要相談';
+                }
+                const labels = options
+                    .map((option) => String(option && option.label ? option.label : '').trim())
+                    .filter(Boolean)
+                    .slice(0, 4);
+                return labels.length ? labels.join(' / ') : '要相談';
+            }
+
+            function renderMinLotLabel(item) {
+                const unit = String(item.unit || '').trim();
+                const value = Number(item.minLot || 0);
+                return value > 0 ? `${value}${unit}〜` : `要相談${unit ? `（${unit}）` : ''}`;
+            }
+
+            function renderOptionLabel(option) {
+                const label = String(option && option.label ? option.label : '').trim() || '追加オプション';
+                const quoteOnly = Boolean(option && option.quoteOnly);
+                const add = Number(option && option.add ? option.add : 0);
+                if (quoteOnly) {
+                    return `${label}（要見積もり）`;
+                }
+                if (add > 0) {
+                    return `${label}（+${formatYen(add)} 税抜）`;
+                }
+                return label;
+            }
+
+            function getSizeText(item) {
+                const preset = String(item.sizePreset || '').trim();
+                if (preset === 'cap') {
+                    return 'FREE（バックアジャスターで調整可能）';
+                }
+                if (preset === 'socks') {
+                    return 'S(18-21cm) / M(23-25cm) / L(26-28cm) / XL(29-31cm)';
+                }
+                return '110〜160 / S〜6XL（商品により異なる場合あり）';
+            }
+
+            function formatYen(value) {
+                return `${new Intl.NumberFormat('ja-JP').format(Number(value || 0))}円`;
+            }
+
+            function toSlug(value) {
+                return String(value || '')
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+            }
+
+            function escapeHtml(value) {
+                return String(value)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+            }
+        });
+    </script>
+</body>
+</html>
