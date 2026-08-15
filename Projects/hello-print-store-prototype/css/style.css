@@ -624,18 +624,10 @@ a.news-item-row:hover .news-title {
         gap: 1rem;
         align-items: start;
     }
-        display: grid;
-        align-content: start;
-        gap: 0.34rem;
-        min-width: 0;
-    }
 
+    .section-original .original-gallery-main,
     .section-original .original-gallery-side {
-        background: #f7f9fc;
-        min-height: 132px;
         display: grid;
-        place-items: center;
-        padding: 0.7rem 0.5rem;
         gap: 1rem;
     }
 
@@ -710,7 +702,7 @@ a.news-item-row:hover .news-title {
     }
 }
 
-.works-magazine {
+.section-works .works-magazine {
     max-width: var(--max-width);
     margin: 0 auto;
     display: grid;
@@ -719,54 +711,54 @@ a.news-item-row:hover .news-title {
 }
 
 @media (min-width: 1200px) {
-    .works-magazine {
+    .section-works .works-magazine {
         max-width: min(68vw, 940px);
     }
 }
 
-.works-feature-block,
-.work-tile-block {
+.section-works .works-feature-block,
+.section-works .work-tile-block {
     display: grid;
     grid-template-rows: auto 1fr;
     gap: 0.42rem;
 }
 
-.works-feature,
-.work-tile {
+.section-works .works-feature,
+.section-works .work-tile {
     display: block;
     overflow: hidden;
     border-radius: 2px;
 }
 
-.works-feature img,
-.work-tile img {
+.section-works .works-feature img,
+.section-works .work-tile img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 420ms ease;
 }
 
-.works-feature {
+.section-works .works-feature {
     aspect-ratio: 4 / 4.7;
 }
 
-.works-side-grid {
+.section-works .works-side-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.65rem;
     align-items: start;
 }
 
-.work-tile {
+.section-works .work-tile {
     aspect-ratio: 1 / 0.86;
 }
 
-.works-feature:hover img,
-.work-tile:hover img {
+.section-works .works-feature:hover img,
+.section-works .work-tile:hover img {
     transform: scale(1.04);
 }
 
-.works-copy h3 {
+.section-works .works-copy h3 {
     margin: 0;
     font-family: 'Barlow', sans-serif;
     font-size: 0.96rem;
@@ -774,21 +766,21 @@ a.news-item-row:hover .news-title {
     line-height: 1.2;
 }
 
-.works-description {
+.section-works .works-description {
     margin: 0;
     font-size: 0.78rem;
     color: var(--muted);
     line-height: 1.45;
 }
 
-.works-feature-text {
+.section-works .works-feature-text {
     margin: 0;
     font-size: 0.75rem;
     line-height: 1.4;
     color: #2f4267;
 }
 
-.works-copy {
+.section-works .works-copy {
     display: grid;
     align-content: start;
     gap: 0.16rem;
@@ -954,6 +946,16 @@ a.news-item-row:hover .news-title {
     background: #ffffff;
 }
 
+.section-products {
+    padding-top: 2.8rem;
+    padding-bottom: 2.3rem;
+}
+
+.section-price-guide {
+    padding-top: 2.8rem;
+    padding-bottom: 2.7rem;
+}
+
 .products-grid,
 .products-view-all,
 .price-guide-grid {
@@ -964,40 +966,19 @@ a.news-item-row:hover .news-title {
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.82rem;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.9rem 0.75rem;
 }
 
 .product-card {
     display: grid;
     align-content: start;
-    gap: 0.34rem;
-}
-
-.product-card-media {
-    border: 1px solid #e1e6ef;
-    border-radius: 2px;
-    background: #f7f9fc;
-    min-height: 132px;
-    display: grid;
-    place-items: center;
-    padding: 0.7rem 0.5rem;
-}
-
-.product-card:nth-child(2n) .product-card-media {
-    background: #f5f8fc;
-}
-
-.product-card:nth-child(3n) .product-card-media {
-    background: #f8f8f2;
-}
-
-.product-card:nth-child(5n) .product-card-media {
-    background: #f4f8f3;
+    justify-items: center;
+    gap: 0.36rem;
 }
 
 .product-line-icon {
-    width: min(96%, 112px);
+    width: min(100%, 126px);
     height: auto;
     display: block;
 }
@@ -1008,8 +989,8 @@ a.news-item-row:hover .news-title {
 .product-line-icon rect,
 .product-line-icon circle {
     fill: none;
-    stroke: #2f3744;
-    stroke-width: 1.55;
+    stroke: #2b333f;
+    stroke-width: 1.5;
     stroke-linecap: round;
     stroke-linejoin: round;
 }
@@ -1017,13 +998,14 @@ a.news-item-row:hover .news-title {
 .product-card h3 {
     margin: 0;
     font-family: 'Barlow', sans-serif;
-    font-size: 0.86rem;
-    letter-spacing: 0.06em;
+    font-size: 0.75rem;
+    letter-spacing: 0.09em;
     line-height: 1.2;
+    text-align: center;
 }
 
 .products-view-all {
-    margin-top: 0.9rem;
+    margin-top: 0.66rem;
     display: flex;
     justify-content: flex-end;
 }
@@ -1043,57 +1025,58 @@ a.news-item-row:hover .news-title {
 .price-guide-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.8rem;
+    gap: 0.95rem;
 }
 
 .price-guide-card {
-    border: 1px solid #e2e7f1;
-    border-radius: 2px;
-    background: #fcfcfd;
-    padding: 1rem 0.92rem;
-    min-height: 176px;
+    border: 1px solid #d9dfeb;
+    border-radius: 1px;
+    background: #ffffff;
+    padding: 1.08rem 1.02rem 0.98rem;
+    min-height: 286px;
     display: grid;
-    align-content: start;
-    gap: 0.22rem;
-    cursor: pointer;
-    transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 0.46rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 220ms ease, background-color 220ms ease;
 }
 
 .price-guide-card:hover,
 .price-guide-card:focus-visible {
-    border-color: #cfd8ea;
-    box-shadow: 0 8px 20px rgba(17, 31, 52, 0.07);
-    transform: translateY(-1px);
+    border-color: #aeb8c9;
+    background: #fbfcff;
 }
 
 .price-guide-no {
     margin: 0;
     font-family: 'Barlow', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    color: #6d7890;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: #697487;
 }
 
 .price-guide-title {
     margin: 0;
     font-family: 'Barlow', sans-serif;
-    font-size: 1.04rem;
-    letter-spacing: 0.08em;
+    font-size: clamp(1.42rem, 2.2vw, 1.92rem);
+    letter-spacing: 0.06em;
+    line-height: 1.04;
 }
 
 .price-guide-copy {
-    margin-top: 0.22rem;
-    font-size: 0.84rem;
-    color: #4f5b72;
-    line-height: 1.45;
+    margin-top: auto;
+    font-size: 0.85rem;
+    color: #4c586e;
+    line-height: 1.46;
 }
 
 .price-guide-link {
-    margin-top: auto;
+    margin-top: 0.1rem;
     font-family: 'Barlow', sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    color: #273e68;
+    font-size: 0.79rem;
+    letter-spacing: 0.1em;
+    color: #223759;
 }
 
 @media (min-width: 1200px) {
@@ -2261,7 +2244,7 @@ a.news-item-row:hover .news-title {
 @media (max-width: 980px) {
     .products-grid,
     .price-guide-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .logo-link img {
@@ -2277,7 +2260,7 @@ a.news-item-row:hover .news-title {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .works-magazine,
+    .section-works .works-magazine,
     .about-layout {
         grid-template-columns: 1fr;
     }
@@ -2308,7 +2291,7 @@ a.news-item-row:hover .news-title {
         width: min(100%, 180px);
     }
 
-    .works-feature {
+    .section-works .works-feature {
         aspect-ratio: 5 / 4;
     }
 
@@ -2350,8 +2333,32 @@ a.news-item-row:hover .news-title {
     }
 }
 
+@media (max-width: 860px) {
+    .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .price-guide-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .price-guide-card {
+        min-height: 232px;
+    }
+}
+
+@media (min-width: 861px) and (max-width: 980px) {
+    .section-works .works-magazine {
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    }
+}
+
 @media (max-width: 640px) {
-    .products-grid,
+    .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.68rem 0.56rem;
+    }
+
     .price-guide-grid {
         grid-template-columns: 1fr;
         gap: 0.72rem;
@@ -2419,7 +2426,7 @@ a.news-item-row:hover .news-title {
         gap: 0.65rem;
     }
 
-    .works-side-grid,
+    .section-works .works-side-grid,
     .original-gallery,
     .original-gallery-side-bottom {
         grid-template-columns: 1fr;
