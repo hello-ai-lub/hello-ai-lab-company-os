@@ -1030,6 +1030,12 @@ a.news-item-row:hover .news-title {
     max-width: var(--max-width);
 }
 
+@media (min-width: 1200px) {
+    .contact-page-container {
+        max-width: min(68vw, 940px);
+    }
+}
+
 .section-contact-intro .heading-en {
     font-size: clamp(2.4rem, 7vw, 5rem);
     letter-spacing: 0.09em;
