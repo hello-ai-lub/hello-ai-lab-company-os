@@ -1781,6 +1781,293 @@ a.news-item-row:hover .news-title {
     color: #ffffff;
 }
 
+.spec-page-main {
+    padding-top: 64px;
+    min-height: 100vh;
+    background: #ffffff;
+}
+
+.spec-page-container {
+    max-width: var(--max-width);
+    width: 100%;
+}
+
+@media (min-width: 1200px) {
+    .spec-page-container {
+        max-width: min(68vw, 940px);
+    }
+}
+
+.section-spec-intro {
+    padding-top: 4.2rem;
+    padding-bottom: 1rem;
+}
+
+.spec-kicker {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    color: #4e4e4e;
+}
+
+.section-spec-intro .heading-en {
+    font-size: clamp(2.3rem, 7vw, 4.8rem);
+    letter-spacing: 0.09em;
+}
+
+.section-spec-intro .heading-ja,
+.section-spec-intro .body-ja {
+    max-width: 760px;
+}
+
+.section-spec-content {
+    padding-top: 0.65rem;
+    padding-bottom: 2.4rem;
+}
+
+.spec-note {
+    border: 1px solid #dddddd;
+    background: #fafbfc;
+    border-radius: 8px;
+    padding: 0.78rem 0.86rem;
+    font-size: 0.84rem;
+    color: #2b3442;
+    line-height: 1.62;
+}
+
+.spec-block {
+    border-top: 1px solid #dddddd;
+    padding-top: 0.85rem;
+    margin-top: 0.9rem;
+}
+
+.spec-block h2 {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+}
+
+.spec-block p {
+    margin-top: 0.26rem;
+    color: #566074;
+    font-size: 0.85rem;
+}
+
+.price-catalog-grid {
+    margin-top: 0.9rem;
+    display: grid;
+    gap: 0.86rem;
+}
+
+.price-category-panel {
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 0.68rem;
+}
+
+.price-category-title {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    color: #1a2232;
+}
+
+.price-item-list {
+    list-style: none;
+    margin-top: 0.52rem;
+    display: grid;
+    gap: 0.45rem;
+}
+
+.price-item-row {
+    border-top: 1px solid #eceff3;
+    padding-top: 0.42rem;
+    display: grid;
+    gap: 0.2rem;
+}
+
+.price-item-row:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.price-item-head {
+    display: grid;
+    gap: 0.04rem;
+}
+
+.price-item-en {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+}
+
+.price-item-ja {
+    font-size: 0.8rem;
+    color: #4d5768;
+}
+
+.price-item-meta {
+    display: flex;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.76rem;
+    letter-spacing: 0.04em;
+    color: #1d3359;
+}
+
+.size-guide-grid {
+    margin-top: 0.9rem;
+    display: grid;
+    gap: 0.9rem;
+}
+
+.size-guide-panel {
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 0.72rem;
+}
+
+.size-guide-panel-head {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.size-guide-figure {
+    border: 1px solid #e3e6ec;
+    border-radius: 8px;
+    background: #fafbfc;
+    display: grid;
+    place-items: center;
+    min-height: 92px;
+}
+
+.size-guide-icon {
+    width: 86px;
+    height: auto;
+}
+
+.size-guide-icon path,
+.size-guide-icon line,
+.size-guide-icon polyline,
+.size-guide-icon rect,
+.size-guide-icon circle {
+    fill: none;
+    stroke: #243248;
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.size-guide-panel h2 {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+}
+
+.size-guide-table-wrap {
+    margin-top: 0.62rem;
+    overflow-x: auto;
+}
+
+.size-guide-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 880px;
+}
+
+.size-guide-table th,
+.size-guide-table td {
+    border-bottom: 1px solid #e8ebf1;
+    padding: 0.42rem 0.46rem;
+    text-align: center;
+    font-size: 0.76rem;
+}
+
+.size-guide-table th:first-child,
+.size-guide-table td:first-child {
+    text-align: left;
+    font-family: 'Barlow', sans-serif;
+    letter-spacing: 0.04em;
+    color: #1f2f4a;
+}
+
+.spec-footnote {
+    margin-top: 0.9rem;
+    font-size: 0.77rem;
+    color: #5d6678;
+}
+
+.color-chart-grid {
+    margin-top: 0.9rem;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.72rem;
+}
+
+.color-chip {
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.color-chip-swatch {
+    height: 84px;
+    background: var(--swatch, #d8dbe2);
+    border-bottom: 1px solid #dddddd;
+}
+
+.color-chip-meta {
+    padding: 0.46rem 0.52rem 0.52rem;
+    display: grid;
+    gap: 0.12rem;
+}
+
+.color-chip-name {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    color: #1f2b3f;
+}
+
+.color-chip-code {
+    font-size: 0.72rem;
+    color: #646d7f;
+}
+
+@media (max-width: 980px) {
+    .color-chart-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .size-guide-panel-head {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .section-spec-intro {
+        padding-top: 3.8rem;
+        padding-bottom: 0.8rem;
+    }
+
+    .section-spec-content {
+        padding-top: 0.45rem;
+        padding-bottom: 2.1rem;
+    }
+
+    .color-chart-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.62rem;
+    }
+}
+
 .contact-page-main {
     padding-top: 64px;
     min-height: 100vh;

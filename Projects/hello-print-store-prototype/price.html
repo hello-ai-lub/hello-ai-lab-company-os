@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hello Print Store price list and minimum lot guide">
+    <title>Price | Hello Print Store</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header header-static" id="header">
+        <div class="header-container">
+            <div class="header-logo">
+                <a href="index.html#top" class="logo-link" aria-label="Hello Print Store home">
+                    <img src="assets/logo/01_logo/hello_logo_black.svg" alt="Hello Print Store logo" class="brand-logo logo-black logo-force-visible">
+                </a>
+            </div>
+            <nav class="header-nav">
+                <ul class="nav-list nav-list-light">
+                    <li><a href="index.html#top" class="nav-link">TOP</a></li>
+                    <li><a href="index.html#works" class="nav-link">WORKS</a></li>
+                    <li><a href="index.html#about" class="nav-link">ABOUT</a></li>
+                    <li><a href="contact" class="nav-link">ORDER</a></li>
+                    <li><a href="index.html#original-collab" class="nav-link">ORIGINAL / COLLAB</a></li>
+                    <li><a href="contact" class="nav-link">CONTACT</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main" class="spec-page-main">
+        <section class="section section-spec-intro" data-reveal-up>
+            <div class="section-container spec-page-container">
+                <p class="spec-kicker">01 REFERENCE</p>
+                <h1 class="heading-en">PRICE</h1>
+                <p class="heading-ja">料金・最低ロット</p>
+                <p class="body-ja">商品カテゴリごとに価格と最低ロットを確認できます。</p>
+            </div>
+        </section>
+
+        <section class="section section-spec-content" data-reveal-up>
+            <div class="section-container spec-page-container">
+                <p class="spec-note">表示価格は税込価格です。<br>商品・仕様によって追加料金が発生する場合があります。</p>
+                <div class="price-catalog-grid" id="priceCatalogGrid"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof ORDER_PRODUCT_MASTER === 'undefined') {
+                return;
+            }
+
+            const categoryOrder = [
+                'TANK TOP',
+                'T-SHIRT',
+                'POLO',
+                'OTHER WEAR',
+                'SHORTS',
+                'SWEAT',
+                'SWEAT PANTS',
+                'OUTER',
+                'OTHER'
+            ];
+
+            const codeToCategory = {
+                '01': 'TANK TOP',
+                '02': 'TANK TOP',
+                '03': 'T-SHIRT',
+                '04': 'T-SHIRT',
+                '05': 'SHORTS',
+                '06': 'SHORTS',
+                '07': 'SHORTS',
+                '08': 'OTHER WEAR',
+                '09': 'OTHER WEAR',
+                '10': 'OTHER WEAR',
+                '11': 'POLO',
+                '12': 'POLO',
+                '13': 'SWEAT',
+                '14': 'SWEAT PANTS',
+                '15': 'SWEAT PANTS',
+                '16': 'SWEAT',
+                '17': 'SWEAT',
+                '18': 'OUTER',
+                '19': 'OUTER',
+                '20': 'OTHER',
+                '21': 'OTHER'
+            };
+
+            const productDisplayNames = {
+                '01': { en: 'TANK TOP', ja: 'タンクトップ' },
+                '02': { en: 'REVERSIBLE TANK TOP', ja: 'リバーシブル タンクトップ' },
+                '03': { en: 'T-SHIRT', ja: 'Tシャツ' },
+                '04': { en: 'LONG SLEEVE T-SHIRT', ja: 'ロングスリーブTシャツ' },
+                '05': { en: 'BASKETBALL SHORTS', ja: 'バスケットパンツ' },
+                '06': { en: 'REVERSIBLE BASKETBALL SHORTS', ja: 'リバーシブルバスケットパンツ' },
+                '07': { en: 'HALF PANTS', ja: 'ハーフパンツ' },
+                '08': { en: 'FOOTBALL SHIRT', ja: 'フットボールシャツ' },
+                '09': { en: 'LONG SLEEVE FOOTBALL SHIRT', ja: 'ロングスリーブ フットボールシャツ' },
+                '10': { en: 'BASEBALL SHIRT', ja: 'ベースボールシャツ' },
+                '11': { en: 'POLO SHIRT', ja: 'ポロシャツ' },
+                '12': { en: 'LONG SLEEVE POLO SHIRT', ja: 'ロングスリーブ ポロシャツ' },
+                '13': { en: 'SWEAT TOP', ja: 'スウェットトップス' },
+                '14': { en: 'SWEAT LONG PANTS', ja: 'スウェットロングパンツ' },
+                '15': { en: 'SIDE BUTTON PANTS', ja: 'サイドボタンパンツ' },
+                '16': { en: 'PULLOVER HOODIE', ja: 'プルオーバーパーカー' },
+                '17': { en: 'FULL ZIP JERSEY', ja: 'フルジップジャージ' },
+                '18': { en: 'WINDBREAKER JACKET', ja: 'ウインドブレーカージャケット' },
+                '19': { en: 'WINDBREAKER PANTS', ja: 'ウインドブレーカーパンツ' },
+                '20': { en: 'FULL MESH CAP', ja: 'フルメッシュキャップ' },
+                '21': { en: 'ORIGINAL SOCKS', ja: 'オリジナルソックス' }
+            };
+
+            const supplementalProducts = [
+                { code: '06', name: 'リバーシブルバスケットパンツ', unit: '枚' }
+            ];
+
+            const baseProducts = Object.values(ORDER_PRODUCT_MASTER)
+                .slice()
+                .sort((a, b) => Number(a.code) - Number(b.code))
+                .map((item) => ({ ...item, category: codeToCategory[item.code] || 'OTHER' }));
+
+            const productsByCode = new Map(baseProducts.map((item) => [item.code, item]));
+            supplementalProducts.forEach((item) => {
+                if (!productsByCode.has(item.code)) {
+                    productsByCode.set(item.code, { ...item, category: codeToCategory[item.code] || 'OTHER' });
+                }
+            });
+
+            const products = Array.from(productsByCode.values())
+                .slice()
+                .sort((a, b) => Number(a.code) - Number(b.code));
+
+            const grid = document.getElementById('priceCatalogGrid');
+            if (!grid) {
+                return;
+            }
+
+            const blocks = categoryOrder
+                .map((category) => {
+                    const group = products.filter((item) => item.category === category);
+                    if (!group.length) {
+                        return '';
+                    }
+
+                    const list = group.map((item) => {
+                        const names = productDisplayNames[item.code] || { en: item.category || 'ITEM', ja: item.name || '' };
+                        const taxPrice = Number(item.basePriceExcl) > 0
+                            ? `${new Intl.NumberFormat('ja-JP').format(Math.round(Number(item.basePriceExcl) * 1.1))}円〜`
+                            : '要相談';
+                        const minLot = Number(item.minLot) > 0
+                            ? `${item.minLot}${String(item.unit || '').trim()}〜`
+                            : '要相談';
+
+                        return `
+                            <li class="price-item-row">
+                                <div class="price-item-head">
+                                    <p class="price-item-en">${escapeHtml(names.en)}</p>
+                                    <p class="price-item-ja">${escapeHtml(names.ja || item.name || '')}</p>
+                                </div>
+                                <div class="price-item-meta">
+                                    <span>${escapeHtml(taxPrice)}</span>
+                                    <span>${escapeHtml(minLot)}</span>
+                                </div>
+                            </li>
+                        `;
+                    }).join('');
+
+                    return `
+                        <article class="price-category-panel">
+                            <h2 class="price-category-title">${escapeHtml(category)}</h2>
+                            <ul class="price-item-list">${list}</ul>
+                        </article>
+                    `;
+                })
+                .join('');
+
+            grid.innerHTML = blocks;
+
+            function escapeHtml(value) {
+                return String(value || '')
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+            }
+        });
+    </script>
+</body>
+</html>
