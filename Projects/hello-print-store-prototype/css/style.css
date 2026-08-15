@@ -986,6 +986,16 @@ a.news-item-row:hover .news-title {
     gap: 0.9rem 0.75rem;
 }
 
+.products-grid-area-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.products-grid-area-link:hover .product-card h3 {
+    color: #1d4ea6;
+}
+
 .product-card {
     display: grid;
     align-content: start;
@@ -1203,8 +1213,10 @@ a.news-item-row:hover .news-title {
 }
 
 .products-common-info {
-    border-top: 1px solid #d9d9d9;
-    padding-top: 0.9rem;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    padding: 0.88rem;
+    background: #f5f6f8;
 }
 
 .products-subtitle {
@@ -1221,10 +1233,10 @@ a.news-item-row:hover .news-title {
 }
 
 .products-common-grid div {
-    border: 1px solid #dfdfdf;
+    border: 1px solid #e4e4e4;
     border-radius: 8px;
     padding: 0.54rem 0.6rem;
-    background: #ffffff;
+    background: #fbfbfc;
 }
 
 .products-common-grid dt {
@@ -1296,19 +1308,13 @@ a.news-item-row:hover .news-title {
 }
 
 .catalog-category-head {
-    display: grid;
-    gap: 0.22rem;
+    display: block;
 }
 
 .catalog-category-head h3 {
     font-family: 'Barlow', sans-serif;
     font-size: 1.06rem;
     letter-spacing: 0.08em;
-}
-
-.catalog-category-head p {
-    font-size: 0.78rem;
-    color: #60697a;
 }
 
 .catalog-item-grid {
@@ -1344,22 +1350,21 @@ a.news-item-row:hover .news-title {
 .products-page-icon polyline,
 .products-page-icon rect,
 .products-page-icon circle {
-    fill: #ffffff;
-    stroke: #2b333f;
-    stroke-width: 1.35;
+    fill: none;
+    stroke: #232b35;
+    stroke-width: 1.22;
     stroke-linecap: round;
     stroke-linejoin: round;
     vector-effect: non-scaling-stroke;
 }
 
 .products-page-icon .garment-shell {
-    fill: #ffffff;
-    stroke-width: 1.45;
+    fill: none;
+    stroke-width: 1.28;
 }
 
 .products-page-icon .garment-detail {
-    fill: none;
-    stroke-width: 1.12;
+    stroke-width: 1.05;
 }
 
 .catalog-item-meta {
@@ -1429,6 +1434,7 @@ a.news-item-row:hover .news-title {
     padding-top: 0.74rem;
     display: grid;
     gap: 0.62rem;
+    scroll-margin-top: 88px;
 }
 
 .product-detail-priority {
@@ -1469,92 +1475,34 @@ a.news-item-row:hover .news-title {
     padding: 0.35rem;
 }
 
-.product-detail-core {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.46rem;
-}
-
-.product-detail-core div {
-    border: 1px solid #d9d9d9;
+.product-detail-placeholder {
+    border: 1px solid #dcdcdc;
     border-radius: 8px;
-    padding: 0.5rem;
-}
-
-.product-detail-core dt {
-    font-size: 0.76rem;
-    color: #5d6678;
-}
-
-.product-detail-core dd {
-    margin-top: 0.16rem;
-    font-family: 'Barlow', sans-serif;
-    font-size: 0.88rem;
-    color: #1a2a46;
-    letter-spacing: 0.02em;
-}
-
-.product-detail-note {
-    font-size: 0.78rem;
-    color: #57617a;
-    line-height: 1.52;
-}
-
-.product-detail-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 0.68rem;
-}
-
-.product-detail-grid section {
-    border: 1px solid #d9d9d9;
-    border-radius: 8px;
+    background: #fbfbfc;
     padding: 0.58rem 0.62rem;
-    background: #ffffff;
 }
 
-.product-detail-grid h4 {
-    font-family: 'Barlow', sans-serif;
-    font-size: 0.88rem;
-    letter-spacing: 0.08em;
-    margin-top: 0.45rem;
-}
-
-.product-detail-grid h4:first-child {
-    margin-top: 0;
-}
-
-.product-detail-grid p {
-    margin-top: 0.16rem;
+.product-detail-placeholder p {
     font-size: 0.82rem;
     color: #2d3442;
     line-height: 1.52;
 }
 
-.product-detail-list,
-.product-detail-option-list {
+.product-detail-placeholder-list {
     list-style: none;
-    margin-top: 0.3rem;
+    margin-top: 0.34rem;
     display: grid;
-    gap: 0.22rem;
+    gap: 0.2rem;
 }
 
-.product-detail-list li {
-    display: grid;
-    grid-template-columns: 120px minmax(0, 1fr);
-    gap: 0.44rem;
-    font-size: 0.8rem;
-    color: #263247;
-}
-
-.product-detail-option-list li {
+.product-detail-placeholder-list li {
     font-size: 0.8rem;
     color: #263247;
     padding-left: 0.82rem;
     position: relative;
 }
 
-.product-detail-option-list li::before {
+.product-detail-placeholder-list li::before {
     content: '';
     position: absolute;
     left: 0;
@@ -1614,15 +1562,6 @@ a.news-item-row:hover .news-title {
 
     .product-detail-core {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .product-detail-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .product-detail-list li {
-        grid-template-columns: 1fr;
-        gap: 0.1rem;
     }
 
     .products-link-row {
