@@ -254,6 +254,38 @@
                 'OTHER': 'other'
             };
 
+            const PRODUCT_DISPLAY_NAMES = {
+                '01': { en: 'TANK TOP', ja: 'タンクトップ' },
+                '02': { en: 'REVERSIBLE TANK TOP', ja: 'リバーシブル タンクトップ' },
+                '03': { en: 'T-SHIRT', ja: 'Tシャツ' },
+                '04': { en: 'LONG SLEEVE T-SHIRT', ja: 'ロングスリーブTシャツ' },
+                '05': { en: 'BASKETBALL SHORTS', ja: 'バスケットパンツ' },
+                '06': { en: 'REVERSIBLE BASKETBALL SHORTS', ja: 'リバーシブルバスケットパンツ' },
+                '07': { en: 'HALF PANTS', ja: 'ハーフパンツ' },
+                '08': { en: 'FOOTBALL SHIRT', ja: 'フットボールシャツ' },
+                '09': { en: 'LONG SLEEVE FOOTBALL SHIRT', ja: 'ロングスリーブ フットボールシャツ' },
+                '10': { en: 'BASEBALL SHIRT', ja: 'ベースボールシャツ' },
+                '11': { en: 'POLO SHIRT', ja: 'ポロシャツ' },
+                '12': { en: 'LONG SLEEVE POLO SHIRT', ja: 'ロングスリーブ ポロシャツ' },
+                '13': { en: 'SWEAT TOP', ja: 'スウェットトップス' },
+                '14': { en: 'SWEAT LONG PANTS', ja: 'スウェットロングパンツ' },
+                '15': { en: 'SIDE BUTTON PANTS', ja: 'サイドボタンパンツ' },
+                '16': { en: 'PULLOVER HOODIE', ja: 'プルオーバーパーカー' },
+                '17': { en: 'FULL ZIP JERSEY', ja: 'フルジップジャージ' },
+                '18': { en: 'WINDBREAKER JACKET', ja: 'ウインドブレーカージャケット' },
+                '19': { en: 'WINDBREAKER PANTS', ja: 'ウインドブレーカーパンツ' },
+                '20': { en: 'FULL MESH CAP', ja: 'フルメッシュキャップ' },
+                '21': { en: 'ORIGINAL SOCKS', ja: 'オリジナルソックス' }
+            };
+
+            const ITEM_ICON_ASSETS = {
+                // Example: '01': 'assets/products-icons/01-tank-top.svg'
+            };
+
+            const supplementalProducts = [
+                { code: '06', name: 'リバーシブルバスケットパンツ', unit: '枚' }
+            ];
+
             const ICON_PATHS = {
                 'tank-top': [
                     '<path class="garment-shell" d="M52 22H70L74 34H86L90 22H108L114 38V98H46V38Z" />',
@@ -317,10 +349,21 @@
                 ]
             };
 
-            const products = Object.values(ORDER_PRODUCT_MASTER)
+            const productsFromMaster = Object.values(ORDER_PRODUCT_MASTER)
                 .slice()
                 .sort((a, b) => Number(a.code) - Number(b.code))
                 .map((item) => ({ ...item, category: codeToCategory[item.code] || 'OTHER' }));
+
+            const productsByCode = new Map(productsFromMaster.map((item) => [item.code, item]));
+            supplementalProducts.forEach((item) => {
+                if (!productsByCode.has(item.code)) {
+                    productsByCode.set(item.code, { ...item, category: codeToCategory[item.code] || 'OTHER' });
+                }
+            });
+
+            const products = Array.from(productsByCode.values())
+                .slice()
+                .sort((a, b) => Number(a.code) - Number(b.code));
 
             const categoryNav = document.getElementById('productsCategoryNav');
             const catalogGrid = document.getElementById('productCatalogGrid');
@@ -363,18 +406,19 @@
             detailList.innerHTML = products.map((item) => renderDetail(item, categoryIcon[item.category])).join('');
 
             function renderCatalogCard(item, iconKey) {
-                const taxPrice = Math.round(Number(item.basePriceExcl) * 1.1);
+                const hasPrice = Number(item.basePriceExcl) > 0;
+                const taxPrice = hasPrice ? formatYen(Math.round(Number(item.basePriceExcl) * 1.1)) : '要相談';
                 return `
                     <article class="catalog-item-card" id="item-${escapeHtml(item.code)}">
                         <div class="catalog-item-top">
-                            ${renderIcon(iconKey)}
+                            ${renderIcon(item, iconKey)}
                             <div class="catalog-item-meta">
                                 <p class="catalog-item-code">${escapeHtml(item.code)}</p>
                                 <h4>${escapeHtml(item.name)}</h4>
                             </div>
                         </div>
                         <dl class="catalog-item-info">
-                            <div><dt>税込価格</dt><dd>${formatYen(taxPrice)}</dd></div>
+                            <div><dt>税込価格</dt><dd>${taxPrice}</dd></div>
                             <div><dt>最低ロット</dt><dd>${renderMinLotLabel(item)}</dd></div>
                         </dl>
                         <a class="catalog-detail-link" href="#detail-${escapeHtml(item.code)}">VIEW DETAILS →</a>
@@ -383,15 +427,17 @@
             }
 
             function renderDetail(item, iconKey) {
+                const names = PRODUCT_DISPLAY_NAMES[item.code] || { en: item.category || 'ITEM', ja: item.name };
                 return `
                     <article class="product-detail-card" id="detail-${escapeHtml(item.code)}">
                         <div class="product-detail-priority">
                             <div class="product-detail-heading">
                                 <p class="product-detail-code">${escapeHtml(item.code)} / ${escapeHtml(item.category)}</p>
-                                <h3>${escapeHtml(item.name)}</h3>
+                                <h3>${escapeHtml(names.en)}</h3>
+                                <p class="product-detail-name-ja">${escapeHtml(names.ja || item.name)}</p>
                                 <p class="product-detail-sub">この商品の詳細情報は順次追加予定です。</p>
                             </div>
-                            <div class="product-detail-figure">${renderIcon(iconKey)}</div>
+                            <div class="product-detail-figure">${renderIcon(item, iconKey)}</div>
                         </div>
 
                         <section class="product-detail-placeholder">
@@ -414,7 +460,12 @@
                 `;
             }
 
-            function renderIcon(iconKey) {
+            function renderIcon(item, iconKey) {
+                const iconAsset = item && item.code ? String(ITEM_ICON_ASSETS[item.code] || '').trim() : '';
+                if (iconAsset) {
+                    const names = PRODUCT_DISPLAY_NAMES[item.code] || { en: item.category || 'ITEM' };
+                    return `<img class="products-page-icon-image" src="${escapeHtml(iconAsset)}" alt="${escapeHtml(names.en)}" loading="lazy">`;
+                }
                 const key = ICON_PATHS[iconKey] ? iconKey : 'other';
                 const paths = ICON_PATHS[key].join('');
                 return `
