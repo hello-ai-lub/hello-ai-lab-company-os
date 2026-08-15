@@ -962,6 +962,16 @@ a.news-item-row:hover .news-title {
     padding-bottom: 2.7rem;
 }
 
+.section-price-guide .heading-en {
+    color: #1f4ea0;
+    letter-spacing: 0.07em;
+}
+
+.price-guide-subcopy {
+    margin-top: 0.28rem;
+    color: #3f5577;
+}
+
 .products-grid,
 .products-view-all,
 .price-guide-grid {
@@ -987,6 +997,7 @@ a.news-item-row:hover .news-title {
     width: min(100%, 126px);
     height: auto;
     display: block;
+    shape-rendering: geometricPrecision;
 }
 
 .product-line-icon path,
@@ -996,14 +1007,19 @@ a.news-item-row:hover .news-title {
 .product-line-icon circle {
     fill: #ffffff;
     stroke: #2b333f;
-    stroke-width: 1.4;
+    stroke-width: 1.35;
     stroke-linecap: round;
     stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.product-line-icon .garment-shell {
+    stroke-width: 1.45;
 }
 
 .product-line-icon .garment-detail {
     fill: none;
-    stroke-width: 1.35;
+    stroke-width: 1.12;
 }
 
 .product-card h3 {
@@ -1036,57 +1052,87 @@ a.news-item-row:hover .news-title {
 .price-guide-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.95rem;
+    gap: 1rem;
 }
 
 .price-guide-card {
-    border: 1px solid #d9dfeb;
-    border-top: 2px solid #1f4ea0;
-    border-radius: 1px;
+    border: 1px solid #c4d4ef;
+    border-radius: 8px;
     background: #ffffff;
-    padding: 1.1rem 1.05rem 1.02rem;
-    min-height: 302px;
+    padding: 1rem 1rem 0.92rem;
+    min-height: 252px;
     display: grid;
-    grid-template-rows: auto auto 1fr auto;
-    gap: 0.5rem;
+    grid-template-rows: auto auto auto 1fr auto;
+    gap: 0.4rem;
     text-decoration: none;
     color: inherit;
     transition: border-color 220ms ease, background-color 220ms ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .price-guide-card:hover,
 .price-guide-card:focus-visible {
-    border-color: #aeb8c9;
-    background: #fbfcff;
+    border-color: #93afdd;
+    background: #f8fbff;
+}
+
+.price-guide-badge {
+    margin: 0;
+    width: 52px;
+    height: 46px;
+    background: #1f4ea0;
+    clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%);
+    display: grid;
+    place-items: center;
 }
 
 .price-guide-no {
     margin: 0;
     font-family: 'Barlow', sans-serif;
-    font-size: 0.76rem;
-    letter-spacing: 0.14em;
-    color: #1f4ea0;
+    font-size: 1.06rem;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    line-height: 1;
+}
+
+.price-guide-icon {
+    width: 44px;
+    height: 44px;
+    margin-top: 0.16rem;
+}
+
+.price-guide-icon path,
+.price-guide-icon line,
+.price-guide-icon polyline,
+.price-guide-icon rect,
+.price-guide-icon circle {
+    fill: #ffffff;
+    stroke: #2b4f84;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .price-guide-title {
     margin: 0;
     font-family: 'Barlow', sans-serif;
-    font-size: clamp(1.6rem, 2.5vw, 2.22rem);
-    letter-spacing: 0.05em;
+    font-size: clamp(1.24rem, 1.85vw, 1.66rem);
+    letter-spacing: 0.06em;
     line-height: 1.02;
 }
 
 .price-guide-copy {
     margin-top: auto;
-    font-size: 0.92rem;
+    font-size: 0.84rem;
     color: #4c586e;
-    line-height: 1.46;
+    line-height: 1.5;
 }
 
 .price-guide-link {
     margin-top: 0.1rem;
     font-family: 'Barlow', sans-serif;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     letter-spacing: 0.1em;
     color: #223759;
 }
@@ -2359,7 +2405,7 @@ a.news-item-row:hover .news-title {
     }
 
     .price-guide-card {
-        min-height: 238px;
+        min-height: 218px;
     }
 }
 
