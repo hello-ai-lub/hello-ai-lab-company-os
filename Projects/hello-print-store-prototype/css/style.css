@@ -2040,8 +2040,8 @@ a.news-item-row:hover .news-title {
 .guide-block-layout {
     margin-top: 0.7rem;
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr);
-    gap: 1.1rem;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 1rem;
     align-items: start;
 }
 
@@ -2049,15 +2049,18 @@ a.news-item-row:hover .news-title {
     margin-top: 0;
     width: 100%;
     max-width: 100%;
+    height: clamp(132px, 11vw, 168px);
+    align-self: start;
+}
+
+.guide-block-layout .guide-photo img {
+    height: 100%;
+    aspect-ratio: auto;
 }
 
 .guide-block-layout .guide-list,
 .guide-block-layout .guide-block-content {
     margin-top: 0;
-}
-
-.guide-block-layout-media-left {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
 }
 
 .guide-keyfact {
