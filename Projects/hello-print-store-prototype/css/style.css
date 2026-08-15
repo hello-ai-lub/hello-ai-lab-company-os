@@ -1868,7 +1868,6 @@ a.news-item-row:hover .news-title {
 
 .price-category-panel {
     border: 1px solid #d8dee8;
-    border-top: 2px solid var(--accent);
     border-radius: 8px;
     background: #ffffff;
     padding: 0.72rem;
