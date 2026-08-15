@@ -1983,7 +1983,7 @@ a.news-item-row:hover .news-title {
     color: #2d2d2d;
     font-size: 0.9rem;
     line-height: 1.58;
-    max-width: 74ch;
+    max-width: none;
 }
 
 .section-order-guide-list {
@@ -2033,6 +2033,33 @@ a.news-item-row:hover .news-title {
     aspect-ratio: 4 / 3;
 }
 
+.guide-photo-side img {
+    aspect-ratio: 4 / 3;
+}
+
+.guide-block-layout {
+    margin-top: 0.7rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr);
+    gap: 1.1rem;
+    align-items: start;
+}
+
+.guide-block-layout .guide-photo {
+    margin-top: 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+.guide-block-layout .guide-list,
+.guide-block-layout .guide-block-content {
+    margin-top: 0;
+}
+
+.guide-block-layout-media-left {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
+}
+
 .guide-keyfact {
     margin-top: 0.68rem;
     border-left: 2px solid #2a2a2a;
@@ -2064,7 +2091,7 @@ a.news-item-row:hover .news-title {
     color: #222222;
     font-size: 0.88rem;
     line-height: 1.6;
-    max-width: 72ch;
+    max-width: none;
 }
 
 .guide-list {
@@ -2080,7 +2107,7 @@ a.news-item-row:hover .news-title {
     line-height: 1.6;
     padding-left: 0.85rem;
     position: relative;
-    max-width: 72ch;
+    max-width: none;
 }
 
 .guide-list li::before {
@@ -2409,6 +2436,12 @@ a.news-item-row:hover .news-title {
     .order-form-grid,
     .order-form-grid-3 {
         grid-template-columns: 1fr;
+    }
+
+    .guide-block-layout,
+    .guide-block-layout-media-left {
+        grid-template-columns: 1fr;
+        gap: 0.72rem;
     }
 }
 
