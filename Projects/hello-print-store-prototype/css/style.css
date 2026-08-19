@@ -676,34 +676,24 @@ a.news-item-row:hover .news-title {
 
     .section-original .original-gallery-item img {
         width: 100%;
-        height: auto;
-        font-size: 0.86rem;
-    }
-
-    .section-original .original-gallery-item-main img {
-        aspect-ratio: 4 / 5.04;
-    }
-
-    .section-original .original-gallery-item-medium img {
-        aspect-ratio: 4 / 2.9;
-    }
-
-    .section-original .original-gallery-item-small img {
-        aspect-ratio: 4 / 3.3;
+        height: 100%;
+        object-fit: cover;
+        display: block;
     }
 
     .section-original .original-gallery-meta {
-        margin-top: 7px;
+        margin-top: 8px;
     }
 
     .section-original .original-gallery-meta h4 {
-        font-size: 14px;
-        line-height: 1.2;
+        font-size: 13px;
+        line-height: 1.25;
     }
 
     .section-original .original-gallery-meta p {
         margin-top: 3px;
-        font-size: 11px;
+        font-size: 10px;
+        line-height: 1.2;
     }
 
     .section-original .original-gallery-note {
@@ -717,25 +707,30 @@ a.news-item-row:hover .news-title {
     }
 
     .section-original .original-gallery-item-main .original-gallery-meta h4 {
-        font-size: 18px;
-        line-height: 1.16;
-        letter-spacing: 0.04em;
+        font-size: 16px;
+        line-height: 1.2;
+        letter-spacing: 0.05em;
     }
 
     .section-original .original-gallery-item-medium .original-gallery-meta h4 {
-        font-size: 15px;
+        font-size: 14px;
         line-height: 1.2;
         letter-spacing: 0.05em;
     }
 
     .section-original .original-gallery-item-small .original-gallery-meta p {
-        display: none;
+        display: block;
     }
 
     .section-original .original-gallery-item-small .original-gallery-meta h4 {
         font-size: 12px;
         line-height: 1.15;
         letter-spacing: 0.06em;
+    }
+
+    .section-original .original-gallery-item-small .original-gallery-meta p {
+        font-size: 9px;
+        margin-top: 2px;
     }
 }
 
@@ -1765,7 +1760,7 @@ a.news-item-row:hover .news-title {
 }
 
 .original-gallery-media-small {
-    aspect-ratio: 3 / 5.25;
+    aspect-ratio: 3 / 5.33;
 }
 
 .original-gallery-media img {
