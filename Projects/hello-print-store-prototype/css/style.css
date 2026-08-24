@@ -613,7 +613,7 @@ a.news-item-row:hover .news-title {
     #original-collab .section-heading,
     #original-collab .original-gallery,
     #original-collab .original-gallery-cta {
-        max-width: min(58vw, 820px);
+        max-width: min(64vw, 900px);
     }
 
     #about .section-heading,
@@ -669,20 +669,20 @@ a.news-item-row:hover .news-title {
 
     .section-original .original-gallery {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.8rem;
+        gap: 0.9rem;
         align-items: start;
     }
 
     .section-original .original-gallery-main,
     .section-original .original-gallery-side {
         display: grid;
-        gap: 0.8rem;
+        gap: 0.9rem;
     }
 
     .section-original .original-gallery-side-bottom {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.8rem;
+        gap: 0.9rem;
     }
 
     .section-original .original-gallery-item img {
@@ -718,13 +718,13 @@ a.news-item-row:hover .news-title {
     }
 
     .section-original .original-gallery-item-main .original-gallery-meta h4 {
-        font-size: 15px;
+        font-size: 16px;
         line-height: 1.2;
         letter-spacing: 0.05em;
     }
 
     .section-original .original-gallery-item-medium .original-gallery-meta h4 {
-        font-size: 13px;
+        font-size: 14px;
         line-height: 1.2;
         letter-spacing: 0.05em;
     }
@@ -734,7 +734,7 @@ a.news-item-row:hover .news-title {
     }
 
     .section-original .original-gallery-item-small .original-gallery-meta h4 {
-        font-size: 11px;
+        font-size: 12px;
         line-height: 1.15;
         letter-spacing: 0.06em;
     }
@@ -1784,7 +1784,7 @@ a.news-item-row:hover .news-title {
 }
 
 .original-gallery-media-small {
-    aspect-ratio: 3 / 3.9;
+    aspect-ratio: 3 / 4.85;
 }
 
 .original-gallery-media img {
@@ -1803,11 +1803,11 @@ a.news-item-row:hover .news-title {
 }
 
 .original-photo-small-left {
-    object-position: 51% 52%;
+    object-position: 52% 46%;
 }
 
 .original-photo-small-right {
-    object-position: 50% 52%;
+    object-position: 50% 60%;
 }
 
 .original-gallery-item-main,
