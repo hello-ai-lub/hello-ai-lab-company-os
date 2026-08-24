@@ -54,10 +54,75 @@
             background: #4f5f79;
         }
 
+        #option .guide-block-content {
+            display: grid;
+            gap: 0.7rem;
+        }
+
+        #option .option-layout {
+            display: grid;
+            gap: 0.9rem;
+            align-items: start;
+        }
+
+        #option .option-copy {
+            margin: 0;
+        }
+
+        #option .option-price-box {
+            border: 1px solid #d6dbe2;
+            border-radius: 10px;
+            padding: 0.85rem 0.95rem;
+            background: #ffffff;
+            display: grid;
+            gap: 0.46rem;
+        }
+
+        #option .option-price-kicker {
+            margin: 0;
+            font-family: 'Barlow', sans-serif;
+            font-size: 0.74rem;
+            letter-spacing: 0.1em;
+            color: #4a5568;
+        }
+
+        #option .option-price-label,
+        #option .option-price-sub {
+            margin: 0;
+            color: #1f2f4a;
+            font-size: 0.86rem;
+            line-height: 1.5;
+        }
+
+        #option .option-price-value,
+        #option .option-price-plus {
+            margin: 0;
+            color: #111111;
+            font-size: 1.04rem;
+            line-height: 1.35;
+            font-weight: 500;
+        }
+
+        #option .guide-block-note {
+            margin-top: 0.05rem;
+            font-size: 0.78rem;
+            line-height: 1.55;
+            color: #4b5563;
+        }
+
         @media (min-width: 981px) {
             #design .guide-block-layout .guide-photo,
             #works .guide-block-layout .guide-photo {
                 margin-top: -4.95rem;
+            }
+
+            #option .option-layout {
+                grid-template-columns: minmax(0, 1fr) minmax(220px, 0.82fr);
+                gap: 1.3rem;
+            }
+
+            #option .option-price-box {
+                padding: 0.9rem 1.05rem;
             }
         }
     </style>
@@ -197,10 +262,16 @@
                     <h2 class="guide-block-en">OPTION</h2>
                     <p class="guide-block-ja">オプションについて</p>
                     <div class="guide-block-content">
-                        <p>オリジナルプリントタグ対応可能。</p>
-                        <p>料金：</p>
-                        <p>タグ製作代 5,500円（税込）</p>
-                        <p>＋商品1枚につき110円（税込）</p>
+                        <div class="option-layout">
+                            <p class="option-copy">オリジナルプリントタグ対応可能。</p>
+                            <div class="option-price-box" aria-label="タグ料金">
+                                <p class="option-price-kicker">TAG PRICE</p>
+                                <p class="option-price-label">タグ製作代</p>
+                                <p class="option-price-value">5,500円（税込）</p>
+                                <p class="option-price-sub">商品1枚につき</p>
+                                <p class="option-price-plus">＋110円（税込）</p>
+                            </div>
+                        </div>
                         <p class="guide-block-note">※サイト上の料金はすべて税込表記です。</p>
                     </div>
                 </article>
@@ -210,9 +281,9 @@
                     <p class="guide-block-ja">発送・追加注文について</p>
                     <ul class="guide-list">
                         <li>同デザイン商品の追加製作にも対応します。</li>
-                        <li>1〜2枚の追加注文では納品送料をご負担いただきます。</li>
+                        <li>1〜2枚の追加注文では納品送料1,650円（税込）をご負担いただきます。</li>
                         <li>3枚以上の追加注文では送料はかかりません。</li>
-                        <li>Hello Print Storeからお客様への商品発送が必要な場合は、別途送料をご負担いただきます。</li>
+                        <li>Hello Print Storeからお客様への商品発送が必要な場合は、送料1,100円（税込）をご負担いただきます。</li>
                     </ul>
                     <div class="guide-notice" aria-label="注意事項">
                         <p class="guide-notice-title">NOTICE</p>
