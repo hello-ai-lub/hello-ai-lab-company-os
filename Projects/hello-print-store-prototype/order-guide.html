@@ -123,13 +123,16 @@
         }
 
         #delivery .guide-keyfact {
-            border: 1px solid #d6dbe2;
+            border: 1px solid #e3e7ed;
             border-left-color: #1f2f4a !important;
             border-left-width: 2px;
             border-radius: 10px;
-            padding: 0.9rem 1rem;
+            padding: 1rem 1.1rem;
             margin-bottom: 0.95rem;
             background: #ffffff;
+            display: inline-grid;
+            width: min(100%, 33rem);
+            gap: 0.2rem;
         }
 
         #delivery .guide-keyfact-value {
@@ -138,6 +141,14 @@
 
         #delivery .guide-keyfact-label {
             color: #3f4b5e;
+        }
+
+        #delivery .guide-keyfact-sub {
+            margin: 0;
+            font-size: 0.74rem;
+            line-height: 1.45;
+            letter-spacing: 0.02em;
+            color: #5a677b;
         }
 
         @media (min-width: 981px) {
@@ -269,6 +280,7 @@
                     <div class="guide-keyfact" aria-label="通常納期目安">
                         <p class="guide-keyfact-value">ABOUT 1 MONTH</p>
                         <p class="guide-keyfact-label">通常納期目安</p>
+                        <p class="guide-keyfact-sub">製作開始 → 納品</p>
                     </div>
                     <div class="guide-block-content">
                         <p>通常、製作開始から納品まで約1ヶ月を目安としております。</p>
