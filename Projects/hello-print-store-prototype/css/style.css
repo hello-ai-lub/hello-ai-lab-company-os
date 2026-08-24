@@ -746,14 +746,11 @@ a.news-item-row:hover .news-title {
 
     .section-about .about-layout {
         gap: 0.56rem;
-        align-items: stretch;
+        align-items: start;
     }
 
     .section-about .about-copy-block {
         max-width: 440px;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
     }
 
     .section-about .about-photo-stack img {
@@ -805,13 +802,7 @@ a.news-item-row:hover .news-title {
 
     #about .about-layout {
         gap: 0.76rem;
-        align-items: stretch;
-    }
-
-    #about .about-copy-block {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
+        align-items: start;
     }
 
     #about .about-lead {
@@ -819,8 +810,7 @@ a.news-item-row:hover .news-title {
     }
 
     #about .about-copy-block .about-closing {
-        margin-top: auto;
-        padding-top: 1.5rem;
+        margin-top: 1.35rem;
     }
 
     #about .about-photo-stack {
@@ -943,26 +933,27 @@ a.news-item-row:hover .news-title {
 }
 
 .about-copy-block .about-closing {
-    margin-top: auto;
-    padding-top: 1.5rem;
+    margin-top: 1.3rem;
     margin-bottom: 0;
-    font-size: clamp(1.55rem, 2.35vw, 2.05rem);
-    line-height: 1.06;
+    font-size: clamp(1.72rem, 2.45vw, 2.2rem);
+    line-height: 1.08;
     font-weight: 700;
     letter-spacing: 0.03em;
+    color: var(--accent-deep);
 }
 
 .about-lead {
     margin-top: 0.34rem;
-    font-size: 0.94rem;
+    font-size: 0.99rem;
+    line-height: 1.74;
     color: #2f3c52;
 }
 
 .about-copy-block p {
     margin-top: 0.62rem;
-    font-size: 0.91rem;
+    font-size: 0.96rem;
     color: #444c5d;
-    line-height: 1.68;
+    line-height: 1.76;
 }
 
 .about-copy-block {
@@ -2254,14 +2245,11 @@ a.news-item-row:hover .news-title {
     margin-top: 0.94rem;
     display: grid;
     gap: 1.05rem;
-}
+        align-items: start;
 
 .color-family-section {
     border-top: 1px solid #dbe2ed;
     padding-top: 0.74rem;
-}
-
-.color-family-head {
     display: flex;
     align-items: baseline;
     gap: 0.42rem;
@@ -2283,8 +2271,7 @@ a.news-item-row:hover .news-title {
 }
 
 .color-chart-grid {
-    margin-top: 0;
-    display: grid;
+        margin-top: 1.35rem;
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 0.72rem;
 }
