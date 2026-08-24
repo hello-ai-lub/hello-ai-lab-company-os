@@ -802,15 +802,29 @@ a.news-item-row:hover .news-title {
 
     #about .about-layout {
         gap: 0.76rem;
-        align-items: start;
+        align-items: stretch;
+    }
+
+    #about .about-copy-block {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 
     #about .about-lead {
         margin-top: 0;
     }
 
+    #about .about-copy-block p {
+        font-size: 1rem;
+        line-height: 1.84;
+    }
+
     #about .about-copy-block .about-closing {
-        margin-top: 1.35rem;
+        margin-top: auto;
+        padding-top: 0.95rem;
+        font-size: clamp(2.05rem, 2.95vw, 2.55rem);
+        line-height: 1.03;
     }
 
     #about .about-photo-stack {
