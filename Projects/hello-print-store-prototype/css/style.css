@@ -1784,7 +1784,7 @@ a.news-item-row:hover .news-title {
 }
 
 .original-gallery-media-small {
-    aspect-ratio: 3 / 4.85;
+    aspect-ratio: 3 / 2;
 }
 
 .original-gallery-media img {
@@ -1803,11 +1803,11 @@ a.news-item-row:hover .news-title {
 }
 
 .original-photo-small-left {
-    object-position: 52% 46%;
+    object-position: 50% 60%;
 }
 
 .original-photo-small-right {
-    object-position: 50% 60%;
+    object-position: 50% 68%;
 }
 
 .original-gallery-item-main,
