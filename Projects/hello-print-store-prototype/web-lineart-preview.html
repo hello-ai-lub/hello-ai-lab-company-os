@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hello Print Store web lineart trial preview">
+    <title>WEB Lineart Preview | Hello Print Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .lineart-preview-main {
+            padding: 5.5rem 0 4rem;
+        }
+
+        .lineart-preview-wrap {
+            width: min(1100px, calc(100% - 2rem));
+            margin: 0 auto;
+            display: grid;
+            gap: 1.2rem;
+        }
+
+        .lineart-preview-intro {
+            display: grid;
+            gap: 0.34rem;
+        }
+
+        .lineart-preview-kicker,
+        .lineart-detail-label,
+        .lineart-item-code {
+            font-family: 'Barlow', sans-serif;
+            letter-spacing: 0.08em;
+        }
+
+        .lineart-preview-kicker {
+            font-size: 0.74rem;
+            color: #5a6678;
+        }
+
+        .lineart-preview-note {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: #334155;
+            max-width: 64rem;
+        }
+
+        .lineart-preview-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .lineart-item {
+            border: 1px solid #d9dce2;
+            border-radius: 18px;
+            background: #fff;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .lineart-item-main {
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .lineart-item-head {
+            display: grid;
+            gap: 0.18rem;
+        }
+
+        .lineart-item-code {
+            font-size: 0.72rem;
+            color: #5a6678;
+        }
+
+        .lineart-item-head h2 {
+            margin: 0;
+            font-family: 'Barlow', sans-serif;
+            font-size: clamp(1.2rem, 2vw, 1.7rem);
+            letter-spacing: 0.04em;
+            line-height: 1.08;
+        }
+
+        .lineart-item-head p,
+        .lineart-detail-caption,
+        .lineart-spec-list li {
+            font-size: 0.9rem;
+            line-height: 1.65;
+            color: #334155;
+        }
+
+        .lineart-stage {
+            border: 1px solid #e3e7ed;
+            border-radius: 14px;
+            background: #fff;
+            aspect-ratio: 1;
+            display: grid;
+            place-items: center;
+            padding: 1rem;
+        }
+
+        .lineart-stage img,
+        .lineart-detail-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .lineart-item-side {
+            display: grid;
+            gap: 0.9rem;
+        }
+
+        .lineart-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.7rem;
+        }
+
+        .lineart-detail-card {
+            border: 1px solid #e3e7ed;
+            border-radius: 14px;
+            padding: 0.72rem;
+            display: grid;
+            gap: 0.48rem;
+            background: #fff;
+        }
+
+        .lineart-detail-figure {
+            aspect-ratio: 1;
+            display: grid;
+            place-items: center;
+        }
+
+        .lineart-detail-label {
+            font-size: 0.68rem;
+            color: #64748b;
+        }
+
+        .lineart-spec-list {
+            margin: 0;
+            padding-left: 1rem;
+            display: grid;
+            gap: 0.2rem;
+        }
+
+        @media (max-width: 900px) {
+            .lineart-item {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .lineart-preview-main {
+                padding-top: 5rem;
+            }
+
+            .lineart-item,
+            .lineart-detail-grid {
+                gap: 0.7rem;
+            }
+
+            .lineart-detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header header-static" id="header">
+        <div class="header-container">
+            <div class="header-logo">
+                <a href="index.html#top" class="logo-link" aria-label="Hello Print Store home">
+                    <img src="assets/logo/01_logo/hello_logo_black.svg" alt="Hello Print Store logo" class="brand-logo logo-black logo-force-visible">
+                </a>
+            </div>
+            <nav class="header-nav">
+                <ul class="nav-list nav-list-light">
+                    <li><a href="index.html#top" class="nav-link">TOP</a></li>
+                    <li><a href="products.html" class="nav-link">PRODUCTS</a></li>
+                    <li><a href="size-guide.html" class="nav-link">SIZE GUIDE</a></li>
+                    <li><a href="contact" class="nav-link">CONTACT</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main" class="lineart-preview-main">
+        <section class="lineart-preview-wrap">
+            <div class="lineart-preview-intro">
+                <p class="lineart-preview-kicker">WEB LINEART TRIAL</p>
+                <h1 class="heading-en">PRODUCT LINEART PREVIEW</h1>
+                <p class="heading-ja">WEB用商品線画の試作確認</p>
+                <p class="lineart-preview-note">試作対象は、正面1点の共通ルールで描き直した4商品です。参考線画は形状確認のみに使用し、小表示でも認識しやすい太さ・余白・配置に統一しています。ディテール線画は仕様確認が必要な要素だけを抽出しています。</p>
+            </div>
+
+            <article class="lineart-item">
+                <div class="lineart-item-main">
+                    <div class="lineart-item-head">
+                        <span class="lineart-item-code">01 / TANK TOP</span>
+                        <h2>TANK TOP</h2>
+                        <p>肩幅を細くしすぎず、ネックとアームホールのバインダーだけを残した、視認性優先の正面線画です。</p>
+                    </div>
+                    <div class="lineart-stage">
+                        <img src="assets/products-web-lineart-trial/01-tank-top-front.svg" alt="Tank top web lineart front" loading="lazy">
+                    </div>
+                    <ul class="lineart-spec-list">
+                        <li>特徴保持: ラウンドネック、深めのアームホール、緩いラウンドヘム</li>
+                        <li>簡略化: 縫い目のノイズと不要なシワ線は削減</li>
+                    </ul>
+                </div>
+                <div class="lineart-item-side">
+                    <div class="lineart-detail-grid">
+                        <div class="lineart-detail-card">
+                            <span class="lineart-detail-label">DETAIL / BINDING</span>
+                            <div class="lineart-detail-figure">
+                                <img src="assets/products-web-lineart-trial/01-tank-top-detail-binding.svg" alt="Tank top neckline detail" loading="lazy">
+                            </div>
+                            <p class="lineart-detail-caption">ネックの開きとバインダー幅の確認用。</p>
+                        </div>
+                        <div class="lineart-detail-card">
+                            <span class="lineart-detail-label">DETAIL / HEM</span>
+                            <div class="lineart-detail-figure">
+                                <img src="assets/products-web-lineart-trial/01-tank-top-detail-hem.svg" alt="Tank top hem detail" loading="lazy">
+                            </div>
+                            <p class="lineart-detail-caption">前裾のラウンド感だけを残した簡略ディテール。</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="lineart-item">
+                <div class="lineart-item-main">
+                    <div class="lineart-item-head">
+                        <span class="lineart-item-code">14 / LONG PANTS</span>
+                        <h2>SWEAT LONG PANTS</h2>
+                        <p>裾リブが強いジョガーではなく、WEB上で脚のシルエットが読み取りやすいストレート寄りのロングパンツとして整理しています。</p>
+                    </div>
+                    <div class="lineart-stage">
+                        <img src="assets/products-web-lineart-trial/14-long-pants-front.svg" alt="Long pants web lineart front" loading="lazy">
+                    </div>
+                    <ul class="lineart-spec-list">
+                        <li>特徴保持: ゴムウエスト、サイドポケット、ストレートの落ち感</li>
+                        <li>簡略化: ギャザーと皺は最少本数へ圧縮</li>
+                    </ul>
+                </div>
+                <div class="lineart-item-side">
+                    <div class="lineart-detail-grid">
+                        <div class="lineart-detail-card">
+                            <span class="lineart-detail-label">DETAIL / WAIST + POCKET</span>
+                            <div class="lineart-detail-figure">
+                                <img src="assets/products-web-lineart-trial/14-long-pants-detail-waist-pocket.svg" alt="Long pants waist and pocket detail" loading="lazy">
+                            </div>
+                            <p class="lineart-detail-caption">ウエスト仕様とポケット角度の確認用。</p>
+                        </div>
+                        <div class="lineart-detail-card">
+                            <span class="lineart-detail-label">DETAIL / HEM</span>
+                            <div class="lineart-detail-figure">
+                                <img src="assets/products-web-lineart-trial/14-long-pants-detail-hem.svg" alt="Long pants hem detail" loading="lazy">
+                            </div>
+                            <p class="lineart-detail-caption">裾の処理を小サイズでも読み取れる太さで整理。</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="lineart-item">
+                <div class="lineart-item-main">
+                    <div class="lineart-item-head">
+                        <span class="lineart-item-code">16 / PULLOVER HOODIE</span>
+                        <h2>PULLOVER HOODIE</h2>
+                        <p>フード、袖口リブ、裾リブを残しつつ、WEB用として外形を先に読ませる描き方に寄せた試作です。</p>
+                    </div>
+                    <div class="lineart-stage">
+                        <img src="assets/products-web-lineart-trial/16-pullover-hoodie-front.svg" alt="Pullover hoodie web lineart front" loading="lazy">
+                    </div>
+                    <ul class="lineart-spec-list">
+                        <li>特徴保持: フード、リブ袖口、リブ裾</li>
+                        <li>判断保留: ポケットは商品仕様に明記がないため追加していません</li>
+                    </ul>
+                </div>
+                <div class="lineart-item-side">
+                    <div class="lineart-detail-grid">
+                        <div class="lineart-detail-card">
+                            <span class="lineart-detail-label">DETAIL / HOOD</span>
+                            <div class="lineart-detail-figure">
+                                <img src="assets/products-web-lineart-trial/16-pullover-hoodie-detail-hood.svg" alt="Pullover hoodie hood detail" loading="lazy">
+                            </div>
+                            <p class="lineart-detail-caption">フード開きと前重なりの確認用。</p>
+                        </div>
+                        <div class="lineart-detail-card">
+                            <span class="lineart-detail-label">DETAIL / RIB</span>
+                            <div class="lineart-detail-figure">
+                                <img src="assets/products-web-lineart-trial/16-pullover-hoodie-detail-rib.svg" alt="Pullover hoodie rib detail" loading="lazy">
+                            </div>
+                            <p class="lineart-detail-caption">袖口と裾のリブ密度を共通ルールで確認。</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="lineart-item">
+                <div class="lineart-item-main">
+                    <div class="lineart-item-head">
+                        <span class="lineart-item-code">18 / WINDBREAKER JACKET</span>
+                        <h2>WINDBREAKER JACKET</h2>
+                        <p>立ち襟、フルZIP、サイドポケット、裾ドローコードを優先して読み取れるよう整理したWEB用試作です。</p>
+                    </div>
+                    <div class="lineart-stage">
+                        <img src="assets/products-web-lineart-trial/18-windbreaker-jacket-front.svg" alt="Windbreaker jacket web lineart front" loading="lazy">
+                    </div>
+                    <ul class="lineart-spec-list">
+                        <li>特徴保持: 立ち襟、ZIP、ポケット、裾ドローコード</li>
+                        <li>簡略化: シワ線と袖の分量は最小限に整理</li>
+                    </ul>
+                </div>
+                <div class="lineart-item-side">
+                    <div class="lineart-detail-grid">
+                        <div class="lineart-detail-card">
+                            <span class="lineart-detail-label">DETAIL / COLLAR + ZIP</span>
+                            <div class="lineart-detail-figure">
+                                <img src="assets/products-web-lineart-trial/18-windbreaker-jacket-detail-collar-zip.svg" alt="Windbreaker collar and zip detail" loading="lazy">
+                            </div>
+                            <p class="lineart-detail-caption">立ち襟とZIPの見え方確認用。</p>
+                        </div>
+                        <div class="lineart-detail-card">
+                            <span class="lineart-detail-label">DETAIL / POCKET + HEM</span>
+                            <div class="lineart-detail-figure">
+                                <img src="assets/products-web-lineart-trial/18-windbreaker-jacket-detail-pocket-hem.svg" alt="Windbreaker pocket and hem detail" loading="lazy">
+                            </div>
+                            <p class="lineart-detail-caption">ポケット開口と裾ドローコードの確認用。</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
