@@ -816,8 +816,14 @@ a.news-item-row:hover .news-title {
     }
 
     #about .about-copy-block p {
-        font-size: 1rem;
-        line-height: 1.84;
+        margin-top: 0.54rem;
+        font-size: 0.97rem;
+        line-height: 1.74;
+    }
+
+    #about .about-copy-block .about-lead {
+        margin-top: 0;
+        line-height: 1.7;
     }
 
     #about .about-copy-block .about-closing {
