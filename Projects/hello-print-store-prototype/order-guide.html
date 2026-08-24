@@ -7,6 +7,53 @@
     <title>Order Guide | Hello Print Store</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
+        #color-print .guide-list,
+        #sewing .guide-list,
+        #delivery .guide-block-content,
+        #option .guide-block-content,
+        #shipping-additional-order .guide-list,
+        #shipping-additional-order .guide-notice {
+            width: 100%;
+            max-width: none;
+        }
+
+        #shipping-additional-order .guide-notice {
+            margin-top: 0.7rem;
+        }
+
+        #shipping-additional-order .guide-notice-title {
+            font-family: 'Barlow', sans-serif;
+            font-size: 0.86rem;
+            letter-spacing: 0.08em;
+            color: #1f2f4a;
+        }
+
+        #shipping-additional-order .guide-notice-list {
+            margin-top: 0.34rem;
+            list-style: none;
+            display: grid;
+            gap: 0.34rem;
+        }
+
+        #shipping-additional-order .guide-notice-list li {
+            color: #222222;
+            font-size: 0.84rem;
+            line-height: 1.6;
+            padding-left: 0.85rem;
+            position: relative;
+        }
+
+        #shipping-additional-order .guide-notice-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.72em;
+            width: 0.28rem;
+            height: 0.28rem;
+            border-radius: 999px;
+            background: #4f5f79;
+        }
+
         @media (min-width: 981px) {
             #design .guide-block-layout .guide-photo,
             #works .guide-block-layout .guide-photo {
@@ -167,6 +214,13 @@
                         <li>3枚以上の追加注文では送料はかかりません。</li>
                         <li>Hello Print Storeからお客様への商品発送が必要な場合は、別途送料をご負担いただきます。</li>
                     </ul>
+                    <div class="guide-notice" aria-label="注意事項">
+                        <p class="guide-notice-title">NOTICE</p>
+                        <ul class="guide-notice-list">
+                            <li>商品は透明袋等への個別包装を行わず発送いたします。</li>
+                            <li>WEBサイト・SNS等に掲載している一部サンプルには、製作ミス品を使用している場合があります。</li>
+                        </ul>
+                    </div>
                 </article>
 
                 <article class="guide-block" id="works">
