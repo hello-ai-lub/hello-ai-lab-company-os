@@ -933,9 +933,9 @@ a.news-item-row:hover .news-title {
 }
 
 .about-copy-block .about-closing {
-    margin-top: 1.3rem;
+    margin-top: 1.15rem;
     margin-bottom: 0;
-    font-size: clamp(1.72rem, 2.45vw, 2.2rem);
+    font-size: clamp(1.76rem, 2.5vw, 2.24rem);
     line-height: 1.08;
     font-weight: 700;
     letter-spacing: 0.03em;
@@ -944,16 +944,16 @@ a.news-item-row:hover .news-title {
 
 .about-lead {
     margin-top: 0.34rem;
-    font-size: 0.99rem;
-    line-height: 1.74;
+    font-size: 1rem;
+    line-height: 1.76;
     color: #2f3c52;
 }
 
 .about-copy-block p {
     margin-top: 0.62rem;
-    font-size: 0.96rem;
+    font-size: 0.98rem;
     color: #444c5d;
-    line-height: 1.76;
+    line-height: 1.8;
 }
 
 .about-copy-block {
