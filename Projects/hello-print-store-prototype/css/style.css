@@ -2268,11 +2268,14 @@ a.news-item-row:hover .news-title {
     margin-top: 0.94rem;
     display: grid;
     gap: 1.05rem;
-        align-items: start;
+}
 
 .color-family-section {
     border-top: 1px solid #dbe2ed;
     padding-top: 0.74rem;
+}
+
+.color-family-head {
     display: flex;
     align-items: baseline;
     gap: 0.42rem;
@@ -2294,7 +2297,8 @@ a.news-item-row:hover .news-title {
 }
 
 .color-chart-grid {
-        margin-top: 1.35rem;
+    margin-top: 0;
+    display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 0.72rem;
 }
