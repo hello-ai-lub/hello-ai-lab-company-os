@@ -1757,7 +1757,7 @@ a.news-item-row:hover .news-title {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.95rem;
     min-width: 0;
-    align-items: stretch;
+    align-items: start;
 }
 
 .original-gallery-item {
@@ -1814,6 +1814,15 @@ a.news-item-row:hover .news-title {
 .original-gallery-item-medium,
 .original-gallery-item-small {
     height: 100%;
+}
+
+.original-gallery-item-small {
+    grid-template-rows: auto auto;
+    align-content: start;
+}
+
+.original-gallery-item-small .original-gallery-meta h4 {
+    min-height: 2.3em;
 }
 
 .original-gallery-meta {
