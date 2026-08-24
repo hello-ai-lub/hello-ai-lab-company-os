@@ -821,14 +821,17 @@ a.news-item-row:hover .news-title {
     }
 
     #about .about-copy-block .about-closing {
-        margin-top: 0.35rem;
+        margin-top: auto;
         padding-top: 0.95rem;
         font-size: clamp(2.05rem, 2.95vw, 2.55rem);
         line-height: 1.03;
     }
 
     #about .about-photo-stack {
-        justify-items: end;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        height: 100%;
     }
 
     #about .about-photo-stack img {
