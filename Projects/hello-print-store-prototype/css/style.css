@@ -933,7 +933,7 @@ a.news-item-row:hover .news-title {
 }
 
 .about-copy-block .about-closing {
-    margin-top: 1.15rem;
+    margin-top: 0.95rem;
     margin-bottom: 0;
     font-size: clamp(1.76rem, 2.5vw, 2.24rem);
     line-height: 1.08;
