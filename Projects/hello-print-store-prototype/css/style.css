@@ -1520,6 +1520,11 @@ a.news-item-row:hover .news-title {
     filter: brightness(1.06) contrast(1.2);
 }
 
+.products-page-icon-image-polo {
+    mix-blend-mode: normal;
+    filter: brightness(0.92) contrast(1.44);
+}
+
 .products-page-icon-fallback {
     border: 1px solid #d7dbe3;
     border-radius: 6px;

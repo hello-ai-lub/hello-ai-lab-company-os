@@ -338,7 +338,10 @@
                 const iconAsset = item && item.code ? String(ITEM_ICON_ASSETS[item.code] || '').trim() : '';
                 if (iconAsset) {
                     const names = PRODUCT_DISPLAY_NAMES[item.code] || { en: item.category || 'ITEM' };
-                    return `<img class="products-page-icon-image" src="${escapeHtml(iconAsset)}" alt="${escapeHtml(names.en)}" loading="lazy">`;
+                    const visibilityClass = item.code === '11' || item.code === '12'
+                        ? ' products-page-icon-image-polo'
+                        : '';
+                    return `<img class="products-page-icon-image${visibilityClass}" src="${escapeHtml(iconAsset)}" alt="${escapeHtml(names.en)}" loading="lazy">`;
                 }
                 return `<span class="products-page-icon products-page-icon-fallback" aria-hidden="true"></span>`;
             }
