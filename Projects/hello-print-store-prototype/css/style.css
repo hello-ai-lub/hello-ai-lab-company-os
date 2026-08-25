@@ -1495,13 +1495,16 @@ a.news-item-row:hover .news-title {
 
 .products-page-icon {
     width: 92px;
-    height: auto;
+    height: 72px;
 }
 
 .products-page-icon-image {
     width: 92px;
-    height: auto;
+    height: 72px;
     display: block;
+    object-fit: contain;
+    object-position: center;
+    background: #ffffff;
 }
 
 .products-page-icon path,
@@ -1641,6 +1644,12 @@ a.news-item-row:hover .news-title {
     padding: 0.35rem;
 }
 
+.product-detail-figure .products-page-icon,
+.product-detail-figure .products-page-icon-image {
+    width: 156px;
+    height: 114px;
+}
+
 .product-detail-placeholder {
     border: 1px solid #dcdcdc;
     border-radius: 8px;
@@ -1749,6 +1758,18 @@ a.news-item-row:hover .news-title {
 
     .products-page-icon {
         width: 84px;
+        height: 66px;
+    }
+
+    .products-page-icon-image {
+        width: 84px;
+        height: 66px;
+    }
+
+    .product-detail-figure .products-page-icon,
+    .product-detail-figure .products-page-icon-image {
+        width: 144px;
+        height: 104px;
     }
 }
 
