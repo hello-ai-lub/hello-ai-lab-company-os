@@ -1162,8 +1162,9 @@ a.news-item-row:hover .news-title {
     display: block;
     object-fit: contain;
     object-position: center;
-    background: #ffffff;
-    clip-path: inset(1.5% 1.5% 1.5% 1.5%);
+    background: transparent;
+    mix-blend-mode: multiply;
+    filter: brightness(1.06) contrast(1.2);
 }
 
 .product-line-icon path,
@@ -1514,8 +1515,9 @@ a.news-item-row:hover .news-title {
     display: block;
     object-fit: contain;
     object-position: center;
-    background: #ffffff;
-    clip-path: inset(1.5% 1.5% 1.5% 1.5%);
+    background: transparent;
+    mix-blend-mode: multiply;
+    filter: brightness(1.06) contrast(1.2);
 }
 
 .products-page-icon-fallback {
@@ -2190,7 +2192,8 @@ a.news-item-row:hover .news-title {
     height: 100%;
     object-fit: contain;
     object-position: center;
-    clip-path: inset(1.5% 1.5% 1.5% 1.5%);
+    mix-blend-mode: multiply;
+    filter: brightness(1.06) contrast(1.2);
 }
 
 .measurement-body {
@@ -2264,7 +2267,8 @@ a.news-item-row:hover .news-title {
     display: block;
     object-fit: contain;
     object-position: center;
-    clip-path: inset(1.5% 1.5% 1.5% 1.5%);
+    mix-blend-mode: multiply;
+    filter: brightness(1.06) contrast(1.2);
 }
 
 .size-guide-icon path,
