@@ -6,6 +6,187 @@
     <meta name="description" content="Hello Print Store color chart reference">
     <title>Color Chart | Hello Print Store</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .color-chart-shell {
+            margin-top: 18px;
+        }
+
+        .color-chart-instruction {
+            margin: 0 0 18px;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: none;
+            color: #666666;
+        }
+
+        .compact-chart-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 14px 16px;
+            align-items: start;
+        }
+
+        .chart-card {
+            background: #ffffff;
+            border: 1px solid rgba(17, 17, 17, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: zoom-in;
+        }
+
+        .chart-card:hover,
+        .chart-card:focus-within {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+        }
+
+        .chart-image-wrap {
+            background: #f5f2ee;
+            border-bottom: 1px solid rgba(17, 17, 17, 0.04);
+        }
+
+        .chart-image-wrap img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 62vh;
+            object-fit: contain;
+            margin: 0 auto;
+        }
+
+        .chart-meta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 10px 12px;
+            font-size: 0.68rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #2a2a2a;
+        }
+
+        .chart-number {
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.76);
+            padding: 20px;
+        }
+
+        .lightbox.is-open {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: min(100%, 1120px);
+            max-height: 90vh;
+        }
+
+        .lightbox-figure {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .lightbox-image {
+            display: block;
+            max-width: 100%;
+            max-height: 78vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            background: #ffffff;
+            touch-action: pan-x pan-y pinch-zoom;
+        }
+
+        .lightbox-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 0 6px;
+        }
+
+        .lightbox-title {
+            color: #ffffff;
+            margin: 0;
+            font-size: 0.86rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .lightbox-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .lightbox-button {
+            border: none;
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            border-radius: 999px;
+            padding: 10px 16px;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .lightbox-button:hover,
+        .lightbox-button:focus-visible {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .lightbox-close {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 1024px) {
+            .compact-chart-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 720px) {
+            .compact-chart-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px 12px;
+            }
+
+            .chart-meta {
+                letter-spacing: 0.06em;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="header header-static" id="header">
@@ -46,117 +227,70 @@
         <section class="section section-spec-content" data-reveal-up>
             <div class="section-container spec-page-container">
                 <p class="spec-note">実際の生地色・プリント色は素材や加工条件によって見え方が異なります。</p>
-                <div class="color-family-list">
-                    <section class="color-family-section">
-                        <div class="color-family-head"><p class="color-family-index">01</p><h2>GRAY / BLACK</h2></div>
-                        <div class="color-chart-grid">
-                            <article class="color-chip" style="--swatch:#fafafa"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">SNOW WHITE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#efefef"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">SILVER MIST</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#d8dbe1"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">ASH GRAY</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#b5bac4"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">CEMENT</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#8e94a0"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">SLATE GRAY</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#252a34"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">BLACK</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                        </div>
-                    </section>
 
-                    <section class="color-family-section">
-                        <div class="color-family-head"><p class="color-family-index">02</p><h2>BLUE</h2></div>
-                        <div class="color-chart-grid">
-                            <article class="color-chip" style="--swatch:#0f2f68"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">MIDNIGHT BLUE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#1b3d79"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">NAVY</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#2756a6"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">ROYAL BLUE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#3575c2"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">SPORT BLUE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#4a90da"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">OCEAN BLUE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#6fafe5"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">MIST BLUE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                        </div>
-                    </section>
+                <div class="color-chart-shell">
+                    <p class="color-chart-instruction">画像をタップすると拡大できます</p>
 
-                    <section class="color-family-section">
-                        <div class="color-family-head"><p class="color-family-index">03</p><h2>LIGHT BLUE / TURQUOISE</h2></div>
-                        <div class="color-chart-grid">
-                            <article class="color-chip" style="--swatch:#8bc2e8"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">LIGHT SKY</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#77c7de"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">AQUA BLUE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#55c0ca"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">TURQUOISE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#36a8b4"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">TEAL BLUE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#6ad4e6"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">CLEAR BLUE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                        </div>
-                    </section>
-
-                    <section class="color-family-section">
-                        <div class="color-family-head"><p class="color-family-index">04</p><h2>GREEN</h2></div>
-                        <div class="color-chart-grid">
-                            <article class="color-chip" style="--swatch:#244f42"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">DEEP GREEN</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#2f6e58"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">FOREST</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#4e8750"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">LEAF GREEN</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#6ba06a"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">GRASS GREEN</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#9cc280"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">MOSS</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#b9d2a1"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">PALE GREEN</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                        </div>
-                    </section>
-
-                    <section class="color-family-section">
-                        <div class="color-family-head"><p class="color-family-index">05</p><h2>YELLOW</h2></div>
-                        <div class="color-chart-grid">
-                            <article class="color-chip" style="--swatch:#e2ba2d"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">GOLD YELLOW</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#efc845"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">SUN YELLOW</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#f5d96b"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">LEMON</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#f9e48f"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">PALE YELLOW</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                        </div>
-                    </section>
-
-                    <section class="color-family-section">
-                        <div class="color-family-head"><p class="color-family-index">06</p><h2>ORANGE</h2></div>
-                        <div class="color-chart-grid">
-                            <article class="color-chip" style="--swatch:#ca6721"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">BURNT ORANGE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#de7b27"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">BRIGHT ORANGE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#ee9340"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">SAFFRON</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#f6ab66"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">PALE ORANGE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                        </div>
-                    </section>
-
-                    <section class="color-family-section">
-                        <div class="color-family-head"><p class="color-family-index">07</p><h2>RED</h2></div>
-                        <div class="color-chart-grid">
-                            <article class="color-chip" style="--swatch:#9e1f2d"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">DEEP RED</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#b12a38"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">CRIMSON</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#ca3f4a"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">SCARLET</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#dd5f6b"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">ROSE RED</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                        </div>
-                    </section>
-
-                    <section class="color-family-section">
-                        <div class="color-family-head"><p class="color-family-index">08</p><h2>WINE</h2></div>
-                        <div class="color-chart-grid">
-                            <article class="color-chip" style="--swatch:#5c2234"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">DEEP WINE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#703047"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">WINE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#88455f"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">BORDEAUX</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#a05f78"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">PLUM WINE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                        </div>
-                    </section>
-
-                    <section class="color-family-section">
-                        <div class="color-family-head"><p class="color-family-index">09</p><h2>PINK / PURPLE</h2></div>
-                        <div class="color-chart-grid">
-                            <article class="color-chip" style="--swatch:#efb4c7"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">PALE PINK</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#d789a5"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">ROSE PINK</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#b56a93"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">MAUVE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#8f5d8d"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">VIOLET</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#6b4e72"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">DARK PURPLE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                        </div>
-                    </section>
-
-                    <section class="color-family-section">
-                        <div class="color-family-head"><p class="color-family-index">10</p><h2>BEIGE / NATURAL / BROWN</h2></div>
-                        <div class="color-chart-grid">
-                            <article class="color-chip" style="--swatch:#f3eadb"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">NATURAL</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#e7d4bb"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">SAND BEIGE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#d0b192"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">BEIGE</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#ab845f"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">CAMEL</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#7f5e44"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">BROWN</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                            <article class="color-chip" style="--swatch:#604631"><div class="color-chip-swatch"></div><div class="color-chip-meta"><p class="color-chip-name">DARK BROWN</p><p class="color-chip-code">COLOR CODE: —</p></div></article>
-                        </div>
-                    </section>
+                    <div class="compact-chart-grid">
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-01.JPG" data-title="CHART 01" aria-label="CHART 01 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-01-thumb.jpg" alt="CHART 01" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 01</span></div>
+                        </article>
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-02.JPG" data-title="CHART 02" aria-label="CHART 02 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-02-thumb.jpg" alt="CHART 02" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 02</span></div>
+                        </article>
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-03.JPG" data-title="CHART 03" aria-label="CHART 03 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-03-thumb.jpg" alt="CHART 03" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 03</span></div>
+                        </article>
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-04.JPG" data-title="CHART 04" aria-label="CHART 04 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-04-thumb.jpg" alt="CHART 04" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 04</span></div>
+                        </article>
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-05.JPG" data-title="CHART 05" aria-label="CHART 05 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-05-thumb.jpg" alt="CHART 05" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 05</span></div>
+                        </article>
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-06.JPG" data-title="CHART 06" aria-label="CHART 06 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-06-thumb.jpg" alt="CHART 06" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 06</span></div>
+                        </article>
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-07.JPG" data-title="CHART 07" aria-label="CHART 07 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-07-thumb.jpg" alt="CHART 07" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 07</span></div>
+                        </article>
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-08.JPG" data-title="CHART 08" aria-label="CHART 08 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-08-thumb.jpg" alt="CHART 08" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 08</span></div>
+                        </article>
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-09.JPG" data-title="CHART 09" aria-label="CHART 09 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-09-thumb.jpg" alt="CHART 09" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 09</span></div>
+                        </article>
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-10.JPG" data-title="CHART 10" aria-label="CHART 10 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-10-thumb.jpg" alt="CHART 10" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 10</span></div>
+                        </article>
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-11.JPG" data-title="CHART 11" aria-label="CHART 11 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-11-thumb.jpg" alt="CHART 11" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 11</span></div>
+                        </article>
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-12.JPG" data-title="CHART 12" aria-label="CHART 12 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-12-thumb.jpg" alt="CHART 12" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 12</span></div>
+                        </article>
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-13.JPG" data-title="CHART 13" aria-label="CHART 13 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-13-thumb.jpg" alt="CHART 13" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 13</span></div>
+                        </article>
+                        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-14.JPG" data-title="CHART 14" aria-label="CHART 14 を拡大表示">
+                            <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-14-thumb.jpg" alt="CHART 14" loading="lazy"></div>
+                            <div class="chart-meta"><span class="chart-number">CHART 14</span></div>
+                        </article>
+                    </div>
                 </div>
+
                 <p class="spec-footnote">画面表示と実物では色味に差が生じる場合があります。最終的な色確認は実物サンプルをご利用ください。</p>
 
                 <section class="color-rental-box" aria-labelledby="colorRentalTitle">
@@ -170,7 +304,91 @@
         </section>
     </main>
 
+    <div id="chartLightbox" class="lightbox" aria-hidden="true">
+        <div class="lightbox-content" role="dialog" aria-modal="true" aria-labelledby="chartLightboxTitle">
+            <div class="lightbox-toolbar">
+                <p id="chartLightboxTitle" class="lightbox-title">CHART 01</p>
+                <div class="lightbox-actions">
+                    <a id="chartOpenNewTab" class="lightbox-button" href="#" target="_blank" rel="noopener noreferrer">Open</a>
+                    <button type="button" class="lightbox-button lightbox-close" id="chartLightboxClose" aria-label="閉じる">×</button>
+                </div>
+            </div>
+            <div class="lightbox-figure">
+                <img id="chartLightboxImage" class="lightbox-image" src="" alt="拡大表示中のカラーチャート">
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="js/script.js"></script>
+    <script>
+        (function () {
+            const lightbox = document.getElementById('chartLightbox');
+            const image = document.getElementById('chartLightboxImage');
+            const title = document.getElementById('chartLightboxTitle');
+            const openLink = document.getElementById('chartOpenNewTab');
+            const closeButton = document.getElementById('chartLightboxClose');
+            const cards = Array.from(document.querySelectorAll('[data-full-image]'));
+
+            function openChartCard(card) {
+                if (!card || !lightbox || !image || !title || !openLink) {
+                    return;
+                }
+
+                const fullImage = card.getAttribute('data-full-image') || '';
+                const label = card.getAttribute('data-title') || 'CHART';
+
+                if (!fullImage) {
+                    return;
+                }
+
+                image.src = fullImage;
+                image.alt = label;
+                title.textContent = label;
+                openLink.href = fullImage;
+                lightbox.classList.add('is-open');
+                lightbox.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeChartCard() {
+                if (!lightbox) {
+                    return;
+                }
+                lightbox.classList.remove('is-open');
+                lightbox.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            cards.forEach((card) => {
+                const trigger = () => openChartCard(card);
+                card.addEventListener('click', trigger);
+                card.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        trigger();
+                    }
+                });
+            });
+
+            if (closeButton) {
+                closeButton.addEventListener('click', closeChartCard);
+            }
+
+            if (lightbox) {
+                lightbox.addEventListener('click', (event) => {
+                    if (event.target === lightbox) {
+                        closeChartCard();
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && lightbox && lightbox.classList.contains('is-open')) {
+                    closeChartCard();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
