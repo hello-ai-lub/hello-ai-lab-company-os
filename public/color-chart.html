@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COLOR CHART | Hello Print Store</title>
+    <style>
+      :root {
+        --bg: #f5f2ee;
+        --panel: #ffffff;
+        --text: #171717;
+        --sub: #6a6a6a;
+        --line: rgba(17, 17, 17, 0.08);
+        --shadow: rgba(0, 0, 0, 0.06);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Arial, "Hiragino Sans", "Yu Gothic", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .page {
+        max-width: 1380px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        color: var(--sub);
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.2rem, 4vw, 4.2rem);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        line-height: 1;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 1rem;
+        color: var(--sub);
+      }
+
+      .notice {
+        margin: 28px 0 20px;
+        font-size: 0.76rem;
+        line-height: 1.7;
+        color: var(--sub);
+      }
+
+      .chart-instruction {
+        margin: 0 0 20px;
+        font-size: 0.76rem;
+        letter-spacing: 0.06em;
+        color: var(--sub);
+      }
+
+      .chart-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 14px 16px;
+      }
+
+      .chart-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: zoom-in;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .chart-card:hover,
+      .chart-card:focus-visible {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px var(--shadow);
+      }
+
+      .chart-image-wrap {
+        background: #f2efe8;
+        border-bottom: 1px solid rgba(17, 17, 17, 0.04);
+      }
+
+      .chart-image-wrap img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 62vh;
+        object-fit: contain;
+      }
+
+      .chart-meta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 10px 12px;
+        font-size: 0.64rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(14, 14, 14, 0.78);
+        padding: 16px;
+      }
+
+      .lightbox.is-open {
+        display: flex;
+      }
+
+      .lightbox-content {
+        width: min(100%, 1100px);
+        max-height: 90vh;
+      }
+
+      .lightbox-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+        padding: 0 4px;
+        color: white;
+      }
+
+      .lightbox-title {
+        margin: 0;
+        font-size: 0.8rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .lightbox-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .lightbox-button {
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.08);
+        color: white;
+        border-radius: 999px;
+        padding: 9px 16px;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .lightbox-close {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        line-height: 1;
+        padding: 0;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .lightbox-figure {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255,255,255,0.06);
+        border-radius: 12px;
+        padding: 10px;
+      }
+
+      .lightbox-image {
+        display: block;
+        max-width: 100%;
+        max-height: 78vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        border-radius: 10px;
+        background: white;
+      }
+
+      @media (max-width: 1024px) {
+        .chart-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 720px) {
+        .page { padding-left: 16px; padding-right: 16px; }
+        .chart-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+        .chart-meta { letter-spacing: 0.06em; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <p class="eyebrow">03 reference</p>
+      <h1>Color Chart</h1>
+      <p class="subtitle">カラーチャート</p>
+      <p class="notice">実際の生地色・プリント色は素材や加工条件によって見え方が異なります。</p>
+
+      <p class="chart-instruction">画像をタップすると拡大できます</p>
+
+      <div class="chart-grid">
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-01.JPG" data-title="CHART 01" aria-label="CHART 01 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-01-thumb.jpg" alt="CHART 01" loading="lazy" /></div>
+          <div class="chart-meta">CHART 01</div>
+        </article>
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-02.JPG" data-title="CHART 02" aria-label="CHART 02 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-02-thumb.jpg" alt="CHART 02" loading="lazy" /></div>
+          <div class="chart-meta">CHART 02</div>
+        </article>
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-03.JPG" data-title="CHART 03" aria-label="CHART 03 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-03-thumb.jpg" alt="CHART 03" loading="lazy" /></div>
+          <div class="chart-meta">CHART 03</div>
+        </article>
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-04.JPG" data-title="CHART 04" aria-label="CHART 04 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-04-thumb.jpg" alt="CHART 04" loading="lazy" /></div>
+          <div class="chart-meta">CHART 04</div>
+        </article>
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-05.JPG" data-title="CHART 05" aria-label="CHART 05 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-05-thumb.jpg" alt="CHART 05" loading="lazy" /></div>
+          <div class="chart-meta">CHART 05</div>
+        </article>
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-06.JPG" data-title="CHART 06" aria-label="CHART 06 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-06-thumb.jpg" alt="CHART 06" loading="lazy" /></div>
+          <div class="chart-meta">CHART 06</div>
+        </article>
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-07.JPG" data-title="CHART 07" aria-label="CHART 07 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-07-thumb.jpg" alt="CHART 07" loading="lazy" /></div>
+          <div class="chart-meta">CHART 07</div>
+        </article>
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-08.JPG" data-title="CHART 08" aria-label="CHART 08 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-08-thumb.jpg" alt="CHART 08" loading="lazy" /></div>
+          <div class="chart-meta">CHART 08</div>
+        </article>
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-09.JPG" data-title="CHART 09" aria-label="CHART 09 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-09-thumb.jpg" alt="CHART 09" loading="lazy" /></div>
+          <div class="chart-meta">CHART 09</div>
+        </article>
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-10.JPG" data-title="CHART 10" aria-label="CHART 10 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-10-thumb.jpg" alt="CHART 10" loading="lazy" /></div>
+          <div class="chart-meta">CHART 10</div>
+        </article>
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-11.JPG" data-title="CHART 11" aria-label="CHART 11 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-11-thumb.jpg" alt="CHART 11" loading="lazy" /></div>
+          <div class="chart-meta">CHART 11</div>
+        </article>
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-12.JPG" data-title="CHART 12" aria-label="CHART 12 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-12-thumb.jpg" alt="CHART 12" loading="lazy" /></div>
+          <div class="chart-meta">CHART 12</div>
+        </article>
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-13.JPG" data-title="CHART 13" aria-label="CHART 13 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-13-thumb.jpg" alt="CHART 13" loading="lazy" /></div>
+          <div class="chart-meta">CHART 13</div>
+        </article>
+        <article class="chart-card" tabindex="0" data-full-image="assets/color-chart/chart-14.JPG" data-title="CHART 14" aria-label="CHART 14 を拡大表示">
+          <div class="chart-image-wrap"><img src="assets/color-chart/thumbs/chart-14-thumb.jpg" alt="CHART 14" loading="lazy" /></div>
+          <div class="chart-meta">CHART 14</div>
+        </article>
+      </div>
+    </main>
+
+    <div id="chartLightbox" class="lightbox" aria-hidden="true">
+      <div class="lightbox-content" role="dialog" aria-modal="true" aria-labelledby="chartLightboxTitle">
+        <div class="lightbox-toolbar">
+          <p id="chartLightboxTitle" class="lightbox-title">CHART 01</p>
+          <div class="lightbox-actions">
+            <a id="chartOpenNewTab" class="lightbox-button" href="#" target="_blank" rel="noopener noreferrer">Open</a>
+            <button type="button" class="lightbox-button lightbox-close" id="chartLightboxClose" aria-label="閉じる">×</button>
+          </div>
+        </div>
+        <div class="lightbox-figure">
+          <img id="chartLightboxImage" class="lightbox-image" src="" alt="拡大表示中のカラーチャート" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const lightbox = document.getElementById('chartLightbox');
+        const image = document.getElementById('chartLightboxImage');
+        const title = document.getElementById('chartLightboxTitle');
+        const openLink = document.getElementById('chartOpenNewTab');
+        const closeButton = document.getElementById('chartLightboxClose');
+        const cards = Array.from(document.querySelectorAll('[data-full-image]'));
+
+        function openChartCard(card) {
+          if (!card || !lightbox || !image || !title || !openLink) return;
+
+          const fullImage = card.getAttribute('data-full-image') || '';
+          const label = card.getAttribute('data-title') || 'CHART';
+
+          if (!fullImage) return;
+
+          image.src = fullImage;
+          image.alt = label;
+          title.textContent = label;
+          openLink.href = fullImage;
+          lightbox.classList.add('is-open');
+          lightbox.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeChartCard() {
+          if (!lightbox) return;
+          lightbox.classList.remove('is-open');
+          lightbox.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        }
+
+        cards.forEach((card) => {
+          const trigger = () => openChartCard(card);
+          card.addEventListener('click', trigger);
+          card.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              trigger();
+            }
+          });
+        });
+
+        if (closeButton) closeButton.addEventListener('click', closeChartCard);
+
+        if (lightbox) {
+          lightbox.addEventListener('click', (event) => {
+            if (event.target === lightbox) closeChartCard();
+          });
+        }
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && lightbox && lightbox.classList.contains('is-open')) {
+            closeChartCard();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
