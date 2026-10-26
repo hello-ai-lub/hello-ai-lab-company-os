@@ -9,114 +9,110 @@
     <style>
         .size-guide-product-panel {
             border: 1px solid #dfe3eb;
-            border-radius: 18px;
+            border-radius: 12px;
             background: #ffffff;
-            padding: 1rem;
-            box-shadow: 0 10px 30px rgba(17, 24, 39, 0.04);
+            padding: 0.9rem 0.9rem 0.75rem;
+            box-shadow: none;
         }
 
         .size-guide-product-header {
-            display: grid;
-            grid-template-columns: minmax(180px, 320px) minmax(0, 1fr);
-            gap: 1rem;
+            display: flex;
             align-items: center;
+            justify-content: flex-start;
+            gap: 0.7rem;
+            margin-bottom: 0.8rem;
         }
 
         .size-guide-product-figure {
+            display: none;
             margin: 0;
-            border: 1px solid #e4e8ef;
-            border-radius: 12px;
-            background: #fafbfc;
-            display: grid;
-            place-items: center;
-            padding: 1rem;
-            min-height: 260px;
-        }
-
-        .size-guide-product-figure img {
-            display: block;
-            width: min(100%, 280px);
-            height: auto;
-            object-fit: contain;
+            width: 0;
+            height: 0;
+            overflow: hidden;
         }
 
         .size-guide-product-copy {
-            display: grid;
-            gap: 0.35rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            flex-wrap: wrap;
         }
 
         .size-guide-product-copy h2 {
             margin: 0;
             font-family: 'Barlow', sans-serif;
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            letter-spacing: 0.1em;
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            letter-spacing: 0.06em;
             color: #111827;
         }
 
         .size-guide-product-name-ja {
             margin: 0;
-            font-size: 1rem;
+            font-size: 0.98rem;
             color: #4b5563;
         }
 
         .size-guide-table-wrap {
-            margin-top: 1.2rem;
+            margin-top: 0.35rem;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
 
         .size-guide-single-table {
             width: 100%;
-            min-width: 340px;
+            min-width: 760px;
             border-collapse: collapse;
         }
 
-        .size-guide-single-table th,
+        .size-guide-single-table thead th,
+        .size-guide-single-table tbody th,
         .size-guide-single-table td {
-            border-bottom: 1px solid #edf1f5;
-            padding: 0.8rem 0.7rem;
+            border: 1px solid #e8edf2;
+            padding: 0.7rem 0.75rem;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.82rem;
             color: #1f2937;
+            background: #ffffff;
         }
 
-        .size-guide-single-table th {
-            background: #f8fafc;
+        .size-guide-single-table thead th {
             font-family: 'Barlow', sans-serif;
             letter-spacing: 0.08em;
-            font-size: 0.76rem;
+            font-size: 0.7rem;
+            background: #f8fafc;
             color: #344054;
         }
 
-        .size-guide-single-table td:first-child,
-        .size-guide-single-table th:first-child {
+        .size-guide-single-table tbody th {
             text-align: left;
             font-family: 'Barlow', sans-serif;
             letter-spacing: 0.05em;
-            min-width: 92px;
+            background: #f8fafc;
+            min-width: 90px;
         }
 
         .size-guide-note {
-            margin-top: 0.9rem;
-            font-size: 0.86rem;
+            margin-top: 0.8rem;
+            font-size: 0.75rem;
             color: #4b5563;
             line-height: 1.7;
         }
 
         @media (max-width: 640px) {
             .size-guide-product-header {
-                grid-template-columns: 1fr;
+                margin-bottom: 0.7rem;
             }
 
-            .size-guide-product-figure {
-                min-height: 210px;
-                padding: 0.8rem;
+            .size-guide-product-copy {
+                display: block;
             }
 
-            .size-guide-single-table th,
-            .size-guide-single-table td {
-                padding: 0.7rem 0.5rem;
-                font-size: 0.8rem;
+            .size-guide-product-name-ja {
+                margin-top: 0.12rem;
+            }
+
+            .size-guide-single-table {
+                min-width: 620px;
             }
         }
     </style>
@@ -161,13 +157,11 @@
             <div class="section-container spec-page-container">
                 <article class="size-guide-product-panel">
                     <div class="size-guide-product-header">
-                        <figure class="size-guide-product-figure" aria-label="TANK TOP product illustration">
-                            <img src="assets/products-web-lineart-trial/01-tank-top-front.svg" alt="TANK TOP" loading="lazy">
+                        <figure class="size-guide-product-figure" aria-hidden="true">
+                            <img src="assets/products-web-lineart-trial/01-tank-top-front.svg" alt="" loading="lazy">
                         </figure>
                         <div class="size-guide-product-copy">
-                            <p class="spec-kicker">01 PRODUCT</p>
-                            <h2>TANK TOP</h2>
-                            <p class="size-guide-product-name-ja">タンクトップ</p>
+                            <h2>TANK TOP / タンクトップ</h2>
                         </div>
                     </div>
 
@@ -175,26 +169,36 @@
                         <table class="size-guide-table size-guide-single-table" aria-label="TANK TOP size table">
                             <thead>
                                 <tr>
-                                    <th>サイズ</th>
-                                    <th>総丈</th>
-                                    <th>身幅</th>
+                                    <th>SIZE</th>
+                                    <th>110</th>
+                                    <th>120</th>
+                                    <th>130</th>
+                                    <th>140</th>
+                                    <th>150</th>
+                                    <th>160</th>
+                                    <th>S</th>
+                                    <th>M</th>
+                                    <th>L</th>
+                                    <th>XL</th>
+                                    <th>2XL</th>
+                                    <th>3XL</th>
+                                    <th>4XL</th>
+                                    <th>5XL</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td>110</td><td>48</td><td>37</td></tr>
-                                <tr><td>120</td><td>50</td><td>39.5</td></tr>
-                                <tr><td>130</td><td>52</td><td>42.5</td></tr>
-                                <tr><td>140</td><td>55</td><td>44</td></tr>
-                                <tr><td>150</td><td>57</td><td>46.5</td></tr>
-                                <tr><td>160</td><td>59</td><td>47</td></tr>
-                                <tr><td>S</td><td>62</td><td>52</td></tr>
-                                <tr><td>M</td><td>67</td><td>54</td></tr>
-                                <tr><td>L</td><td>69.5</td><td>56</td></tr>
-                                <tr><td>XL</td><td>72</td><td>58</td></tr>
-                                <tr><td>2XL</td><td>75</td><td>60</td></tr>
-                                <tr><td>3XL</td><td>77</td><td>62</td></tr>
-                                <tr><td>4XL</td><td>79.5</td><td>64</td></tr>
-                                <tr><td>5XL</td><td>83</td><td>66</td></tr>
+                                <tr>
+                                    <th>サイズ</th>
+                                    <td>110</td><td>120</td><td>130</td><td>140</td><td>150</td><td>160</td><td>S</td><td>M</td><td>L</td><td>XL</td><td>2XL</td><td>3XL</td><td>4XL</td><td>5XL</td>
+                                </tr>
+                                <tr>
+                                    <th>総丈</th>
+                                    <td>48</td><td>50</td><td>52</td><td>55</td><td>57</td><td>59</td><td>62</td><td>67</td><td>69.5</td><td>72</td><td>75</td><td>77</td><td>79.5</td><td>83</td>
+                                </tr>
+                                <tr>
+                                    <th>身幅</th>
+                                    <td>37</td><td>39.5</td><td>42.5</td><td>44</td><td>46.5</td><td>47</td><td>52</td><td>54</td><td>56</td><td>58</td><td>60</td><td>62</td><td>64</td><td>66</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
