@@ -24,11 +24,21 @@
         }
 
         .size-guide-product-figure {
-            display: none;
+            display: block;
             margin: 0;
-            width: 0;
-            height: 0;
-            overflow: hidden;
+            width: 64px;
+            min-width: 64px;
+            height: auto;
+            flex-shrink: 0;
+            overflow: visible;
+        }
+
+        .size-guide-product-figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            filter: none;
         }
 
         .size-guide-product-copy {
@@ -181,7 +191,7 @@
                 <article class="size-guide-product-panel">
                     <div class="size-guide-product-header">
                         <figure class="size-guide-product-figure" aria-hidden="true">
-                            <img src="assets/products-web-lineart-trial/01-tank-top-front.svg" alt="" loading="lazy">
+                            <img src="assets/products-web-lineart-trial/01-tank-top-front-panel.svg" alt="Front panel illustration" loading="lazy">
                         </figure>
                         <div class="size-guide-product-copy">
                             <h2>TANK TOP / タンクトップ</h2>
