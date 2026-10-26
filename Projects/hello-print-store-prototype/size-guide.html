@@ -33,8 +33,8 @@
 
         .size-guide-product-copy {
             display: flex;
-            align-items: baseline;
-            gap: 0.5rem;
+            align-items: center;
+            gap: 0.7rem;
             flex-wrap: wrap;
         }
 
@@ -46,10 +46,20 @@
             color: #111827;
         }
 
-        .size-guide-product-name-ja {
-            margin: 0;
-            font-size: 0.98rem;
-            color: #4b5563;
+        .size-guide-product-note {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            background: rgba(31, 94, 216, 0.08);
+            color: var(--accent);
+            font-family: 'Barlow', sans-serif;
+            font-size: 0.82rem;
+            line-height: 1.4;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+            white-space: normal;
         }
 
         .size-guide-table-wrap {
@@ -91,13 +101,6 @@
             min-width: 90px;
         }
 
-        .size-guide-note {
-            margin-top: 0.8rem;
-            font-size: 0.75rem;
-            color: #4b5563;
-            line-height: 1.7;
-        }
-
         @media (max-width: 640px) {
             .size-guide-product-header {
                 margin-bottom: 0.7rem;
@@ -107,8 +110,9 @@
                 display: block;
             }
 
-            .size-guide-product-name-ja {
-                margin-top: 0.12rem;
+            .size-guide-product-note {
+                margin-top: 0.2rem;
+                font-size: 0.76rem;
             }
 
             .size-guide-single-table {
@@ -162,30 +166,12 @@
                         </figure>
                         <div class="size-guide-product-copy">
                             <h2>TANK TOP / タンクトップ</h2>
+                            <span class="size-guide-product-note">リバーシブル共通サイズ</span>
                         </div>
                     </div>
 
                     <div class="size-guide-table-wrap">
                         <table class="size-guide-table size-guide-single-table" aria-label="TANK TOP size table">
-                            <thead>
-                                <tr>
-                                    <th>SIZE</th>
-                                    <th>110</th>
-                                    <th>120</th>
-                                    <th>130</th>
-                                    <th>140</th>
-                                    <th>150</th>
-                                    <th>160</th>
-                                    <th>S</th>
-                                    <th>M</th>
-                                    <th>L</th>
-                                    <th>XL</th>
-                                    <th>2XL</th>
-                                    <th>3XL</th>
-                                    <th>4XL</th>
-                                    <th>5XL</th>
-                                </tr>
-                            </thead>
                             <tbody>
                                 <tr>
                                     <th>サイズ</th>
@@ -202,8 +188,6 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <p class="size-guide-note">リバーシブルタンクトップも同じサイズ表です。</p>
                 </article>
             </div>
         </section>
