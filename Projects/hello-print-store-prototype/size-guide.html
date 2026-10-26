@@ -5,7 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Hello Print Store size guide">
     <title>Size Guide | Hello Print Store</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .size-guide-product-panel {
+            border: 1px solid #dfe3eb;
+            border-radius: 18px;
+            background: #ffffff;
+            padding: 1rem;
+            box-shadow: 0 10px 30px rgba(17, 24, 39, 0.04);
+        }
+
+        .size-guide-product-header {
+            display: grid;
+            grid-template-columns: minmax(180px, 320px) minmax(0, 1fr);
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .size-guide-product-figure {
+            margin: 0;
+            border: 1px solid #e4e8ef;
+            border-radius: 12px;
+            background: #fafbfc;
+            display: grid;
+            place-items: center;
+            padding: 1rem;
+            min-height: 260px;
+        }
+
+        .size-guide-product-figure img {
+            display: block;
+            width: min(100%, 280px);
+            height: auto;
+            object-fit: contain;
+        }
+
+        .size-guide-product-copy {
+            display: grid;
+            gap: 0.35rem;
+        }
+
+        .size-guide-product-copy h2 {
+            margin: 0;
+            font-family: 'Barlow', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            letter-spacing: 0.1em;
+            color: #111827;
+        }
+
+        .size-guide-product-name-ja {
+            margin: 0;
+            font-size: 1rem;
+            color: #4b5563;
+        }
+
+        .size-guide-table-wrap {
+            margin-top: 1.2rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .size-guide-single-table {
+            width: 100%;
+            min-width: 340px;
+            border-collapse: collapse;
+        }
+
+        .size-guide-single-table th,
+        .size-guide-single-table td {
+            border-bottom: 1px solid #edf1f5;
+            padding: 0.8rem 0.7rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #1f2937;
+        }
+
+        .size-guide-single-table th {
+            background: #f8fafc;
+            font-family: 'Barlow', sans-serif;
+            letter-spacing: 0.08em;
+            font-size: 0.76rem;
+            color: #344054;
+        }
+
+        .size-guide-single-table td:first-child,
+        .size-guide-single-table th:first-child {
+            text-align: left;
+            font-family: 'Barlow', sans-serif;
+            letter-spacing: 0.05em;
+            min-width: 92px;
+        }
+
+        .size-guide-note {
+            margin-top: 0.9rem;
+            font-size: 0.86rem;
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 640px) {
+            .size-guide-product-header {
+                grid-template-columns: 1fr;
+            }
+
+            .size-guide-product-figure {
+                min-height: 210px;
+                padding: 0.8rem;
+            }
+
+            .size-guide-single-table th,
+            .size-guide-single-table td {
+                padding: 0.7rem 0.5rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="header header-static" id="header">
@@ -39,176 +152,54 @@
                 <p class="spec-kicker">02 REFERENCE</p>
                 <h1 class="heading-en">SIZE GUIDE</h1>
                 <p class="heading-ja">サイズガイド</p>
-                <p class="body-ja">商品選びの目安として、各アイテムのサイズをご確認いただけます。</p>
+                <p class="body-ja">商品選びの目安として、サイズをご確認いただけます。</p>
             </div>
         </section>
 
         <section class="section section-spec-content" data-reveal-up>
             <div class="section-container spec-page-container">
-                <section class="measurement-guide-block" aria-labelledby="measurementGuideTitle">
-                    <div class="measurement-guide-head">
-                        <p class="spec-kicker">MEASUREMENT GUIDE</p>
-                        <h2 id="measurementGuideTitle">採寸箇所</h2>
+                <article class="size-guide-product-panel">
+                    <div class="size-guide-product-header">
+                        <figure class="size-guide-product-figure" aria-label="TANK TOP product illustration">
+                            <img src="assets/products-web-lineart-trial/tank-top-web-front-v1.png" alt="TANK TOP" loading="lazy">
+                        </figure>
+                        <div class="size-guide-product-copy">
+                            <p class="spec-kicker">01 PRODUCT</p>
+                            <h2>TANK TOP</h2>
+                            <p class="size-guide-product-name-ja">タンクトップ</p>
+                        </div>
                     </div>
-                    <div class="measurement-guide-grid">
-                        <article class="measurement-card">
-                            <h3>TOPS</h3>
-                            <figure class="measurement-figure" aria-label="TOPS measurement guide">
-                                <svg class="measurement-svg" viewBox="0 0 360 250" role="img" aria-hidden="true">
-                                    <defs>
-                                        <marker id="arrow-blue-a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-                                            <path d="M0,0 L8,4 L0,8" fill="none" stroke="#1f5ed8" stroke-width="1.4" />
-                                        </marker>
-                                        <marker id="arrow-blue-b" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-                                            <path d="M0,0 L8,4 L0,8" fill="none" stroke="#1f5ed8" stroke-width="1.4" />
-                                        </marker>
-                                    </defs>
-                                    <image class="measurement-lineart-base" href="assets/products-icons/HPS_WEB_PRODUCT_ICONS/02_tshirt_front.png" x="84" y="50" width="166" height="146" preserveAspectRatio="xMidYMid meet" />
 
-                                    <line class="measure-line" x1="124" y1="122" x2="210" y2="122" marker-start="url(#arrow-blue-a)" marker-end="url(#arrow-blue-a)" />
-                                    <text class="measure-text" x="167" y="114">CHEST</text>
-
-                                    <line class="measure-line" x1="216" y1="58" x2="216" y2="196" marker-start="url(#arrow-blue-a)" marker-end="url(#arrow-blue-a)" />
-                                    <text class="measure-text" x="152" y="144">LENGTH</text>
-
-                                    <line class="measure-line" x1="120" y1="54" x2="214" y2="54" marker-start="url(#arrow-blue-a)" marker-end="url(#arrow-blue-a)" />
-                                    <text class="measure-text" x="167" y="46">SHOULDER</text>
-
-                                    <line class="measure-line" x1="248" y1="86" x2="282" y2="132" marker-start="url(#arrow-blue-b)" marker-end="url(#arrow-blue-b)" />
-                                    <text class="measure-text" x="286" y="104">SLEEVE</text>
-                                </svg>
-                            </figure>
-                            <ul class="measurement-list">
-                                <li>CHEST / 身幅</li>
-                                <li>LENGTH / 着丈</li>
-                                <li>SHOULDER / 肩幅</li>
-                                <li>SLEEVE / 袖丈</li>
-                            </ul>
-                        </article>
-
-                        <article class="measurement-card">
-                            <h3>SHORTS / PANTS</h3>
-                            <figure class="measurement-figure" aria-label="PANTS measurement guide">
-                                <svg class="measurement-svg" viewBox="0 0 360 250" role="img" aria-hidden="true">
-                                    <defs>
-                                        <marker id="arrow-blue-c" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-                                            <path d="M0,0 L8,4 L0,8" fill="none" stroke="#1f5ed8" stroke-width="1.4" />
-                                        </marker>
-                                    </defs>
-                                    <image class="measurement-lineart-base" href="assets/products-icons/HPS_WEB_PRODUCT_ICONS/14_track_pants_front.png" x="96" y="26" width="132" height="160" preserveAspectRatio="xMidYMid meet" />
-
-                                    <line class="measure-line" x1="120" y1="50" x2="214" y2="50" marker-start="url(#arrow-blue-c)" marker-end="url(#arrow-blue-c)" />
-                                    <text class="measure-text" x="167" y="42">WAIST</text>
-
-                                    <line class="measure-line" x1="122" y1="92" x2="216" y2="92" marker-start="url(#arrow-blue-c)" marker-end="url(#arrow-blue-c)" />
-                                    <text class="measure-text" x="169" y="84">HIP</text>
-
-                                    <line class="measure-line" x1="224" y1="56" x2="224" y2="196" marker-start="url(#arrow-blue-c)" marker-end="url(#arrow-blue-c)" />
-                                    <text class="measure-text" x="232" y="128">OUTSEAM</text>
-
-                                    <line class="measure-line" x1="252" y1="108" x2="252" y2="194" marker-start="url(#arrow-blue-c)" marker-end="url(#arrow-blue-c)" />
-                                    <text class="measure-text" x="126" y="156">INSEAM</text>
-                                </svg>
-                            </figure>
-                            <ul class="measurement-list">
-                                <li>WAIST / ウエスト</li>
-                                <li>HIP / ヒップ</li>
-                                <li>INSEAM / 股下</li>
-                                <li>OUTSEAM / 総丈</li>
-                            </ul>
-                        </article>
+                    <div class="size-guide-table-wrap">
+                        <table class="size-guide-table size-guide-single-table" aria-label="TANK TOP size table">
+                            <thead>
+                                <tr>
+                                    <th>サイズ</th>
+                                    <th>総丈</th>
+                                    <th>身幅</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>110</td><td>48</td><td>37</td></tr>
+                                <tr><td>120</td><td>50</td><td>39.5</td></tr>
+                                <tr><td>130</td><td>52</td><td>42.5</td></tr>
+                                <tr><td>140</td><td>55</td><td>44</td></tr>
+                                <tr><td>150</td><td>57</td><td>46.5</td></tr>
+                                <tr><td>160</td><td>59</td><td>47</td></tr>
+                                <tr><td>S</td><td>62</td><td>52</td></tr>
+                                <tr><td>M</td><td>67</td><td>54</td></tr>
+                                <tr><td>L</td><td>69.5</td><td>56</td></tr>
+                                <tr><td>XL</td><td>72</td><td>58</td></tr>
+                                <tr><td>2XL</td><td>75</td><td>60</td></tr>
+                                <tr><td>3XL</td><td>77</td><td>62</td></tr>
+                                <tr><td>4XL</td><td>79.5</td><td>64</td></tr>
+                                <tr><td>5XL</td><td>83</td><td>66</td></tr>
+                            </tbody>
+                        </table>
                     </div>
-                </section>
 
-                <div class="size-guide-grid">
-                    <article class="size-guide-panel">
-                        <div class="size-guide-panel-head">
-                            <figure class="size-guide-figure" aria-hidden="true">
-                                <img class="size-guide-icon-image" src="assets/products-icons/HPS_WEB_PRODUCT_ICONS/02_tshirt_front.png" alt="TOPS" loading="lazy">
-                            </figure>
-                            <div>
-                                <h2>TOPS</h2>
-                                <p>Tシャツ・タンクトップ・スウェット系</p>
-                            </div>
-                        </div>
-                        <div class="size-guide-table-wrap">
-                            <table class="size-guide-table" aria-label="TOPS size table">
-                                <thead>
-                                    <tr>
-                                        <th>SIZE</th>
-                                        <th>110</th><th>120</th><th>130</th><th>140</th><th>150</th><th>160</th>
-                                        <th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th><th>3XL</th><th>4XL</th><th>5XL</th><th>6XL</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>CHEST</td><td colspan="15">—</td></tr>
-                                    <tr><td>LENGTH</td><td colspan="15">—</td></tr>
-                                    <tr><td>SHOULDER</td><td colspan="15">—</td></tr>
-                                    <tr><td>SLEEVE</td><td colspan="15">—</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </article>
-
-                    <article class="size-guide-panel">
-                        <div class="size-guide-panel-head">
-                            <figure class="size-guide-figure" aria-hidden="true">
-                                <img class="size-guide-icon-image" src="assets/products-icons/HPS_WEB_PRODUCT_ICONS/14_track_pants_front.png" alt="SHORTS and PANTS" loading="lazy">
-                            </figure>
-                            <div>
-                                <h2>SHORTS / PANTS</h2>
-                                <p>ショーツ・ロングパンツ系</p>
-                            </div>
-                        </div>
-                        <div class="size-guide-table-wrap">
-                            <table class="size-guide-table" aria-label="SHORTS and PANTS size table">
-                                <thead>
-                                    <tr>
-                                        <th>SIZE</th>
-                                        <th>110</th><th>120</th><th>130</th><th>140</th><th>150</th><th>160</th>
-                                        <th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th><th>3XL</th><th>4XL</th><th>5XL</th><th>6XL</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>WAIST</td><td colspan="15">—</td></tr>
-                                    <tr><td>HIP</td><td colspan="15">—</td></tr>
-                                    <tr><td>INSEAM</td><td colspan="15">—</td></tr>
-                                    <tr><td>OUTSEAM</td><td colspan="15">—</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </article>
-
-                    <article class="size-guide-panel">
-                        <div class="size-guide-panel-head">
-                            <figure class="size-guide-figure" aria-hidden="true">
-                                <img class="size-guide-icon-image" src="assets/products-icons/HPS_WEB_PRODUCT_ICONS/09_wind_jacket_front.png" alt="OUTER" loading="lazy">
-                            </figure>
-                            <div>
-                                <h2>OUTER</h2>
-                                <p>ジャケット・アウター系</p>
-                            </div>
-                        </div>
-                        <div class="size-guide-table-wrap">
-                            <table class="size-guide-table" aria-label="OUTER size table">
-                                <thead>
-                                    <tr>
-                                        <th>SIZE</th>
-                                        <th>110</th><th>120</th><th>130</th><th>140</th><th>150</th><th>160</th>
-                                        <th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th><th>3XL</th><th>4XL</th><th>5XL</th><th>6XL</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>CHEST</td><td colspan="15">—</td></tr>
-                                    <tr><td>LENGTH</td><td colspan="15">—</td></tr>
-                                    <tr><td>SHOULDER</td><td colspan="15">—</td></tr>
-                                    <tr><td>SLEEVE</td><td colspan="15">—</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </article>
-                </div>
-                <p class="spec-footnote">商品によってサイズ仕様が異なる場合があります。詳細は各商品ページをご確認ください。</p>
+                    <p class="size-guide-note">リバーシブルタンクトップも同じサイズ表です。</p>
+                </article>
             </div>
         </section>
     </main>
