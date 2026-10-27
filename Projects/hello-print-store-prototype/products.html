@@ -104,6 +104,14 @@
         </section>
     </main>
 
+    <div class="catalog-detail-modal" id="catalogDetailModal" hidden aria-hidden="true">
+        <div class="catalog-detail-modal-backdrop" data-close="true"></div>
+        <div class="catalog-detail-modal-panel" role="dialog" aria-modal="true" aria-labelledby="catalogDetailModalTitle">
+            <button type="button" class="catalog-detail-modal-close" id="catalogDetailModalClose" aria-label="Close details">×</button>
+            <div class="catalog-detail-modal-body" id="catalogDetailModalBody"></div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="js/script.js"></script>
     <script>
@@ -195,12 +203,12 @@
                 '08': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/04_football_front.png',
                 '09': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/04_football_front.png',
                 '10': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/06_baseball_shirt_front.png',
-                '11': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/15_long_polo_front.png',
+                '11': '',
                 '12': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/15_long_polo_front.png',
                 '13': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/11_sweatshirt_front.png',
                 '14': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/14_track_pants_front.png',
                 '15': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/16_side_button_pants_front.png',
-                '16': 'assets/products-web-lineart-trial/16-pullover-hoodie-front.svg',
+                '16': '',
                 '17': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/13_track_jacket_front.png',
                 '18': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/09_wind_jacket_front.png',
                 '19': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/10_wind_pants_front.png',
@@ -230,6 +238,46 @@
 
             const categoryNav = document.getElementById('productsCategoryNav');
             const catalogGrid = document.getElementById('productCatalogGrid');
+            const detailModal = document.getElementById('catalogDetailModal');
+            const detailModalBody = document.getElementById('catalogDetailModalBody');
+            const detailModalClose = document.getElementById('catalogDetailModalClose');
+
+            function closeDetailModal() {
+                if (!detailModal) {
+                    return;
+                }
+                detailModal.hidden = true;
+                detailModal.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('catalog-modal-open');
+            }
+
+            function openDetailModal(item, iconKey) {
+                if (!detailModal || !detailModalBody) {
+                    return;
+                }
+                detailModalBody.innerHTML = renderDetail(item, iconKey);
+                detailModal.hidden = false;
+                detailModal.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('catalog-modal-open');
+            }
+
+            if (detailModalClose) {
+                detailModalClose.addEventListener('click', closeDetailModal);
+            }
+
+            if (detailModal) {
+                detailModal.addEventListener('click', (event) => {
+                    if (event.target && event.target.matches('[data-close="true"]')) {
+                        closeDetailModal();
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && detailModal && !detailModal.hidden) {
+                    closeDetailModal();
+                }
+            });
 
             if (!categoryNav || !catalogGrid) {
                 return;
@@ -269,21 +317,19 @@
                 button.addEventListener('click', (event) => {
                     event.preventDefault();
                     const card = button.closest('.catalog-item-card');
-                    const detail = card ? card.querySelector('.catalog-item-detail') : null;
-                    const isOpen = card && card.classList.contains('is-open');
+                    const itemCode = button.dataset.code || card?.id?.replace('item-', '');
+                    const item = itemCode ? products.find((entry) => String(entry.code) === String(itemCode)) : null;
+                    if (!item) {
+                        return;
+                    }
 
                     document.querySelectorAll('.catalog-item-card').forEach((itemCard) => {
                         itemCard.classList.remove('is-open');
-                        const itemDetail = itemCard.querySelector('.catalog-item-detail');
-                        if (itemDetail) {
-                            itemDetail.hidden = true;
-                        }
                     });
-
-                    if (detail && !isOpen) {
+                    if (card) {
                         card.classList.add('is-open');
-                        detail.hidden = false;
                     }
+                    openDetailModal(item, categoryIcon[item.category] || 't-shirt');
                 });
             });
 
@@ -304,7 +350,7 @@
                             <div><dt>税込価格</dt><dd>${taxPrice}</dd></div>
                             <div><dt>最低ロット</dt><dd>${renderMinLotLabel(item)}</dd></div>
                         </dl>
-                        <button class="catalog-detail-toggle" type="button" aria-expanded="false">VIEW DETAILS →</button>
+                        <button class="catalog-detail-toggle" type="button" aria-expanded="false" data-code="${escapeHtml(item.code)}">VIEW DETAILS →</button>
                         <div class="catalog-item-detail" hidden>${detailMarkup}</div>
                     </article>
                 `;

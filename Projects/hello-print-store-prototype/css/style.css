@@ -1609,14 +1609,63 @@ a.news-item-row:hover .news-title {
 }
 
 .catalog-item-detail {
-    border-top: 1px solid #e2e5eb;
-    margin-top: 0.6rem;
-    padding-top: 0.72rem;
+    display: none;
 }
 
 .catalog-item-card.is-open {
     border-color: #9eb6e5;
     box-shadow: 0 8px 18px rgba(22, 60, 120, 0.06);
+}
+
+.catalog-detail-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: rgba(15, 21, 33, 0.62);
+}
+
+.catalog-detail-modal[hidden] {
+    display: none;
+}
+
+.catalog-detail-modal-panel {
+    position: relative;
+    width: min(92vw, 820px);
+    max-height: min(86vh, 820px);
+    overflow: auto;
+    border: 1px solid #e2e7f0;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 24px 60px rgba(17, 24, 39, 0.2);
+    padding: 1rem 1rem 1.1rem;
+}
+
+.catalog-detail-modal-close {
+    position: sticky;
+    top: 0.2rem;
+    float: right;
+    width: 2.2rem;
+    height: 2.2rem;
+    border: 1px solid #dfe5f0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a2438;
+    font-size: 1.3rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.catalog-detail-modal-body {
+    clear: both;
+    display: grid;
+    gap: 0.7rem;
+}
+
+body.catalog-modal-open {
+    overflow: hidden;
 }
 
 .section-product-details {
@@ -1865,6 +1914,11 @@ a.news-item-row:hover .news-title {
     .products-link-row {
         justify-content: center;
     }
+
+    .catalog-detail-modal-panel {
+        width: min(94vw, 760px);
+        max-height: min(88vh, 760px);
+    }
 }
 
 @media (max-width: 620px) {
@@ -1874,8 +1928,44 @@ a.news-item-row:hover .news-title {
         grid-template-columns: 1fr;
     }
 
-    .catalog-item-top {
+        .catalog-item-top {
         grid-template-columns: 1fr;
+    }
+
+    .catalog-detail-modal {
+        padding: 0.75rem;
+    }
+
+    .catalog-detail-modal-panel {
+        width: min(96vw, 560px);
+        max-height: 88vh;
+        padding: 0.8rem 0.8rem 0.9rem;
+    }
+
+    .catalog-detail-modal-close {
+        position: static;
+        float: none;
+        margin-left: auto;
+        display: block;
+        margin-bottom: 0.4rem;
+    }
+
+    .catalog-detail-modal-body {
+        gap: 0.54rem;
+    }
+
+    .product-detail-meta-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product-detail-spec-row {
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .product-detail-spec-row dd {
+        text-align: left;
+    }
         justify-items: start;
     }
 
