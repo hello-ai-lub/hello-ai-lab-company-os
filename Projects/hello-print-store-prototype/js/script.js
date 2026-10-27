@@ -43,7 +43,7 @@ const ORDER_PRODUCT_MASTER = {
             { key: 'fabric', label: '生地', options: [{ label: 'スタンダード生地', value: 'standard', add: 0 }, { label: 'メッシュ生地', value: 'mesh', add: 500 }, { label: '相談したい', value: 'consult', add: 0 }] },
             { key: 'neck', label: '首周り', options: [{ label: '丸首', value: 'crew', add: 0 }, { label: 'Vネック', value: 'vneck', add: 0 }, { label: '相談したい', value: 'consult', add: 0 }] },
             { key: 'hem', label: '裾', options: [{ label: 'ボックス', value: 'box', add: 0 }, { label: 'ラウンド', value: 'round', add: 0 }, { label: '相談したい', value: 'consult', add: 0 }] },
-            { key: 'fit', label: 'シルエット', options: [{ label: 'スタンダード', value: 'standard', add: 0 }, { label: 'アジアフィット', value: 'asiafit', add: 0 }, { label: '相談したい', value: 'consult', add: 0 }] }
+            { key: 'fit', label: 'シルエット', options: [{ label: 'スタンダード', value: 'standard', add: 0 }, { label: 'ノースリーブ', value: 'asiafit', add: 0 }, { label: '相談したい', value: 'consult', add: 0 }] }
         ],
         paidOptions: []
     },
@@ -57,7 +57,7 @@ const ORDER_PRODUCT_MASTER = {
         specs: [
             { key: 'neck', label: '首周り', options: [{ label: '丸首', value: 'crew', add: 0 }, { label: 'Vネック', value: 'vneck', add: 0 }, { label: '相談したい', value: 'consult', add: 0 }] },
             { key: 'hem', label: '裾', options: [{ label: 'ボックス', value: 'box', add: 0 }, { label: 'ラウンド', value: 'round', add: 0 }, { label: '相談したい', value: 'consult', add: 0 }] },
-            { key: 'fit', label: 'シルエット', options: [{ label: 'スタンダード', value: 'standard', add: 0 }, { label: 'アジアフィット', value: 'asiafit', add: 0 }, { label: '相談したい', value: 'consult', add: 0 }] }
+            { key: 'fit', label: 'シルエット', options: [{ label: 'スタンダード', value: 'standard', add: 0 }, { label: 'ノースリーブ', value: 'asiafit', add: 0 }, { label: '相談したい', value: 'consult', add: 0 }] }
         ],
         paidOptions: []
     },
@@ -124,7 +124,7 @@ const ORDER_PRODUCT_MASTER = {
     },
     '08': {
         code: '08',
-        name: 'フットボールシャツ',
+        name: 'アメフトシャツ',
         basePriceExcl: 5500,
         minLot: 10,
         unit: '枚',
@@ -140,7 +140,7 @@ const ORDER_PRODUCT_MASTER = {
     },
     '09': {
         code: '09',
-        name: 'ロングスリーブ フットボールシャツ',
+        name: 'ロングスリーブ アメフトシャツ',
         basePriceExcl: 6000,
         minLot: 10,
         unit: '枚',
@@ -238,7 +238,7 @@ const ORDER_PRODUCT_MASTER = {
     '16': {
         code: '16',
         name: 'プルオーバーパーカー',
-        basePriceExcl: 6500,
+        basePriceExcl: 7000,
         minLot: 10,
         unit: '枚',
         specs: [
