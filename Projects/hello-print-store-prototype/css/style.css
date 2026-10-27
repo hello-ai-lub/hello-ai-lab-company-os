@@ -1254,17 +1254,34 @@ a.news-item-row:hover .news-title {
 }
 
 .price-guide-badge {
-    display: none;
+    margin: 0;
+    width: 102px;
+    height: 102px;
+    background: #1f4ea0;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    display: grid;
+    place-items: start;
+    padding: 0.95rem 0 0 0.9rem;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .price-guide-no {
-    display: none;
+    margin: 0;
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(1.9rem, 2.35vw, 2.35rem);
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    line-height: 1;
+    font-weight: 700;
+    opacity: 0;
 }
 
 .price-guide-icon {
     width: 44px;
     height: 44px;
-    margin-top: 1.5rem;
+    margin-top: 5.5rem;
 }
 
 .price-guide-icon path,
@@ -3688,15 +3705,18 @@ a.news-item-row:hover .news-title {
     }
 
     .price-guide-badge {
-        display: none;
+        width: 88px;
+        height: 88px;
+        padding: 0.78rem 0 0 0.72rem;
     }
 
     .price-guide-no {
-        display: none;
+        font-size: 1.85rem;
+        opacity: 0;
     }
 
     .price-guide-icon {
-        margin-top: 1.2rem;
+        margin-top: 4.6rem;
     }
 
     .price-guide-title {
