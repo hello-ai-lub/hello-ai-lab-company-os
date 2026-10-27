@@ -54,7 +54,7 @@
                         </div>
                         <div>
                             <dt>サイズ</dt>
-                            <dd>110〜160 / S〜6XL（商品により異なる場合あり）</dd>
+                            <dd>110〜160 / S〜5XL（商品により異なる場合あり）</dd>
                         </div>
                         <div>
                             <dt>最低ロット</dt>
@@ -77,25 +77,15 @@
             </div>
         </section>
 
-        <section class="section section-product-details" data-reveal-up>
-            <div class="section-container products-page-container">
-                <div class="products-section-headline">
-                    <h2 class="heading-en heading-en-sm">ITEM DETAILS</h2>
-                    <p class="heading-ja">商品仕様・選択可能項目・サイズ・カラーの確認</p>
-                </div>
-                <div class="product-detail-list" id="productDetailList"></div>
-            </div>
-        </section>
-
         <section class="section section-products-links" data-reveal-up>
             <div class="section-container products-page-container">
                 <div class="products-related-links">
                     <h2 class="products-subtitle">PRICE / SIZE / COLOR</h2>
                     <p class="body-ja">価格・サイズ・カラーの確認に使える関連情報です。</p>
                     <div class="button-row button-row-center products-link-row">
-                        <a href="order-guide.html" class="button button-secondary">PRICE</a>
-                        <a href="order-guide.html" class="button button-secondary">SIZE GUIDE</a>
-                        <a href="order-guide.html" class="button button-secondary">COLOR CHART</a>
+                        <a href="price.html" class="button button-secondary">PRICE</a>
+                        <a href="size-guide.html" class="button button-secondary">SIZE GUIDE</a>
+                        <a href="color-chart.html" class="button button-secondary">COLOR CHART</a>
                     </div>
                 </div>
             </div>
@@ -108,7 +98,6 @@
                     <p class="guide-block-ja">商品確認後、そのままご相談いただけます。</p>
                     <div class="button-row button-row-center">
                         <a href="contact" class="button button-primary button-large">START YOUR ORDER</a>
-                        <a href="contact" class="button button-secondary button-large">ORDER CONSULTATION</a>
                     </div>
                 </div>
             </div>
@@ -211,7 +200,7 @@
                 '13': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/11_sweatshirt_front.png',
                 '14': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/14_track_pants_front.png',
                 '15': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/16_side_button_pants_front.png',
-                '16': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/12_hoodie_front.png',
+                '16': 'assets/products-web-lineart-trial/16-pullover-hoodie-front.svg',
                 '17': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/13_track_jacket_front.png',
                 '18': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/09_wind_jacket_front.png',
                 '19': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/10_wind_pants_front.png',
@@ -241,9 +230,8 @@
 
             const categoryNav = document.getElementById('productsCategoryNav');
             const catalogGrid = document.getElementById('productCatalogGrid');
-            const detailList = document.getElementById('productDetailList');
 
-            if (!categoryNav || !catalogGrid || !detailList) {
+            if (!categoryNav || !catalogGrid) {
                 return;
             }
 
@@ -277,11 +265,32 @@
             });
             catalogGrid.innerHTML = cards.join('');
 
-            detailList.innerHTML = products.map((item) => renderDetail(item, categoryIcon[item.category])).join('');
+            document.querySelectorAll('.catalog-detail-toggle').forEach((button) => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const card = button.closest('.catalog-item-card');
+                    const detail = card ? card.querySelector('.catalog-item-detail') : null;
+                    const isOpen = card && card.classList.contains('is-open');
+
+                    document.querySelectorAll('.catalog-item-card').forEach((itemCard) => {
+                        itemCard.classList.remove('is-open');
+                        const itemDetail = itemCard.querySelector('.catalog-item-detail');
+                        if (itemDetail) {
+                            itemDetail.hidden = true;
+                        }
+                    });
+
+                    if (detail && !isOpen) {
+                        card.classList.add('is-open');
+                        detail.hidden = false;
+                    }
+                });
+            });
 
             function renderCatalogCard(item, iconKey) {
                 const hasPrice = Number(item.basePriceExcl) > 0;
                 const taxPrice = hasPrice ? formatYen(Math.round(Number(item.basePriceExcl) * 1.1)) : '要相談';
+                const detailMarkup = renderDetail(item, iconKey);
                 return `
                     <article class="catalog-item-card" id="item-${escapeHtml(item.code)}">
                         <div class="catalog-item-top">
@@ -295,13 +304,29 @@
                             <div><dt>税込価格</dt><dd>${taxPrice}</dd></div>
                             <div><dt>最低ロット</dt><dd>${renderMinLotLabel(item)}</dd></div>
                         </dl>
-                        <a class="catalog-detail-link" href="#detail-${escapeHtml(item.code)}">VIEW DETAILS →</a>
+                        <button class="catalog-detail-toggle" type="button" aria-expanded="false">VIEW DETAILS →</button>
+                        <div class="catalog-item-detail" hidden>${detailMarkup}</div>
                     </article>
                 `;
             }
 
             function renderDetail(item, iconKey) {
                 const names = PRODUCT_DISPLAY_NAMES[item.code] || { en: item.category || 'ITEM', ja: item.name };
+                const basePriceIncl = Number(item.basePriceExcl) > 0 ? Math.round(Number(item.basePriceExcl) * 1.1) : 0;
+                const sizeText = item.code === '20' ? 'フリーサイズ' : item.code === '21' ? 'S / M / L / XL' : '110〜160 / S〜5XL';
+                const specsHtml = Array.isArray(item.specs) && item.specs.length
+                    ? item.specs.map((spec) => `
+                        <div class="product-detail-spec-row">
+                            <dt>${escapeHtml(spec.label)}</dt>
+                            <dd>${spec.options.map((opt) => escapeHtml(opt.label)).join(' / ')}</dd>
+                        </div>
+                    `).join('')
+                    : '<div class="product-detail-spec-row"><dt>仕様</dt><dd>相談ください</dd></div>';
+                const itemNotes = buildDetailNoteList(item);
+                const notesHtml = itemNotes.length
+                    ? `<div class="product-detail-notes"><h4>補足</h4><ul>${itemNotes.map((note) => `<li>${escapeHtml(note)}</li>`).join('')}</ul></div>`
+                    : '';
+
                 return `
                     <article class="product-detail-card" id="detail-${escapeHtml(item.code)}">
                         <div class="product-detail-priority">
@@ -309,29 +334,70 @@
                                 <p class="product-detail-code">${escapeHtml(item.code)} / ${escapeHtml(item.category)}</p>
                                 <h3>${escapeHtml(names.en)}</h3>
                                 <p class="product-detail-name-ja">${escapeHtml(names.ja || item.name)}</p>
-                                <p class="product-detail-sub">この商品の詳細情報は順次追加予定です。</p>
                             </div>
                             <div class="product-detail-figure">${renderIcon(item, iconKey)}</div>
                         </div>
 
-                        <section class="product-detail-placeholder">
-                            <p>以下の項目を商品ごとに追加できるよう、詳細枠のみ準備しています。</p>
-                            <ul class="product-detail-placeholder-list">
-                                <li>商品線画 / 価格 / 最低ロット</li>
-                                <li>商品仕様 / 選択可能な形</li>
-                                <li>サイズ展開 / カラー / オプション</li>
-                                <li>注意事項 / 納期目安 / 相談導線</li>
-                            </ul>
-                        </section>
+                        <div class="product-detail-meta-grid">
+                            <div class="product-detail-meta-box">
+                                <span>税込価格</span>
+                                <strong>${basePriceIncl ? formatYen(basePriceIncl) : '要相談'}</strong>
+                            </div>
+                            <div class="product-detail-meta-box">
+                                <span>最低ロット</span>
+                                <strong>${renderMinLotLabel(item)}</strong>
+                            </div>
+                            <div class="product-detail-meta-box">
+                                <span>サイズ</span>
+                                <strong>${escapeHtml(sizeText)}</strong>
+                            </div>
+                        </div>
+
+                        <div class="product-detail-specs">
+                            <h4>仕様</h4>
+                            <dl>${specsHtml}</dl>
+                        </div>
+
+                        ${notesHtml}
 
                         <div class="product-detail-actions">
-                            <div class="button-row">
+                            <div class="button-row button-row-center">
                                 <a href="contact" class="button button-primary">START YOUR ORDER</a>
-                                <a href="contact" class="button button-secondary">ORDER CONSULTATION</a>
                             </div>
                         </div>
                     </article>
                 `;
+            }
+
+            function buildDetailNoteList(item) {
+                const notes = [];
+                if (item.code === '07') {
+                    notes.push('ハーフパンツは価格・最低ロットをバスケットパンツ基準に統一');
+                    notes.push('左右サイドポケット標準装備');
+                }
+                if (item.code === '13') {
+                    notes.push('スウェットトップスの税込価格は7,150円');
+                    notes.push('リブ仕様とボックス仕様が基本');
+                }
+                if (item.code === '16') {
+                    notes.push('プルオーバータイプのフード付き仕様');
+                    notes.push('袖口・裾はリブ仕様');
+                }
+                if (item.code === '20') {
+                    notes.push('フルメッシュ仕様');
+                    notes.push('バックアジャスター付きでサイズ調整可能');
+                }
+                if (item.code === '21') {
+                    notes.push('編みタイプは50足〜、刺繍タイプは200足〜');
+                    notes.push('サイズはS / M / L / XL');
+                }
+                if (!notes.length && Array.isArray(item.minLotNotes) && item.minLotNotes.length) {
+                    notes.push(...item.minLotNotes);
+                }
+                if (!notes.length && Array.isArray(item.notes) && item.notes.length) {
+                    notes.push(...item.notes);
+                }
+                return notes.slice(0, 4);
             }
 
             function renderIcon(item, iconKey) {

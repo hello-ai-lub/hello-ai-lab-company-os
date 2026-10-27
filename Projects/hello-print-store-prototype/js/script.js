@@ -27,7 +27,7 @@ const ORDER_CONTACT_FORM_CONFIG = {
     draftStorageKey: 'hps_order_contact_draft_v1'
 };
 
-const ORDER_DEFAULT_SIZE_LIST = ['110', '120', '130', '140', '150', '160', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '6XL'];
+const ORDER_DEFAULT_SIZE_LIST = ['110', '120', '130', '140', '150', '160', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL'];
 const ORDER_CAP_SIZE_LIST = ['FREE'];
 const ORDER_SOCK_SIZE_LIST = ['S(18-21cm)', 'M(23-25cm)', 'L(26-28cm)', 'XL(29-31cm)'];
 
@@ -109,18 +109,42 @@ const ORDER_PRODUCT_MASTER = {
             { key: 'pocketZip', label: 'ポケットZIP（1箇所）', add: 150 }
         ]
     },
-    '07': {
-        code: '07',
-        name: 'ハーフパンツ',
+    '06': {
+        code: '06',
+        name: 'リバーシブル バスケットパンツ',
         basePriceExcl: 5500,
         minLot: 10,
         unit: '枚',
         specs: [
-            { key: 'fabric', label: '生地', options: [{ label: 'ポリエステル100%（シャカ系生地）', value: 'poly-shaka', add: 0 }] },
+            { key: 'fabric', label: '生地', options: [{ label: 'スタンダード生地', value: 'standard', add: 0 }, { label: 'メッシュ生地', value: 'mesh', add: 500 }, { label: '相談したい', value: 'consult', add: 0 }] },
             { key: 'waist', label: 'ウエスト', options: [{ label: 'ゴム＋調整紐', value: 'elastic-cord', add: 0 }] },
-            { key: 'pocket', label: 'ポケット', options: [{ label: '左右サイドポケット標準', value: 'side-pocket', add: 0 }] }
+            { key: 'pocket', label: 'ポケット', options: [{ label: '左右サイドポケット付き', value: 'side-pocket', add: 0 }, { label: 'サイドポケットなし', value: 'no-side-pocket', add: 0 }] },
+            { key: 'hem', label: '裾', options: [{ label: 'スタンダード', value: 'standard', add: 0 }] }
         ],
-        paidOptions: []
+        paidOptions: [
+            { key: 'sideSlit', label: 'サイドスリットカット', add: 300 },
+            { key: 'rearPocket', label: '右後ろポケット追加', add: 300 },
+            { key: 'pocketZip', label: 'ポケットZIP（1箇所）', add: 150 }
+        ]
+    },
+    '07': {
+        code: '07',
+        name: 'ハーフパンツ',
+        basePriceExcl: 4500,
+        minLot: 10,
+        unit: '枚',
+        minLotNotes: ['上下セット（ノースリーブシャツ＋ハーフパンツ）の場合は5セット〜'],
+        specs: [
+            { key: 'fabric', label: '生地', options: [{ label: 'スタンダード生地', value: 'standard', add: 0 }, { label: 'メッシュ生地', value: 'mesh', add: 500 }, { label: '相談したい', value: 'consult', add: 0 }] },
+            { key: 'waist', label: 'ウエスト', options: [{ label: 'ゴム＋調整紐', value: 'elastic-cord', add: 0 }] },
+            { key: 'pocket', label: 'ポケット', options: [{ label: '左右サイドポケット付き', value: 'side-pocket', add: 0 }, { label: 'サイドポケットなし', value: 'no-side-pocket', add: 0 }] },
+            { key: 'hem', label: '裾', options: [{ label: 'スタンダード', value: 'standard', add: 0 }] }
+        ],
+        paidOptions: [
+            { key: 'sideSlit', label: 'サイドスリットカット', add: 300 },
+            { key: 'rearPocket', label: '右後ろポケット追加', add: 300 },
+            { key: 'pocketZip', label: 'ポケットZIP（1箇所）', add: 150 }
+        ]
     },
     '08': {
         code: '08',
@@ -199,7 +223,7 @@ const ORDER_PRODUCT_MASTER = {
     '13': {
         code: '13',
         name: 'スウェットトップス',
-        basePriceExcl: 6000,
+        basePriceExcl: 6500,
         minLot: 10,
         unit: '枚',
         specs: [
