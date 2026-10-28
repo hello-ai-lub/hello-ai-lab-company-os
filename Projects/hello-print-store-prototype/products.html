@@ -54,7 +54,7 @@
                         </div>
                         <div>
                             <dt>サイズ</dt>
-                            <dd>110〜160 / S〜5XL（商品により異なる場合あり）</dd>
+                            <dd>110〜5XL（商品により異なる場合あり）</dd>
                         </div>
                         <div>
                             <dt>最低ロット</dt>
@@ -359,7 +359,7 @@
             function renderDetail(item, iconKey) {
                 const names = PRODUCT_DISPLAY_NAMES[item.code] || { en: item.category || 'ITEM', ja: item.name };
                 const basePriceIncl = Number(item.basePriceExcl) > 0 ? Math.round(Number(item.basePriceExcl) * 1.1) : 0;
-                const sizeText = item.code === '20' ? 'フリーサイズ' : item.code === '21' ? 'S / M / L / XL' : '110〜160 / S〜5XL';
+                const sizeText = item.code === '20' ? 'フリーサイズ' : item.code === '21' ? 'S / M / L / XL' : '110〜5XL';
                 const specsHtml = Array.isArray(item.specs) && item.specs.length
                     ? item.specs.map((spec) => `
                         <div class="product-detail-spec-row">

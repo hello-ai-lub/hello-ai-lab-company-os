@@ -40,10 +40,10 @@ const ORDER_PRODUCT_MASTER = {
         unit: '枚',
         minLotNotes: ['上下セット（ノースリーブシャツ＋ハーフパンツ）の場合は5セット〜'],
         specs: [
-            { key: 'fabric', label: '生地', options: [{ label: 'スタンダード生地', value: 'standard', add: 0 }, { label: 'メッシュ生地', value: 'mesh', add: 500 }, { label: '相談したい', value: 'consult', add: 0 }] },
-            { key: 'neck', label: '首周り', options: [{ label: '丸首', value: 'crew', add: 0 }, { label: 'Vネック', value: 'vneck', add: 0 }, { label: '相談したい', value: 'consult', add: 0 }] },
-            { key: 'hem', label: '裾', options: [{ label: 'ボックス', value: 'box', add: 0 }, { label: 'ラウンド', value: 'round', add: 0 }, { label: '相談したい', value: 'consult', add: 0 }] },
-            { key: 'fit', label: 'シルエット', options: [{ label: 'スタンダード', value: 'standard', add: 0 }, { label: 'ノースリーブ', value: 'asiafit', add: 0 }, { label: '相談したい', value: 'consult', add: 0 }] }
+            { key: 'fabric', label: '生地', options: [{ label: 'スタンダード生地', value: 'standard', add: 0 }, { label: 'メッシュ生地', value: 'mesh', add: 500 }] },
+            { key: 'neck', label: '首周り', options: [{ label: '丸首', value: 'crew', add: 0 }, { label: 'Vネック', value: 'vneck', add: 0 }] },
+            { key: 'hem', label: '裾', options: [{ label: 'ボックス', value: 'box', add: 0 }, { label: 'ラウンド', value: 'round', add: 0 }] },
+            { key: 'fit', label: 'シルエット', options: [{ label: 'スタンダード', value: 'standard', add: 0 }, { label: 'ノースリーブ', value: 'asiafit', add: 0 }] }
         ],
         paidOptions: []
     },
@@ -358,6 +358,30 @@ const ORDER_PRODUCT_MASTER = {
         notes: ['丈の延長は長さにより要見積もり', 'カラー・デザイン詳細は要相談']
     }
 };
+
+function normalizeProductSpecs(master) {
+    if (!master || typeof master !== 'object') {
+        return;
+    }
+
+    Object.values(master).forEach((item) => {
+        if (!item || !Array.isArray(item.specs)) {
+            return;
+        }
+
+        item.specs = item.specs
+            .map((spec) => {
+                if (!spec || !Array.isArray(spec.options)) {
+                    return spec;
+                }
+                const filtered = spec.options.filter((option) => String(option && option.label ? option.label : '').trim() !== '相談したい');
+                return { ...spec, options: filtered };
+            })
+            .filter((spec) => spec && Array.isArray(spec.options) && spec.options.length > 0);
+    });
+}
+
+normalizeProductSpecs(ORDER_PRODUCT_MASTER);
 
 document.addEventListener('DOMContentLoaded', () => {
     initLucideIcons();
