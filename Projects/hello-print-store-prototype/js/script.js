@@ -96,7 +96,6 @@ const ORDER_PRODUCT_MASTER = {
         basePriceExcl: 4500,
         minLot: 10,
         unit: '枚',
-        minLotNotes: ['上下セット（ノースリーブシャツ＋ウーブンショートパンツ）の場合は5セット〜'],
         specs: [
             { key: 'fabric', label: '生地', options: [{ label: 'スタンダード生地', value: 'standard', add: 0 }, { label: 'メッシュ生地', value: 'mesh', add: 500 }] },
             { key: 'waist', label: 'ウエスト', options: [{ label: 'ゴム＋調整紐', value: 'elastic-cord', add: 0 }] },

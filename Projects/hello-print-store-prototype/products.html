@@ -197,9 +197,9 @@
                 '02': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/01_tanktop_asia_front.png',
                 '03': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/02_tshirt_front.png',
                 '04': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/03_longtee_front.png',
-                '05': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/05_basketball_shorts_front.png',
-                '06': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/05_basketball_shorts_front.png',
-                '07': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/05_basketball_shorts_front.png',
+                '05': 'assets/products-lineart/05_lineart.png',
+                '06': 'assets/products-lineart/06_lineart.png',
+                '07': 'assets/products-lineart/07_lineart.png',
                 '08': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/04_football_front.png',
                 '09': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/04_football_front.png',
                 '10': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/06_baseball_shirt_front.png',
@@ -342,7 +342,6 @@
                         <div class="catalog-item-top">
                             ${renderIcon(item, iconKey)}
                             <div class="catalog-item-meta">
-                                <p class="catalog-item-code">${escapeHtml(item.code)}</p>
                                 <h4>${escapeHtml(item.name)}</h4>
                             </div>
                         </div>
@@ -377,7 +376,7 @@
                     <article class="product-detail-card" id="detail-${escapeHtml(item.code)}">
                         <div class="product-detail-priority">
                             <div class="product-detail-heading">
-                                <p class="product-detail-code">${escapeHtml(item.code)} / ${escapeHtml(item.category)}</p>
+                                <p class="product-detail-code">${escapeHtml(item.category)}</p>
                                 <h3>${escapeHtml(names.en)}</h3>
                                 <p class="product-detail-name-ja">${escapeHtml(names.ja || item.name)}</p>
                             </div>
@@ -418,7 +417,6 @@
             function buildDetailNoteList(item) {
                 const notes = [];
                 if (item.code === '07') {
-                    notes.push('ウーブンショートパンツは価格・最低ロットをバスケットパンツ基準に統一');
                     notes.push('左右サイドポケット標準装備');
                 }
                 if (item.code === '13') {
