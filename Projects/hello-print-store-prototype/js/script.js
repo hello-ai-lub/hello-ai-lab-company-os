@@ -38,7 +38,7 @@ const ORDER_PRODUCT_MASTER = {
         basePriceExcl: 4000,
         minLot: 10,
         unit: '枚',
-        minLotNotes: ['上下セット（ノースリーブシャツ＋ハーフパンツ）の場合は5セット〜'],
+        minLotNotes: ['上下セット（ノースリーブシャツ＋ウーブンショートパンツ）の場合は5セット〜'],
         specs: [
             { key: 'fabric', label: '生地', options: [{ label: 'スタンダード生地', value: 'standard', add: 0 }, { label: 'メッシュ生地', value: 'mesh', add: 500 }] },
             { key: 'neck', label: '首周り', options: [{ label: '丸首', value: 'crew', add: 0 }, { label: 'Vネック', value: 'vneck', add: 0 }] },
@@ -53,7 +53,7 @@ const ORDER_PRODUCT_MASTER = {
         basePriceExcl: 5500,
         minLot: 10,
         unit: '枚',
-        minLotNotes: ['上下セット（リバーシブル ノースリーブシャツ＋リバーシブル ハーフパンツ）の場合は5セット〜'],
+        minLotNotes: ['上下セット（リバーシブル ノースリーブシャツ＋リバーシブル ウーブンショートパンツ）の場合は5セット〜'],
         specs: [
             { key: 'neck', label: '首周り', options: [{ label: '丸首', value: 'crew', add: 0 }, { label: 'Vネック', value: 'vneck', add: 0 }, { label: '相談したい', value: 'consult', add: 0 }] },
             { key: 'hem', label: '裾', options: [{ label: 'ボックス', value: 'box', add: 0 }, { label: 'ラウンド', value: 'round', add: 0 }, { label: '相談したい', value: 'consult', add: 0 }] },
@@ -96,12 +96,12 @@ const ORDER_PRODUCT_MASTER = {
         basePriceExcl: 4500,
         minLot: 10,
         unit: '枚',
-        minLotNotes: ['上下セット（ノースリーブシャツ＋ハーフパンツ）の場合は5セット〜'],
+        minLotNotes: ['上下セット（ノースリーブシャツ＋ウーブンショートパンツ）の場合は5セット〜'],
         specs: [
-            { key: 'fabric', label: '生地', options: [{ label: 'スタンダード生地', value: 'standard', add: 0 }, { label: 'メッシュ生地', value: 'mesh', add: 500 }, { label: '相談したい', value: 'consult', add: 0 }] },
+            { key: 'fabric', label: '生地', options: [{ label: 'スタンダード生地', value: 'standard', add: 0 }, { label: 'メッシュ生地', value: 'mesh', add: 500 }] },
             { key: 'waist', label: 'ウエスト', options: [{ label: 'ゴム＋調整紐', value: 'elastic-cord', add: 0 }] },
             { key: 'pocket', label: 'ポケット', options: [{ label: '左右サイドポケット付き', value: 'side-pocket', add: 0 }, { label: 'サイドポケットなし', value: 'no-side-pocket', add: 0 }] },
-            { key: 'hem', label: '裾', options: [{ label: 'スタンダード', value: 'standard', add: 0 }] }
+            { key: 'hem', label: '裾', options: [{ label: 'スタンダード', value: 'standard', add: 0 }, { label: 'スリットあり（追加料金）', value: 'slit', add: 300 }] }
         ],
         paidOptions: [
             { key: 'sideSlit', label: 'サイドスリットカット', add: 300 },
@@ -116,10 +116,10 @@ const ORDER_PRODUCT_MASTER = {
         minLot: 10,
         unit: '枚',
         specs: [
-            { key: 'fabric', label: '生地', options: [{ label: 'スタンダード生地', value: 'standard', add: 0 }, { label: 'メッシュ生地', value: 'mesh', add: 500 }, { label: '相談したい', value: 'consult', add: 0 }] },
+            { key: 'fabric', label: '生地', options: [{ label: 'スタンダード生地', value: 'standard', add: 0 }, { label: 'メッシュ生地', value: 'mesh', add: 500 }] },
             { key: 'waist', label: 'ウエスト', options: [{ label: 'ゴム＋調整紐', value: 'elastic-cord', add: 0 }] },
-            { key: 'pocket', label: 'ポケット', options: [{ label: '左右サイドポケット付き', value: 'side-pocket', add: 0 }, { label: 'サイドポケットなし', value: 'no-side-pocket', add: 0 }] },
-            { key: 'hem', label: '裾', options: [{ label: 'スタンダード', value: 'standard', add: 0 }] }
+            { key: 'pocket', label: 'ポケット', options: [{ label: 'なし', value: 'none', add: 0 }] },
+            { key: 'hem', label: '裾', options: [{ label: 'スタンダード', value: 'standard', add: 0 }, { label: 'スリットあり（追加料金）', value: 'slit', add: 300 }] }
         ],
         paidOptions: [
             { key: 'sideSlit', label: 'サイドスリットカット', add: 300 },
@@ -129,21 +129,19 @@ const ORDER_PRODUCT_MASTER = {
     },
     '07': {
         code: '07',
-        name: 'ハーフパンツ',
-        basePriceExcl: 4500,
+        name: 'ウーブンショートパンツ',
+        basePriceExcl: 5500,
         minLot: 10,
         unit: '枚',
-        minLotNotes: ['上下セット（ノースリーブシャツ＋ハーフパンツ）の場合は5セット〜'],
+        minLotNotes: ['上下セット（ノースリーブシャツ＋ウーブンショートパンツ）の場合は5セット〜'],
         specs: [
-            { key: 'fabric', label: '生地', options: [{ label: 'スタンダード生地', value: 'standard', add: 0 }, { label: 'メッシュ生地', value: 'mesh', add: 500 }, { label: '相談したい', value: 'consult', add: 0 }] },
+            { key: 'fabric', label: '素材', options: [{ label: 'ポリエステル100% / シャカ系生地', value: 'poly-shaka', add: 0 }] },
             { key: 'waist', label: 'ウエスト', options: [{ label: 'ゴム＋調整紐', value: 'elastic-cord', add: 0 }] },
-            { key: 'pocket', label: 'ポケット', options: [{ label: '左右サイドポケット付き', value: 'side-pocket', add: 0 }, { label: 'サイドポケットなし', value: 'no-side-pocket', add: 0 }] },
-            { key: 'hem', label: '裾', options: [{ label: 'スタンダード', value: 'standard', add: 0 }] }
+            { key: 'pocket', label: 'ポケット', options: [{ label: '左右サイドポケット付き', value: 'side-pocket', add: 0 }] },
+            { key: 'hem', label: '裾', options: [{ label: 'スタンダード', value: 'standard', add: 0 }, { label: 'スリットあり（追加料金）', value: 'slit', add: 300 }] }
         ],
         paidOptions: [
-            { key: 'sideSlit', label: 'サイドスリットカット', add: 300 },
-            { key: 'rearPocket', label: '右後ろポケット追加', add: 300 },
-            { key: 'pocketZip', label: 'ポケットZIP（1箇所）', add: 150 }
+            { key: 'rearPocket', label: '右後ろポケット追加', add: 300 }
         ]
     },
     '08': {
