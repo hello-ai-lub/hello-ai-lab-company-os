@@ -1560,10 +1560,7 @@ a.news-item-row:hover .news-title {
 }
 
 .catalog-item-code {
-    font-family: 'Barlow', sans-serif;
-    font-size: 0.71rem;
-    letter-spacing: 0.08em;
-    color: #667086;
+    display: none;
 }
 
 .catalog-item-meta h4 {
@@ -1696,10 +1693,7 @@ body.catalog-modal-open {
 }
 
 .product-detail-code {
-    font-family: 'Barlow', sans-serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    color: #60697a;
+    display: none;
 }
 
 .product-detail-heading h3 {

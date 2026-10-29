@@ -197,13 +197,13 @@
                 '02': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/01_tanktop_asia_front.png',
                 '03': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/02_tshirt_front.png',
                 '04': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/03_longtee_front.png',
-                '05': 'assets/products-lineart/05_lineart.png',
-                '06': 'assets/products-lineart/06_lineart.png',
-                '07': 'assets/products-lineart/07_lineart.png',
+                '05': 'assets/products-lineart/15_lineart_front.png',
+                '06': 'assets/products-lineart/15_lineart_front.png',
+                '07': 'assets/products-lineart/16_lineart_front.jpeg',
                 '08': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/04_football_front.png',
                 '09': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/04_football_front.png',
                 '10': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/06_baseball_shirt_front.png',
-                '11': 'assets/products-lineart/11_lineart.png',
+                '11': 'assets/products-lineart/10_lineart_front.png',
                 '12': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/15_long_polo_front.png',
                 '13': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/11_sweatshirt_front.png',
                 '14': 'assets/products-icons/HPS_WEB_PRODUCT_ICONS/14_track_pants_front.png',
@@ -376,7 +376,6 @@
                     <article class="product-detail-card" id="detail-${escapeHtml(item.code)}">
                         <div class="product-detail-priority">
                             <div class="product-detail-heading">
-                                <p class="product-detail-code">${escapeHtml(item.category)}</p>
                                 <h3>${escapeHtml(names.en)}</h3>
                                 <p class="product-detail-name-ja">${escapeHtml(names.ja || item.name)}</p>
                             </div>
@@ -416,9 +415,6 @@
 
             function buildDetailNoteList(item) {
                 const notes = [];
-                if (item.code === '07') {
-                    notes.push('左右サイドポケット標準装備');
-                }
                 if (item.code === '13') {
                     notes.push('スウェットトップスの税込価格は7,150円');
                     notes.push('リブ仕様とボックス仕様が基本');
