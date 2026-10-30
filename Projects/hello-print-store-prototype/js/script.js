@@ -449,22 +449,7 @@ function initNewsSection() {
         });
     }
 
-    const viewAllLink = document.getElementById('newsViewAllLink');
-    const viewAllText = document.getElementById('newsViewAllText');
-    if (viewAllLink) {
-        if (viewAllUrl) {
-            viewAllLink.href = viewAllUrl;
-            viewAllLink.hidden = false;
-            if (viewAllText) {
-                viewAllText.hidden = true;
-            }
-        } else {
-            viewAllLink.hidden = true;
-            if (viewAllText) {
-                viewAllText.hidden = false;
-            }
-        }
-    }
+    // News list pages are not currently published, so the view-all link is intentionally omitted.
 }
 
 function formatNewsDate(dateString) {
@@ -1589,6 +1574,7 @@ function validateOrderContactForm(form) {
     const designStatus = form.elements.designStatus;
     const deliveryPreference = form.elements.deliveryPreference;
     const desiredDate = form.elements.desiredDate;
+    const privacyConsent = form.elements.privacyConsent;
 
     if (!name || !String(name.value || '').trim()) {
         errors.customerName = 'お名前を入力してください。';
@@ -1632,6 +1618,10 @@ function validateOrderContactForm(form) {
 
     if (deliveryPreference && deliveryPreference.value === 'has-date' && (!desiredDate || !String(desiredDate.value || '').trim())) {
         errors.desiredDate = '希望日を入力してください。';
+    }
+
+    if (!privacyConsent || !privacyConsent.checked) {
+        errors.privacyConsent = 'プライバシーポリシーに同意してください。';
     }
 
     return {
@@ -1699,6 +1689,7 @@ function buildOrderContactPayload(form) {
         designStatus: String(form.elements.designStatus.value || '').trim(),
         deliveryPreference: String(form.elements.deliveryPreference.value || '').trim(),
         desiredDate: String(form.elements.desiredDate.value || '').trim(),
+        privacyConsent: Boolean(form.elements.privacyConsent && form.elements.privacyConsent.checked),
         details: String(form.elements.details.value || '').trim(),
         attachmentNames: files,
         referencePrice: {
@@ -1862,6 +1853,7 @@ function renderConfirmationSummary(payload) {
             <div><dt>オプション</dt><dd>${optionsText}</dd></div>
             <div><dt>デザイン状況</dt><dd>${escapeHtml(designStatusLabelMap[payload.designStatus] || payload.designStatus)}</dd></div>
             <div><dt>希望納期</dt><dd>${escapeHtml(deliveryPreferenceLabelMap[payload.deliveryPreference] || payload.deliveryPreference)}${payload.desiredDate ? ` / ${escapeHtml(payload.desiredDate)}` : ''}</dd></div>
+            <div><dt>プライバシー同意</dt><dd>${payload.privacyConsent ? '同意済み' : '未同意'}</dd></div>
             <div><dt>その他要望</dt><dd>${escapeHtml(payload.details || 'なし')}</dd></div>
             <div><dt>参考価格</dt><dd>${referencePriceText}<br>表示価格は参考価格です。最終金額は内容確認後のご案内となります。</dd></div>
         </dl>
