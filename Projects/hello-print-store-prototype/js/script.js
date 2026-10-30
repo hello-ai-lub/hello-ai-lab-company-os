@@ -111,7 +111,7 @@ const ORDER_PRODUCT_MASTER = {
     '06': {
         code: '06',
         name: 'リバーシブル バスケットパンツ',
-        basePriceExcl: 5500,
+        basePriceExcl: 6500,
         minLot: 10,
         unit: '枚',
         specs: [
