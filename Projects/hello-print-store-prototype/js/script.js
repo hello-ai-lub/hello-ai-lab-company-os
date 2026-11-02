@@ -1977,6 +1977,27 @@ async function initInstagramFeed() {
     }
 }
 
+function getInstagramPostImage(post) {
+    if (!post) {
+        return '';
+    }
+
+    const mediaType = post.media_type ? String(post.media_type).toUpperCase() : '';
+    const isVideoLike = mediaType === 'VIDEO' || mediaType === 'REELS';
+    const imageUrl = typeof post.image === 'string' ? post.image : '';
+    const thumbnailUrl = typeof post.thumbnail_url === 'string' ? post.thumbnail_url : '';
+
+    if (isVideoLike) {
+        return thumbnailUrl || imageUrl || '';
+    }
+
+    if (imageUrl && /\.mp4(?:\?|$)/i.test(imageUrl)) {
+        return thumbnailUrl || imageUrl || '';
+    }
+
+    return imageUrl || thumbnailUrl || '';
+}
+
 async function fetchInstagramPostsFromServer(limit) {
     const endpoint = new URL(INSTAGRAM_CONFIG.serverEndpoint, window.location.origin);
     const requestedLimit = Math.max(limit, 12);
@@ -2000,11 +2021,12 @@ async function fetchInstagramPostsFromServer(limit) {
 
     return json.data
         .map((post) => ({
-            image: post && post.image ? post.image : '',
+            image: getInstagramPostImage(post),
             caption: post && post.caption ? post.caption : '',
             permalink: post && post.permalink ? post.permalink : INSTAGRAM_CONFIG.profileUrl,
             timestamp: post && post.timestamp ? post.timestamp : '',
-            handle: post && post.handle ? post.handle : '@helloprintstore'
+            handle: post && post.handle ? post.handle : '@helloprintstore',
+            media_type: post && post.media_type ? String(post.media_type).toUpperCase() : ''
         }))
         .filter((post) => Boolean(post.image))
         .slice(0, limit);

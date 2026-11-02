@@ -61,7 +61,9 @@ function getInstagramImageUrl(post) {
 function toPublicPost(post, handle, profileUrl) {
     return {
         id: post && post.id ? post.id : '',
+        media_type: post && post.media_type ? String(post.media_type).toUpperCase() : '',
         image: getInstagramImageUrl(post),
+        thumbnail_url: post && post.thumbnail_url ? post.thumbnail_url : '',
         caption: post && post.caption ? post.caption : '',
         permalink: post && post.permalink ? post.permalink : profileUrl,
         timestamp: post && post.timestamp ? post.timestamp : '',
