@@ -2147,6 +2147,21 @@ function readStoredInstagramTokenRecord() {
     }
 }
 
+function selectInstagramMediaImage(post) {
+    if (!post) {
+        return '';
+    }
+
+    const mediaType = post.media_type ? String(post.media_type).toUpperCase() : '';
+    const isVideoLike = mediaType === 'VIDEO' || mediaType === 'REELS';
+
+    if (isVideoLike) {
+        return post.thumbnail_url || post.media_url || '';
+    }
+
+    return post.media_url || post.thumbnail_url || '';
+}
+
 async function fetchInstagramGraphPosts(tokenInfo, limit) {
     const accessToken = tokenInfo && tokenInfo.token ? tokenInfo.token : '';
     const account = await resolveInstagramBusinessAccount(tokenInfo);
@@ -2169,7 +2184,7 @@ async function fetchInstagramGraphPosts(tokenInfo, limit) {
     return data.data
         .filter((post) => post && ['IMAGE', 'CAROUSEL_ALBUM', 'VIDEO', 'REELS'].includes(post.media_type))
         .map((post) => ({
-            image: post.media_url || post.thumbnail_url,
+            image: selectInstagramMediaImage(post),
             caption: post.caption || '',
             permalink: post.permalink || INSTAGRAM_CONFIG.profileUrl,
             timestamp: post.timestamp || '',

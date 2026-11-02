@@ -43,10 +43,25 @@ function buildMediaEndpoint(accountId, accessToken, limit) {
     return endpoint;
 }
 
+function getInstagramImageUrl(post) {
+    if (!post) {
+        return '';
+    }
+
+    const mediaType = post.media_type ? String(post.media_type).toUpperCase() : '';
+    const isVideoLike = mediaType === 'VIDEO' || mediaType === 'REELS';
+
+    if (isVideoLike) {
+        return post.thumbnail_url || post.media_url || '';
+    }
+
+    return post.media_url || post.thumbnail_url || '';
+}
+
 function toPublicPost(post, handle, profileUrl) {
     return {
         id: post && post.id ? post.id : '',
-        image: post && (post.media_url || post.thumbnail_url) ? (post.media_url || post.thumbnail_url) : '',
+        image: getInstagramImageUrl(post),
         caption: post && post.caption ? post.caption : '',
         permalink: post && post.permalink ? post.permalink : profileUrl,
         timestamp: post && post.timestamp ? post.timestamp : '',
