@@ -1,6 +1,8 @@
 const GRAPH_BASE = 'https://graph.facebook.com';
 const GRAPH_VERSION = 'v23.0';
 const DEFAULT_LIMIT = 4;
+const MIN_REQUEST_LIMIT = 12;
+const ALLOWED_MEDIA_TYPES = new Set(['IMAGE', 'CAROUSEL_ALBUM', 'VIDEO', 'REELS']);
 
 function logGraphApiError(httpStatus, metaError) {
     const errorObject = metaError && typeof metaError === 'object' ? metaError : {};
@@ -57,6 +59,7 @@ export default async function handler(request, response) {
     const businessAccountId = process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID || '';
     const profileUrl = process.env.INSTAGRAM_PROFILE_URL || 'https://instagram.com/helloprintstore/';
     const limit = toInt(request.query && request.query.limit, DEFAULT_LIMIT);
+    const requestedLimit = Math.max(limit, MIN_REQUEST_LIMIT);
 
     response.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
 
@@ -70,7 +73,7 @@ export default async function handler(request, response) {
     }
 
     try {
-        const endpoint = buildMediaEndpoint(businessAccountId, token, limit);
+        const endpoint = buildMediaEndpoint(businessAccountId, token, requestedLimit);
         const apiResponse = await fetch(endpoint.toString(), {
             method: 'GET',
             headers: {
@@ -106,9 +109,10 @@ export default async function handler(request, response) {
         const items = json && Array.isArray(json.data) ? json.data : [];
         const handle = getHandleFromProfileUrl(profileUrl);
         const posts = items
-            .filter((post) => post && (post.media_type === 'IMAGE' || post.media_type === 'CAROUSEL_ALBUM'))
+            .filter((post) => post && ALLOWED_MEDIA_TYPES.has(post.media_type))
             .map((post) => toPublicPost(post, handle, profileUrl))
-            .filter((post) => Boolean(post.image));
+            .filter((post) => Boolean(post.image))
+            .slice(0, limit);
 
         response.status(200).json({
             ok: true,

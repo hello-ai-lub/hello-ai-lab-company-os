@@ -1979,7 +1979,8 @@ async function initInstagramFeed() {
 
 async function fetchInstagramPostsFromServer(limit) {
     const endpoint = new URL(INSTAGRAM_CONFIG.serverEndpoint, window.location.origin);
-    endpoint.searchParams.set('limit', String(limit));
+    const requestedLimit = Math.max(limit, 12);
+    endpoint.searchParams.set('limit', String(requestedLimit));
 
     const response = await fetch(endpoint.toString(), {
         method: 'GET',
@@ -2005,7 +2006,8 @@ async function fetchInstagramPostsFromServer(limit) {
             timestamp: post && post.timestamp ? post.timestamp : '',
             handle: post && post.handle ? post.handle : '@helloprintstore'
         }))
-        .filter((post) => Boolean(post.image));
+        .filter((post) => Boolean(post.image))
+        .slice(0, limit);
 }
 
 function getInstagramToken() {
@@ -2150,7 +2152,7 @@ async function fetchInstagramGraphPosts(tokenInfo, limit) {
     const account = await resolveInstagramBusinessAccount(tokenInfo);
     const endpoint = new URL(`${INSTAGRAM_APP_CONFIG.graphApiBase}/${INSTAGRAM_APP_CONFIG.graphApiVersion}/${account.igUserId}/media`);
     endpoint.searchParams.set('fields', 'id,caption,media_type,media_url,thumbnail_url,permalink,timestamp');
-    endpoint.searchParams.set('limit', String(limit));
+    endpoint.searchParams.set('limit', String(Math.max(limit, 12)));
     endpoint.searchParams.set('access_token', accessToken);
 
     appendInstagramGraphDebugStep({
@@ -2165,7 +2167,7 @@ async function fetchInstagramGraphPosts(tokenInfo, limit) {
     }
 
     return data.data
-        .filter((post) => post.media_type === 'IMAGE' || post.media_type === 'CAROUSEL_ALBUM')
+        .filter((post) => post && ['IMAGE', 'CAROUSEL_ALBUM', 'VIDEO', 'REELS'].includes(post.media_type))
         .map((post) => ({
             image: post.media_url || post.thumbnail_url,
             caption: post.caption || '',
@@ -2173,7 +2175,8 @@ async function fetchInstagramGraphPosts(tokenInfo, limit) {
             timestamp: post.timestamp || '',
             handle: account.handle
         }))
-        .filter((post) => Boolean(post.image));
+        .filter((post) => Boolean(post.image))
+        .slice(0, limit);
 }
 
 async function resolveInstagramBusinessAccount(accessToken) {
