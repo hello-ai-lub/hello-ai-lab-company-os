@@ -1163,8 +1163,9 @@ a.news-item-row:hover .news-title {
     object-fit: contain;
     object-position: center;
     background: transparent;
-    mix-blend-mode: multiply;
-    filter: brightness(1.06) contrast(1.2);
+    mix-blend-mode: normal;
+    -webkit-filter: none;
+    filter: none;
 }
 
 .product-line-icon path,
@@ -1517,13 +1518,15 @@ a.news-item-row:hover .news-title {
     object-fit: contain;
     object-position: center;
     background: transparent;
-    mix-blend-mode: multiply;
-    filter: brightness(1.06) contrast(1.2);
+    mix-blend-mode: normal;
+    -webkit-filter: none;
+    filter: none;
 }
 
 .products-page-icon-image-polo {
     mix-blend-mode: normal;
-    filter: brightness(0.92) contrast(1.44);
+    -webkit-filter: none;
+    filter: none;
 }
 
 .products-page-icon-fallback {
@@ -2380,8 +2383,9 @@ body.catalog-modal-open {
     height: 100%;
     object-fit: contain;
     object-position: center;
-    mix-blend-mode: multiply;
-    filter: brightness(1.06) contrast(1.2);
+    mix-blend-mode: normal;
+    -webkit-filter: none;
+    filter: none;
 }
 
 .measurement-body {
@@ -2455,8 +2459,9 @@ body.catalog-modal-open {
     display: block;
     object-fit: contain;
     object-position: center;
-    mix-blend-mode: multiply;
-    filter: brightness(1.06) contrast(1.2);
+    mix-blend-mode: normal;
+    -webkit-filter: none;
+    filter: none;
 }
 
 .size-guide-icon path,
